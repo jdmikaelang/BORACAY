@@ -107,39 +107,6 @@
             }
         }
 
-        /* Modal transitions */
-        .modal-overlay {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            transform: scale(0.95) translateY(20px);
-            opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
-        
-        /* Toast notification styling */
-        #toast {
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         /* Custom file input styling */
         input[type="file"]::file-selector-button {
             background-color: #E5B96D;
@@ -266,7 +233,7 @@
                         <li class="flex items-start"><i class="ph ph-check-circle text-brand-gold text-lg mr-3 shrink-0 mt-0.5"></i> <span class="leading-relaxed">3 days access to all workshops</span></li>
                         <li class="flex items-start"><i class="ph ph-check-circle text-brand-gold text-lg mr-3 shrink-0 mt-0.5"></i> <span class="leading-relaxed">3 nights social parties and performances</span></li>
                     </ul>
-                    <button onclick="openModal('Full Festival Pass', '$150')" class="w-full block text-center px-6 py-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-lg shadow-brand-gold/20 transition-all duration-300 uppercase tracking-widest">
+                    <button onclick="selectPass('Full Festival Pass')" class="w-full block text-center px-6 py-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-lg shadow-brand-gold/20 transition-all duration-300 uppercase tracking-widest">
                         SELECT PASS
                     </button>
                 </div>
@@ -286,7 +253,7 @@
                         <li class="flex items-start"><i class="ph ph-check text-brand-gold/70 text-lg mr-3 shrink-0 mt-0.5"></i> <span class="leading-relaxed">3 nights social parties and performances</span></li>
                         <li class="flex items-start"><i class="ph ph-check text-brand-gold/70 text-lg mr-3 shrink-0 mt-0.5"></i> <span class="leading-relaxed">Performance participation</span></li>
                     </ul>
-                    <button onclick="openModal('Performer Pass', '$130')" class="w-full block text-center px-6 py-4 border border-white/20 text-sm font-bold rounded-full text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 uppercase tracking-widest">
+                    <button onclick="selectPass('Performer Pass')" class="w-full block text-center px-6 py-4 border border-white/20 text-sm font-bold rounded-full text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 uppercase tracking-widest">
                         SELECT PASS
                     </button>
                 </div>
@@ -305,7 +272,7 @@
                     <ul class="space-y-4 text-sm text-brand-muted mb-8 flex-grow">
                         <li class="flex items-start"><i class="ph ph-check text-brand-gold/70 text-lg mr-3 shrink-0 mt-0.5"></i> <span class="leading-relaxed">3 nights social parties and performances</span></li>
                     </ul>
-                    <button onclick="openModal('Party Pass', '$120')" class="w-full block text-center px-6 py-4 border border-white/20 text-sm font-bold rounded-full text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 uppercase tracking-widest mt-auto">
+                    <button onclick="selectPass('Party Pass')" class="w-full block text-center px-6 py-4 border border-white/20 text-sm font-bold rounded-full text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 uppercase tracking-widest mt-auto">
                         SELECT PASS
                     </button>
                 </div>
@@ -540,133 +507,6 @@
         </div>
     </main>
 
-    <!-- Checkout Modal Overlay -->
-    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-brand-dark/90 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
-        
-        <!-- Modal Content -->
-        <div class="relative bg-brand-card w-full max-w-lg mx-4 md:mx-auto rounded-2xl border border-brand-gold/30 shadow-2xl modal-content max-h-[90vh] overflow-y-auto custom-scroll">
-            
-            <!-- Header -->
-            <div class="sticky top-0 bg-brand-card/95 backdrop-blur z-10 px-6 py-4 border-b border-white/10 flex justify-between items-center">
-                <div>
-                    <h2 class="text-xl font-serif font-bold text-white">Complete Registration</h2>
-                    <p class="text-xs text-brand-gold tracking-widest uppercase mt-1 flex items-center gap-2">
-                        <span id="modal-pass-name">Full Festival Pass</span> 
-                        <span class="inline-block w-1 h-1 bg-white/30 rounded-full"></span> 
-                        <span id="modal-pass-price" class="font-bold">$150</span>
-                    </p>
-                </div>
-                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-brand-muted hover:text-white transition-colors focus:outline-none">
-                    <i class="ph ph-x text-lg"></i>
-                </button>
-            </div>
-
-            <!-- 
-              DEVELOPER NOTE: GOOGLE APPS SCRIPT WEBHOOK 
-              ==========================================
-              Replace the 'action' URL below with your actual deployed Google Apps Script Webhook URL.
-              The form uses enctype="multipart/form-data" to support the payment proof image upload.
-              Your Apps Script doPost(e) function must be configured to handle file blobs and save them to Google Drive.
-            -->
-            <form id="checkout-form" action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
-                
-                <!-- Hidden fields for tracking -->
-                <input type="hidden" name="passType" id="input-pass-type" value="">
-                <input type="hidden" name="passPrice" id="input-pass-price" value="">
-
-                <!-- Step 1: User Info -->
-                <div>
-                    <h3 class="text-xs font-bold text-brand-muted tracking-widest uppercase mb-4 flex items-center">
-                        <span class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white mr-2">1</span> 
-                        Your Details
-                    </h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="fullName" class="block text-xs text-brand-light mb-1">Full Name *</label>
-                            <input type="text" id="fullName" name="fullName" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="e.g. Maria Clara">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="email" class="block text-xs text-brand-light mb-1">Email Address *</label>
-                                <input type="email" id="email" name="email" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="you@email.com">
-                            </div>
-                            <div>
-                                <label for="phone" class="block text-xs text-brand-light mb-1">Contact Number *</label>
-                                <input type="tel" id="phone" name="phone" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="+63 900 000 0000">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="h-px w-full bg-white/5"></div>
-
-                <!-- Step 2: Payment Methods -->
-                <div>
-                    <h3 class="text-xs font-bold text-brand-muted tracking-widest uppercase mb-4 flex items-center">
-                        <span class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white mr-2">2</span> 
-                        Payment Method
-                    </h3>
-                    
-                    <div class="space-y-3">
-                        <!-- PayPal Button -->
-                        <a href="https://paypal.me/placeholder" target="_blank" class="flex items-center justify-center w-full bg-[#003087] hover:bg-[#002266] text-white rounded-lg px-4 py-3.5 transition-colors shadow-lg shadow-blue-900/20 group">
-                            <i class="ph-fill ph-paypal-logo text-xl mr-2 text-[#009cde]"></i>
-                            <span class="font-medium text-sm">Pay via PayPal</span>
-                            <i class="ph ph-arrow-up-right ml-auto text-white/50 group-hover:text-white transition-colors"></i>
-                        </a>
-                        
-                        <!-- GCash Button -->
-                        <button type="button" onclick="copyGcashNumber()" class="flex items-center justify-center w-full bg-[#005CEE] hover:bg-[#004ACC] text-white rounded-lg px-4 py-3.5 transition-colors shadow-lg shadow-blue-600/20 group relative overflow-hidden">
-                            <div class="absolute inset-0 bg-white/10 transform translate-y-full group-hover:translate-y-0 transition-transform"></div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/GCash_logo.png" alt="GCash" class="h-4 mr-2 object-contain brightness-0 invert" onerror="this.outerHTML='<i class=\'ph ph-wallet text-xl mr-2\'></i>'">
-                            <span class="font-medium text-sm relative z-10">Pay via GCash</span>
-                            <i class="ph ph-copy ml-auto text-white/70 group-hover:text-white relative z-10 transition-colors"></i>
-                        </button>
-                        <p class="text-[10px] text-center text-brand-muted/70 mt-2">Make your payment using one of the methods above before submitting this form.</p>
-                    </div>
-                </div>
-
-                <div class="h-px w-full bg-white/5"></div>
-
-                <!-- Step 3: Payment Proof -->
-                <div>
-                    <h3 class="text-xs font-bold text-brand-muted tracking-widest uppercase mb-4 flex items-center">
-                        <span class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white mr-2">3</span> 
-                        Verification
-                    </h3>
-                    <div class="bg-brand-dark/30 border border-white/5 rounded-lg p-4">
-                        <label for="paymentProof" class="block text-sm font-medium text-white mb-2">Upload Image of Payment Proof *</label>
-                        <p class="text-xs text-brand-muted mb-4">A screenshot of your completed transaction is required to verify your pass.</p>
-                        <input type="file" id="paymentProof" name="paymentProof" accept="image/*" required class="block w-full text-sm text-brand-muted cursor-pointer focus:outline-none">
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="w-full flex justify-center items-center px-6 py-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all uppercase tracking-wide mt-4">
-                    Submit Registration
-                    <i class="ph ph-check-circle ml-2 text-lg"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Toast Notification (GCash Copy) -->
-    <div id="toast" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-[60] bg-brand-card border border-brand-gold shadow-2xl rounded-xl px-5 py-3 flex items-start gap-3 w-max max-w-[90vw]">
-        <div class="bg-brand-gold/20 text-brand-gold rounded-full p-1 mt-0.5 shrink-0">
-            <i class="ph ph-check text-lg"></i>
-        </div>
-        <div>
-            <p class="text-sm font-bold text-white leading-none">GCash Number: <span id="gcash-number-display">09569015382</span></p>
-            <p class="text-xs text-brand-muted mt-1">Number copied to clipboard!</p>
-        </div>
-        <button onclick="closeToast()" class="text-brand-muted hover:text-white ml-4 focus:outline-none shrink-0">
-            <span class="text-[10px] uppercase tracking-wider font-semibold">Close</span>
-        </button>
-    </div>
-
-
     <!-- Community & Footer Section -->
     <footer id="footer" class="bg-[#111A1D] border-t border-white/10 pt-20 pb-10 mt-auto z-10 relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -849,62 +689,13 @@
             document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
 
-        // --- 4. Modal & Checkout Logic ---
-        const modal = document.getElementById('checkout-modal');
-        const passNameSpan = document.getElementById('modal-pass-name');
-        const passPriceSpan = document.getElementById('modal-pass-price');
-        const inputPassType = document.getElementById('input-pass-type');
-        const inputPassPrice = document.getElementById('input-pass-price');
-        const toast = document.getElementById('toast');
-        let toastTimeout;
-        const gcashNumber = "09569015382"; // Official number
-
-        function openModal(passName, passPrice) {
-            passNameSpan.innerText = passName;
-            passPriceSpan.innerText = passPrice;
-            inputPassType.value = passName;
-            inputPassPrice.value = passPrice;
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-            document.getElementById('checkout-form').reset();
-            closeToast();
-        }
-
-        function copyGcashNumber() {
-            // Using execCommand as requested to bypass iframe restrictions
-            const textarea = document.createElement("textarea");
-            textarea.value = gcashNumber;
-            // Prevent scrolling to bottom
-            textarea.style.top = "0";
-            textarea.style.left = "0";
-            textarea.style.position = "fixed";
-            document.body.appendChild(textarea);
-            textarea.focus();
-            textarea.select();
-
-            try {
-                const successful = document.execCommand('copy');
-                if(successful) {
-                    showToast();
-                }
-            } catch (err) {
-                console.error('Unable to copy', err);
+        // --- 4. Select Pass: scroll to the registration form and pre-select the pass type ---
+        function selectPass(passType) {
+            const passTypeSelect = document.getElementById('reg-pass-type');
+            if (passTypeSelect) {
+                passTypeSelect.value = passType;
             }
-            document.body.removeChild(textarea);
-        }
-
-        function showToast() {
-            clearTimeout(toastTimeout);
-            toast.classList.add('show');
-            toastTimeout = setTimeout(() => {
-                closeToast();
-            }, 4000);
+            document.getElementById('registration-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Registration form: show selected proof-of-payment filename
@@ -1013,17 +804,6 @@
                 }
             });
         }
-
-        function closeToast() {
-            toast.classList.remove('show');
-        }
-
-        // Form submission intercept (Optional: to prevent actual submit during demo)
-        document.getElementById('checkout-form').addEventListener('submit', (e) => {
-            // Uncomment the line below to test form validation without actually submitting.
-            // e.preventDefault(); 
-            // alert('Form ready for submission to Google Apps Script Webhook!');
-        });
 
         // --- 5. Global Music Player (YouTube API) ---
         let player;
