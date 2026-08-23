@@ -10,7 +10,7 @@
  * folder's ID (see SETUP.md for how to get it).
  */
 
-const DRIVE_FOLDER_ID = 'PASTE_YOUR_DRIVE_FOLDER_ID_HERE';
+const DRIVE_FOLDER_ID = '1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn';
 const SHEET_NAME = 'Registrations';
 
 const SHEET_HEADERS = [
@@ -25,6 +25,10 @@ const SHEET_HEADERS = [
   'Payment Method',
   'Proof of Payment (Drive link)',
 ];
+
+function doGet(e) {
+  return ContentService.createTextOutput('Boracay SBKZ registration backend is live and reachable.');
+}
 
 function doPost(e) {
   try {

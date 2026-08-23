@@ -36,11 +36,43 @@ Paste each prompt as its own message once the previous one is confirmed done. Re
 ### Prompt 10 — Full local QA pass
 > Do a full local QA pass across the whole site: open every page, check every internal link and CTA, confirm mobile menu behavior, confirm every checklist item in `plan.md` Phase 2 is actually implemented (not just planned), confirm every Phase 6 fix (checkout modal removal, payment data consistency, copy-to-clipboard) is holding up, and list anything still outstanding before we move to deployment.
 
-### Prompt 11 — Git + GitHub Pages deployment
-> Initialize git if needed, write a clean `.gitignore` per `buildspec.md`, and prepare the repo for a GitHub push. Walk me through creating the GitHub repo and pushing this code, then enable GitHub Pages from the correct branch/folder. Add a `CNAME` file for [YOUR DOMAIN HERE] and tell me exactly what DNS records I need to add at my registrar.
+### Prompt 11 — Stop internal docs from being publicly deployed
+> Right now `docs/` (containing `plan.md`, `buildspec.md`, `prompts.md`, `SETUP.md`, and `Code.gs` — the actual Apps Script backend source) plus `claude.md` are committed to git without being excluded from deployment. Since GitHub Pages publishes everything in the published branch/folder, all of this would become publicly browsable at the live domain once pushed — including the backend script and its Sheet/Drive folder IDs. Fix this before we deploy: update `.gitignore` to exclude the entire `docs/` folder and `claude.md` from being tracked going forward, remove them from git's tracking with `git rm -r --cached docs claude.md` (keeping the actual files on disk), and commit that as a cleanup. Confirm afterward with `git ls-files` that neither `docs/` nor `claude.md` appear in the tracked file list.
 
-### Prompt 12 — Post-launch verification
+### Prompt 12 — Fix the registration backend for real this time
+> The Passes registration form is still failing live with "Could not submit your registration," even after recommitting to GitHub — because GitHub pushes never touch the Apps Script backend; that only lives in the Google account, in Extensions → Apps Script. Make these code-level fixes:
+>
+> 1. In `docs/Code.gs`, hardcode the real values instead of placeholders:
+>    ```js
+>    const DRIVE_FOLDER_ID = '1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn';
+>    ```
+> 2. Add a `doGet(e)` function to `Code.gs` that returns a simple friendly response, e.g. `ContentService.createTextOutput('Boracay SBKZ registration backend is live and reachable.')`. Right now visiting the deployed URL directly in a browser gives an ambiguous "Script function not found: doGet" page that's hard for a non-technical person to interpret — a real `doGet` turns that into an unambiguous yes/no self-test: open `https://script.google.com/macros/s/AKfycbxr-nKSuOSExmPowV2RH1eMlHDJQMFfRYUxaSz8EfiIgrLocjSLl7QyT-QIOsUtP5L3/exec` in a browser tab — if you see the friendly message, the deployment is reachable and public; if you see a Google sign-in prompt instead, "Who has access" needs to be changed to "Anyone" in Apps Script (Deploy → Manage deployments → pencil icon).
+> 3. In `passes.html`'s registration submit handler, change the `catch (err)` block so it also displays the real caught error inline in the on-page message (not just the generic text) — e.g. `setRegFormMessage('Could not submit: ' + (err && err.message ? err.message : 'unknown error') + '. Please screenshot this and send it to the developer.', 'error')`. This means the next time something breaks, the actual reason shows up on screen without needing to open DevTools.
+> 4. Update `docs/SETUP.md` with a short, unmissable callout near the top: **"Editing files in this repo and pushing to GitHub does NOT update the live registration backend. The backend only updates when you paste the new `Code.gs` into Extensions → Apps Script (inside the actual Google Sheet) and create a new deployment version via Deploy → Manage deployments → pencil icon → New version → Deploy."**
+>
+> After you make these changes, I (the site owner) still have to manually: (a) copy the full updated `Code.gs` into the Apps Script editor in my Google account, replacing what's there now, (b) create a new deployment version, and (c) test the new `doGet` self-test URL in a browser before retrying the form. Tell me clearly at the end of your work that these three manual steps are still required — don't let me think pushing to GitHub was enough.
+
+### Prompt 13 — Commit and push with GitHub Desktop, then enable Pages
+> Walk me through publishing this repo using **GitHub Desktop** (not the command line), step by step:
+> 1. Installing GitHub Desktop and signing in.
+> 2. Adding this existing local project folder as a repository (File → Add Local Repository).
+> 3. Using the "Publish repository" button to create the GitHub repo and push everything in one step — tell me exactly what to name it and to make sure it's **public** (required for free GitHub Pages).
+> 4. What "committing" actually looks like going forward: after you make code changes, I'll see a list of changed files in GitHub Desktop, write a one-line summary, click "Commit to main," then click "Push origin" — confirm this is the full loop I'll repeat every time.
+> Then walk me through enabling GitHub Pages on the new repo (Settings → Pages → deploy from the `main` branch, root folder) and tell me how to know it worked.
+
+### Prompt 14 — Connect my custom domain
+> I already own a domain. Walk me through connecting it to this GitHub Pages site: what to type into the repo's Settings → Pages → Custom domain field (confirm this also creates the `CNAME` file automatically, or tell me if I need to add it myself), exactly which DNS records to add at my domain registrar (A records for the apex domain and/or a CNAME record for `www`), and how to know once it's resolved and HTTPS is enforced.
+
+### Prompt 15 — Post-launch verification
 > Once DNS has propagated, verify the live custom domain: check every page loads over HTTPS, every image resolves, every internal link works, and the registration form actually writes to the Google Sheet and Drive folder in production, not just locally.
+
+### Prompt 16 — Fix footer inconsistencies found by Prompt 10 QA
+> The Prompt 10 QA pass found the footer is inconsistent across pages: `fiesta.html`, `gallery.html`, `venue.html`, and `passes.html` link to the wrong Facebook/Instagram URLs (`facebook.com/boracaysbkzworldfestival` and `instagram.com/boracaysbkzworldfiesta` — wrong domain form and wrong handles) and are missing the contact phone number entirely, showing only the WhatsApp number. `index.html`, `terms-and-conditions.html`, `privacy-policy.html`, and `festival-pass-policy.html` already have the correct footer. Standardize all four broken pages to match the correct ones exactly:
+> - Facebook → `https://www.facebook.com/boracaysbkzworldfiesta1`
+> - Instagram → `https://www.instagram.com/boracaysbkz_worldfiesta/`
+> - Phone number `+63 917 519 0040` shown alongside the existing WhatsApp number `+63 956 124 3591` (matching how the correct pages display both)
+>
+> Since the root cause was "the footer partial was updated in only half the pages" on a site with no shared templating, also flag for me whether it's worth extracting the footer into a single shared source (e.g. one JS-injected partial loaded on every page) so this specific class of bug can't recur — don't do the refactor without me confirming first, since `buildspec.md` intentionally avoids adding build-step complexity to this project.
 
 ---
 

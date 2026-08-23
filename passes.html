@@ -886,7 +886,7 @@
                         setRegFormMessage(result.error || 'Something went wrong. Please try again.', 'error');
                     }
                 } catch (err) {
-                    setRegFormMessage('Could not submit your registration. Please check your connection and try again.', 'error');
+                    setRegFormMessage('Could not submit: ' + (err && err.message ? err.message : 'unknown error') + '. Please screenshot this and send it to the developer.', 'error');
                 } finally {
                     setRegFormLoading(false);
                 }

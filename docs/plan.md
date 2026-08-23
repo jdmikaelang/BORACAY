@@ -107,16 +107,46 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 
 Found while investigating the "501 Unsupported method" error from a real test submission, plus a general UI/UX sweep of the updated zip. Phases/Prompts 1–5 are untouched and confirmed working — this is new work only.
 
-- [x] **Remove the leftover legacy checkout modal** (`#checkout-modal` / `#checkout-form` in `passes.html`). It's a duplicate of the already-working `#registration-form`, still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, and is what the three "SELECT PASS" pricing buttons currently open — which is exactly what produced the error in the screenshot. Only one registration form should exist on the page.
-- [x] Make "SELECT PASS" buttons scroll to (and ideally pre-fill the Pass Type dropdown of) the real `#registration-form`, instead of opening the broken modal.
-- [x] **Fix the GCash number mismatch**: the reference card says `09175190040`; the (soon-to-be-removed) modal's copy button was using `09569015382`. Only one number should exist anywhere in the codebase — define it once and reference it everywhere, so this can't drift again.
-- [x] Fix or remove the placeholder PayPal link (`paypal.me/placeholder`) that lived in the modal — the real link is `Paypal.me/MarianitoMaralit`, already correct in the reference card.
-- [x] **Reorder the payment reference cards** so Email sits directly under PayPal: GCash/Alipay → PayPal → Email → Bank Transfer.
-- [x] Add copy-to-clipboard buttons to each payment detail (GCash number, PayPal link, email, each Bank Transfer field) with a safe fallback (select-text or a manual copy prompt) if `navigator.clipboard` isn't available, so copying never silently fails.
-- [x] Self-host the GCash logo in `images/` instead of hotlinking it from Wikimedia Commons.
+- [ ] **Remove the leftover legacy checkout modal** (`#checkout-modal` / `#checkout-form` in `passes.html`). It's a duplicate of the already-working `#registration-form`, still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, and is what the three "SELECT PASS" pricing buttons currently open — which is exactly what produced the error in the screenshot. Only one registration form should exist on the page.
+- [ ] Make "SELECT PASS" buttons scroll to (and ideally pre-fill the Pass Type dropdown of) the real `#registration-form`, instead of opening the broken modal.
+- [ ] **Fix the GCash number mismatch**: the reference card says `09175190040`; the (soon-to-be-removed) modal's copy button was using `09569015382`. Only one number should exist anywhere in the codebase — define it once and reference it everywhere, so this can't drift again.
+- [ ] Fix or remove the placeholder PayPal link (`paypal.me/placeholder`) that lived in the modal — the real link is `Paypal.me/MarianitoMaralit`, already correct in the reference card.
+- [ ] **Reorder the payment reference cards** so Email sits directly under PayPal: GCash/Alipay → PayPal → Email → Bank Transfer.
+- [ ] Add copy-to-clipboard buttons to each payment detail (GCash number, PayPal link, email, each Bank Transfer field) with a safe fallback (select-text or a manual copy prompt) if `navigator.clipboard` isn't available, so copying never silently fails.
+- [ ] Self-host the GCash logo in `images/` instead of hotlinking it from Wikimedia Commons.
 - [ ] Re-test the real registration flow end-to-end against the actual deployed Apps Script URL (not `localhost`) and confirm a submission produces a Sheet row + Drive file.
 
 **Milestone:** clicking any "SELECT PASS" button leads to exactly one working registration path, with payment details that are internally consistent and match the reference photo, and a successful test submission completes without error.
+
+## Phase 7 — Pre-deployment security check (new, before GitHub push)
+
+- [ ] Untrack `docs/` (which contains `Code.gs`, the actual backend source) and `claude.md` from git, and gitignore them going forward. As committed today, GitHub Pages would publish both publicly once pushed — including backend implementation details that should stay private.
+- [ ] Confirm with `git ls-files` that neither `docs/` nor `claude.md` appear in the tracked list before pushing.
+
+**Milestone:** `git ls-files` shows only the actual site files (HTML, images, CNAME once added) — nothing internal.
+
+## Phase 8 — Live testing found a real submission failure
+
+Deployed to `jdmikaelang.github.io` and tested with a real submission — form fails with "Could not submit your registration," even after recommitting to GitHub multiple times. **The actual reason nothing changed: GitHub and the Google Apps Script backend are separate systems.** A `git push` updates the static site only; it has no effect whatsoever on the script running in the site owner's Google account. `docs/Code.gs` in the repo is a reference copy, not the live code.
+
+Confirmed real values to use going forward:
+- Drive folder ID: `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`
+- Deployed script URL (unchanged, already correct in `passes.html`): `https://script.google.com/macros/s/AKfycbxr-nKSuOSExmPowV2RH1eMlHDJQMFfRYUxaSz8EfiIgrLocjSLl7QyT-QIOsUtP5L3/exec`
+
+See `claude.md` for the full debugging checklist. Short version: Prompt 12 makes the code itself self-diagnosing (a `doGet` health check, inline error display, real folder ID baked in) but the actual fix — pasting the updated script into Apps Script and creating a new deployment version — can only happen in the site owner's Google account, not through any file edit or git push.
+
+**Milestone:** a real test submission on the live site shows the green success message, a row appears in the Sheet, and the file appears in Drive.
+
+## Phase 9 — Prompt 10 QA findings
+
+Four issues surfaced by the full local QA pass:
+
+1. **Footer Facebook/Instagram links wrong on 4 of 8 pages** (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — wrong domain form and wrong handles, while `index.html` and the 3 legal pages have it correct. Root cause: no shared footer template on a static site means per-page drift is easy. Fix: Prompt 16.
+2. **Footer phone number missing entirely on the same 4 pages** — only the WhatsApp number shows; the required `+63 917 519 0040` doesn't appear. Same root cause, same fix (Prompt 16).
+3. **`gallery.html` is fully orphaned** — no page links to it, it only links to itself. This was supposed to be resolved in Phase 1 (link it in, or archive it) and wasn't. **Needs a decision from the site owner** before any fix: link it into nav/footer, or pull it from the deployed site.
+4. **"Christian & Karen" artist entry is missing** from `fiesta.html` — the original feedback asked to fix its spelling ("Christian & Karen"), but no such entry (or close variant) exists anywhere on the page now. Unclear whether it was dropped, renamed, or missed. **Needs the site owner to confirm** with whoever compiled the original comments before any fix is attempted — guessing at a name/entry to add back risks introducing wrong information.
+
+**Milestone:** Prompt 16 lands and re-verifies footer consistency across all 8 pages; items 3 and 4 get a decision from the site owner, then a follow-up prompt is written once the answer is known.
 
 ## What I need from you at each phase
 

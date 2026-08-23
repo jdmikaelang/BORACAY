@@ -1,5 +1,12 @@
 # One-time setup: Passes registration backend
 
+> ⚠️ **Pushing to GitHub does NOT update the live registration backend.** GitHub and the Google
+> Apps Script backend are two entirely separate systems. `docs/Code.gs` in this repo is a
+> reference copy only — the backend only updates when you paste the new `Code.gs` into
+> **Extensions → Apps Script** (inside the actual Google Sheet) and create a **new deployment
+> version** via **Deploy → Manage deployments → pencil icon → New version → Deploy**. Editing
+> the script and saving alone does nothing to the live URL, and neither does a `git push`.
+
 This connects the Passes page registration form to a Google Sheet + Drive folder.
 This part must be done by you, in your own Google account — Google requires a human
 to click through the OAuth consent screen; it can't be scripted.

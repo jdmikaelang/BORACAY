@@ -60,12 +60,32 @@ Phases/Prompts 1–5 are done and confirmed: folder cleanup, Home/Fiesta/Passes 
 
 ## Remaining known issues (Phase 6 — don't rediscover these, just fix them)
 
-- **`passes.html` has two competing registration forms.** The three "SELECT PASS" pricing buttons open a leftover modal (`#checkout-modal` / `#checkout-form`) with a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"` — this is what throws the 501 error when someone actually tries to submit. The real, correctly-wired form is `#registration-form` further down the page, tied to the real `REGISTRATION_WEB_APP_URL`. The modal needs to go; "SELECT PASS" should route to the one real form.
-- **Two different GCash numbers exist in the codebase**: `09175190040` (correct, in the reference card) vs `09569015382` (in the modal being removed). Only one should remain, defined once.
-- **Placeholder PayPal link** (`paypal.me/placeholder`) in the modal being removed — real link is `Paypal.me/MarianitoMaralit`.
-- **Payment card order**: currently GCash → PayPal → Bank Transfer → Email. Needs to be GCash → PayPal → Email → Bank Transfer (Email directly under PayPal).
-- GCash logo is hotlinked from Wikimedia Commons — should be self-hosted in `images/`.
-- Payment detail copy-to-clipboard needs a fallback for when `navigator.clipboard` is unavailable.
+- **`docs/` and `claude.md` are committed to git without being excluded from deployment.** GitHub Pages publishes everything in the published branch, so `docs/Code.gs` (the backend source, including Sheet/Drive IDs), `docs/plan.md`, `docs/prompts.md`, `docs/buildspec.md`, `docs/SETUP.md`, and `claude.md` would all become publicly browsable once pushed. Must be untracked (`git rm -r --cached`) and gitignored before the GitHub push — this is Prompt 11.
+- No git remote configured yet, no `CNAME` file — expected, this is Prompts 13–14, not yet run.
+
+## Open questions from Prompt 10 QA — need site owner input before proceeding
+
+- **`gallery.html` is a fully orphaned page** — no nav, footer, or CTA on any other page links to it; it only links to itself. `plan.md` Phase 1 said to either wire it into navigation or archive it out of the deployed folder, and neither happened. Waiting on the site owner: should it be linked (and if so, from the main nav or the footer?), or removed from the deployed site?
+- **"Christian & Karen" artist entry can't be found anywhere in `fiesta.html`.** The original feedback said to double-check its spelling, but no artist by that name or a close variant currently exists on the page. Unknown whether it was dropped, renamed, or missed during an earlier edit. Waiting on the site owner to confirm with whoever compiled the original comments whether this entry should still exist and under what name.
+
+## Live testing found a real bug (Phase 8)
+
+Site is live on `jdmikaelang.github.io`. A real test submission on the Passes registration form still fails with "Could not submit your registration. Please check your connection and try again." — even after the site owner recommitted and pushed multiple times. **Root cause of the confusion: GitHub and the Google Apps Script backend are two entirely separate systems.** Pushing this repo to GitHub only updates the static site — it never touches the script running in the site owner's Google account (Extensions → Apps Script, inside the bound Sheet). `docs/Code.gs` in this repo is a reference copy only; it is not what executes live. Do not assume a `git push` has any effect on backend behavior.
+
+**Known-good values (confirmed by the site owner):**
+- `DRIVE_FOLDER_ID`: `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`
+- Deployed Web App URL: `https://script.google.com/macros/s/AKfycbxr-nKSuOSExmPowV2RH1eMlHDJQMFfRYUxaSz8EfiIgrLocjSLl7QyT-QIOsUtP5L3/exec` (already correctly wired in `passes.html` — unchanged)
+
+What Claude Code *can* fix (Prompt 12): bake the real `DRIVE_FOLDER_ID` into `docs/Code.gs`, add a `doGet` health-check handler so the deployed URL gives an unambiguous self-test when opened directly in a browser, surface the real caught error inline on the page instead of only a generic message, and add a loud callout in `SETUP.md` explaining that GitHub pushes don't touch the backend.
+
+What only the site owner can fix (cannot be done via file edits or git): paste the updated `Code.gs` into the actual Apps Script editor, create a **new deployment version** (Deploy → Manage deployments → pencil icon → New version → Deploy — editing the script and saving alone does nothing to the live URL), and confirm "Who has access" is set to "Anyone." Claude Code should say this explicitly at the end of Prompt 12's work rather than implying the fix is complete once files are committed.
+
+Debugging checklist (for the site owner, in their Google account — not something Claude Code can click through):
+1. Open the deployed `/exec` URL directly in a browser tab. A "Script function not found: doGet" page means the deployment is reachable; a Google sign-in redirect means "Who has access" isn't set to "Anyone." (Once Prompt 12 lands, this becomes an unambiguous friendly message instead.)
+2. Fix via Deploy → Manage deployments → pencil icon → confirm "Who has access: Anyone" → Deploy.
+3. Confirm `DRIVE_FOLDER_ID` in the *actual* Apps Script editor (not just this repo's copy of `Code.gs`) matches `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`.
+4. Remember: editing `Code.gs` requires a **new deployment version** to take effect — saving alone does nothing to the live URL, and neither does a GitHub push.
+5. Check the browser DevTools console during a real submit attempt for the actual underlying error (CORS / 404 / etc.) — or once Prompt 12 lands, the error will show inline on the page itself.
 
 ## Resolved (for history — no action needed)
 
@@ -73,6 +93,13 @@ Phases/Prompts 1–5 are done and confirmed: folder cleanup, Home/Fiesta/Passes 
 - Nav-bar CTA button now consistently reads "BOOK FESTIVAL PASSES" sitewide.
 - Footer legal pages built from real source `.docx` copy, linked only in the footer.
 - No broken image paths anywhere across all 5 pages (verified by full sweep).
+- Legacy checkout modal removed; "SELECT PASS" now routes to the one real registration form.
+- Payment details (GCash, PayPal, email, bank transfer) come from a single source object, card order matches GCash → PayPal → Email → Bank Transfer, GCash logo self-hosted, copy-to-clipboard has a working fallback.
+
+## Prompt 10 QA findings (Phase 9 — see plan.md)
+
+- Footer Facebook/Instagram links and phone number were wrong/missing on 4 of 8 pages (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — fix is Prompt 16, straightforward, correct values already confirmed elsewhere in the project.
+- Two open questions above still need the site owner's input before any fix is attempted.
 
 ## The source of truth for content fixes
 
