@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Boracay SBKZ World Fiesta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#121C1F', // Deep teal/slate background
+                            card: '#1A2A2E', // Slightly lighter card bg
+                            cardhover: '#22363B',
+                            gold: '#E5B96D', // Premium gold accent
+                            goldhover: '#D4A355',
+                            light: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            background-color: #121C1F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        
+        /* Buttery smooth custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121C1F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1A2A2E;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E5B96D;
+        }
+
+        /* Glassmorphism for header */
+        .glass-header {
+            background: rgba(18, 28, 31, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Intersection Observer Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hide Youtube iframe visually */
+        #youtube-player-container {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            left: -9999px;
+        }
+
+        /* Ensure bottom spacing on mobile for the sticky CTA */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 80px; 
+            }
+        }
+        
+        /* Masonry Grid Setup */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-auto-rows: 200px;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 250px;
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Gallery item classes for spanning rows/columns */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #1A2A2E;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Optional overlay on hover for premium feel */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(18,28,31,0.4) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Spanning utility classes */
+        .row-span-2 {
+            grid-row: span 2;
+        }
+        
+        .col-span-2 {
+            grid-column: span 2;
+        }
+        
+        @media (max-width: 1023px) {
+            /* Reset col spans on smaller screens to prevent overflow */
+            .col-span-2 {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 639px) {
+            /* Reset row spans on mobile for consistent linear look */
+            .row-span-2 {
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-2" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 cursor-pointer text-2xl font-serif font-bold text-brand-gold tracking-wider hover:opacity-90 transition-opacity">
+                    Boracay
+                    <span class="block text-xs font-sans text-white tracking-widest uppercase -mt-1">SBKZ Fiesta</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">HOME</a>
+                    <a href="fiesta.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">FIESTA</a>
+                    <a href="passes.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">PASSES</a>
+                    <a href="venue.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">VENUE</a>
+                    <a href="gallery.html" class="text-sm font-medium text-white hover:text-brand-gold transition-colors border-b border-brand-gold pb-1">GALLERY</a>
+                    <a href="#footer" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">CONTACT</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center space-x-4">
+                    <a href="passes.html" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all duration-300">
+                        BOOK PASSES
+                    </a>
+                    
+                    <!-- Mobile menu button -->
+                    <button type="button" class="md:hidden text-brand-light hover:text-brand-gold focus:outline-none" id="mobile-menu-btn">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div class="md:hidden hidden bg-brand-card border-t border-white/5 absolute w-full shadow-2xl" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="index.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">HOME</a>
+                <a href="fiesta.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">FIESTA</a>
+                <a href="passes.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">PASSES</a>
+                <a href="venue.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">VENUE</a>
+                <a href="gallery.html" class="block px-3 py-3 text-base font-medium text-white bg-brand-cardhover rounded-md">GALLERY</a>
+                <a href="#footer" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md mobile-link">CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Header Section -->
+    <section class="pt-32 pb-12 relative flex-shrink-0">
+        <div class="absolute inset-0 z-0 bg-brand-dark">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-card/50 to-transparent"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center reveal">
+            <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">A GLIMPSE OF PARADISE</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6">Gallery</h1>
+            <p class="text-brand-muted text-base md:text-lg max-w-2xl mx-auto">
+                Beaches, workshops, socials, parties and Filipino culture — a taste of the fiesta.
+            </p>
+            <div class="w-16 h-px bg-brand-gold/30 mx-auto mt-8"></div>
+        </div>
+    </section>
+
+    <!-- Main Gallery Section (21 Images exactly) -->
+    <section class="pb-24 pt-8 bg-brand-dark flex-grow">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="gallery-grid reveal delay-100">
+                
+                <!-- 1. Beach Sunset Dancing (Hero Style) -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Couple dancing salsa on the beach at sunset" loading="lazy">
+                </div>
+                
+                <!-- 2. Tropical Beach Scene -->
+                <div class="gallery-item col-span-2 row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Boracay white beach clear water" loading="lazy">
+                </div>
+                
+                <!-- 3. Night Social Dancing -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1516997083025-8373b5eb5fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dancers performing at night" loading="lazy">
+                </div>
+                
+                <!-- 4. Sunset Silhouettes -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1571482811466-281b953d5162?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sunset silhouettes of dancers" loading="lazy">
+                </div>
+                
+                <!-- 5. Pool Party Detail -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pool party drinks and lights" loading="lazy">
+                </div>
+                
+                <!-- 6. Bachata Connection -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1504609774515-c26661d90472?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Close connection bachata dancing" loading="lazy">
+                </div>
+                
+                <!-- 7. DJ/Party Vibe -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Festival party lights and crowd" loading="lazy">
+                </div>
+                
+                <!-- 8. Workshop Setting -->
+                <div class="gallery-item col-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Large dance workshop setting" loading="lazy">
+                </div>
+                
+                <!-- 9. Resort View -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tropical resort pool view" loading="lazy">
+                </div>
+                
+                <!-- 10. Tropical Drink/Details -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tropical cocktail on the beach" loading="lazy">
+                </div>
+                
+                <!-- 11. Performance Action -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dynamic dance performance lift" loading="lazy">
+                </div>
+                
+                <!-- 12. Island Scenery -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Boracay island scenery" loading="lazy">
+                </div>
+                
+                <!-- 13. Social Dance Floor Wide -->
+                <div class="gallery-item col-span-2 row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Crowded social dance floor at event" loading="lazy">
+                </div>
+                
+                <!-- 14. Shoes/Styling Detail -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1533144883909-0d321525c34e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dance shoes detail" loading="lazy">
+                </div>
+                
+                <!-- 15. Kizomba Flow -->
+                <div class="gallery-item row-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1535588328704-515438865c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smooth kizomba dancing" loading="lazy">
+                </div>
+                
+                <!-- 16. Boat Party Concept -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1540202404-b71180fb8bc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Boat party on ocean" loading="lazy">
+                </div>
+                
+                <!-- 17. Live Percussion/Music -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Live percussion music" loading="lazy">
+                </div>
+                
+                <!-- 18. Festival Vibe -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Music festival crowd cheering" loading="lazy">
+                </div>
+                
+                <!-- 19. Zouk Hair Movement -->
+                <div class="gallery-item col-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1518599904199-0ca897819ddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Dynamic head movement in dance" loading="lazy">
+                </div>
+                
+                <!-- 20. Sunset Palm Trees -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1496372412473-e8a0ca084a44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sunset palm trees silhouette" loading="lazy">
+                </div>
+                
+                <!-- 21. Happy Dancers (Final Image) -->
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Happy couple dancing" loading="lazy">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 text-brand-muted text-xs uppercase tracking-widest reveal">
+                End of Gallery
+            </div>
+        </div>
+    </section>
+
+    <!-- Community & Footer Section -->
+    <footer id="footer" class="bg-[#111A1D] border-t border-white/10 pt-20 pb-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Join Community -->
+            <div class="text-center mb-20 reveal">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Follow the Fiesta</p>
+                <h2 class="text-3xl font-serif font-bold text-white mb-8">Join the Community</h2>
+                <div class="flex justify-center gap-4 md:gap-6">
+                    <a href="https://facebook.com/boracaysbkzworldfestival" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-facebook-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://instagram.com/boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://tiktok.com/@boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-tiktok-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://whatsapp.com" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-whatsapp-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="flex justify-center gap-4 md:gap-8 mt-4 text-[10px] text-brand-muted uppercase tracking-widest">
+                    <span>Facebook</span>
+                    <span>Instagram</span>
+                    <span>TikTok</span>
+                    <span>WhatsApp</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 border-t border-white/5 pt-12">
+                <!-- Branding -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-2xl font-serif font-bold text-brand-gold tracking-wider mb-4">
+                        Boracay
+                        <span class="block text-xs font-sans text-white tracking-widest uppercase mt-1">SBKZ Fiesta 3</span>
+                    </div>
+                    <p class="text-sm text-brand-muted mb-2">May 5 - 10, 2027</p>
+                    <p class="text-sm text-brand-muted">Boracay Ocean Club Resort, Philippines</p>
+                </div>
+
+                <!-- Explore Links -->
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Explore</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="fiesta.html" class="hover:text-white transition-colors">Fiesta</a></li>
+                        <li><a href="passes.html" class="hover:text-white transition-colors">Passes</a></li>
+                        <li><a href="venue.html" class="hover:text-white transition-colors">Venue & Travel</a></li>
+                        <li><a href="gallery.html" class="hover:text-white transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Links -->
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Travel Terms</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Refund Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Code of Conduct</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-center"><i class="ph ph-envelope-simple mr-3 text-lg"></i> <a href="mailto:info@boracaysbkzworldfiesta.com" class="hover:text-white transition-colors break-all">info@boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-globe mr-3 text-lg"></i> <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="hover:text-white transition-colors break-all">www.boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-whatsapp-logo mr-3 text-lg"></i> <a href="tel:+639561243591" class="hover:text-white transition-colors">+63 956 124 3591</a></li>
+                    </ul>
+                    <p class="font-serif italic text-brand-gold mt-6 text-xl">Dance. Connect. Paradise.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-muted">
+                <p>&copy; 2026 Boracay SBKZ World Fiesta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Music Player (Persistent Floating) -->
+    <div class="fixed bottom-6 left-6 z-[60] flex items-center bg-brand-card/90 backdrop-blur-md border border-white/10 rounded-full pr-4 p-1 shadow-2xl transition-transform hover:scale-105" id="music-player-widget">
+        <button id="music-toggle-btn" class="w-10 h-10 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center hover:bg-brand-goldhover transition-colors focus:outline-none">
+            <i class="ph ph-speaker-slash text-xl" id="music-icon"></i>
+        </button>
+        <div class="ml-3 hidden sm:block">
+            <p class="text-[10px] font-bold text-brand-gold uppercase tracking-wider leading-none">Fiesta Vibes</p>
+            <p class="text-xs text-white leading-none mt-1">Official Playlist</p>
+        </div>
+        <!-- YouTube IFrame container (hidden) -->
+        <div id="youtube-player-container">
+            <div id="ytplayer"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Conversion UX (Sticky CTA) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-card/95 backdrop-blur-lg border-t border-white/10 p-4 z-[70] shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+        <a href="passes.html" class="flex items-center justify-center w-full px-6 py-3.5 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all uppercase tracking-wide">
+            Buy a Pass
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[60] w-12 h-12 bg-brand-card border border-brand-gold/30 text-brand-gold rounded-full flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-brand-gold hover:text-brand-dark mb-[80px] md:mb-0">
+        <i class="ph ph-arrow-up text-xl"></i>
+    </button>
+
+
+    <!-- Scripts -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // --- 1. Global Navigation & Scroll Effects ---
+        const header = document.getElementById('main-header');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        window.addEventListener('scroll', () => {
+            // Header styling on scroll
+            if (window.scrollY > 50) {
+                header.classList.add('glass-header', 'shadow-lg');
+                header.classList.remove('py-2');
+            } else {
+                header.classList.remove('glass-header', 'shadow-lg');
+                header.classList.add('py-2');
+            }
+
+            // Scroll to top button visibility
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- 2. Intersection Observer for Fade-in Animations ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 3. Global Music Player (YouTube API) ---
+        let player;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('music-toggle-btn');
+        const musicIcon = document.getElementById('music-icon');
+        // https://youtu.be/7U81xW-i7tE -> ID: 7U81xW-i7tE
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytplayer', {
+                height: '100',
+                width: '100',
+                videoId: '7U81xW-i7tE',
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'rel': 0,
+                    'loop': 1,
+                    'playlist': '7U81xW-i7tE' // Required for loop to work on single video
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready. Start at 50% volume
+            player.setVolume(50); 
+            
+            musicBtn.addEventListener('click', () => {
+                if (!isPlaying) {
+                    player.playVideo();
+                    musicIcon.classList.remove('ph-speaker-slash');
+                    musicIcon.classList.add('ph-speaker-high');
+                    musicBtn.classList.add('bg-white');
+                    musicBtn.classList.remove('bg-brand-gold');
+                    isPlaying = true;
+                } else {
+                    player.pauseVideo();
+                    musicIcon.classList.remove('ph-speaker-high');
+                    musicIcon.classList.add('ph-speaker-slash');
+                    musicBtn.classList.add('bg-brand-gold');
+                    musicBtn.classList.remove('bg-white');
+                    isPlaying = false;
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            // Keep UI in sync if video pauses/buffers externally
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                musicIcon.classList.remove('ph-speaker-slash');
+                musicIcon.classList.add('ph-speaker-high');
+                musicBtn.classList.add('bg-white');
+                musicBtn.classList.remove('bg-brand-gold');
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
+                musicIcon.classList.remove('ph-speaker-high');
+                musicIcon.classList.add('ph-speaker-slash');
+                musicBtn.classList.add('bg-brand-gold');
+                musicBtn.classList.remove('bg-white');
+            }
+        }
+    </script>
+</body>
+</html>
