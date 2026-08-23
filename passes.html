@@ -359,6 +359,15 @@
                     </p>
                 </div>
 
+                <!--
+                  DEVELOPER NOTE:
+                  The values below (GCash number, PayPal link, email, bank
+                  details) are placeholders driven by the PAYMENT_INFO object
+                  defined once in the script block near the bottom of this
+                  file. Change a value there and it updates everywhere it is
+                  referenced on this page — never hardcode a payment value in
+                  more than one place.
+                -->
                 <!-- Payment Options -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                     <!-- GCash / Alipay -->
@@ -366,10 +375,15 @@
                         <div class="w-12 h-12 rounded-full bg-brand-gcash/20 flex items-center justify-center shrink-0">
                             <i class="ph ph-wallet text-2xl text-brand-gcash"></i>
                         </div>
-                        <div>
+                        <div class="flex-1">
                             <h3 class="text-lg font-serif font-bold text-white mb-2">GCash / Alipay</h3>
-                            <p class="text-sm text-brand-light">Marianito Maralit</p>
-                            <p class="text-sm text-brand-gold font-semibold tracking-wide">09175190040</p>
+                            <p class="text-sm text-brand-light" data-payment-field="gcashName"></p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <p class="text-sm text-brand-gold font-semibold tracking-wide" data-payment-field="gcashNumber"></p>
+                                <button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="gcashNumber" aria-label="Copy GCash number">
+                                    <i class="ph ph-copy text-base"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -378,9 +392,30 @@
                         <div class="w-12 h-12 rounded-full bg-brand-paypal/20 flex items-center justify-center shrink-0">
                             <i class="ph-fill ph-paypal-logo text-2xl text-[#009cde]"></i>
                         </div>
-                        <div>
+                        <div class="flex-1">
                             <h3 class="text-lg font-serif font-bold text-white mb-2">PayPal</h3>
-                            <a href="https://Paypal.me/MarianitoMaralit" target="_blank" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all">Paypal.me/MarianitoMaralit</a>
+                            <div class="flex items-center gap-2">
+                                <a href="#" target="_blank" data-payment-field="paypalLink" data-payment-attr="href" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all"></a>
+                                <button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors shrink-0" data-copy-field="paypalLink" aria-label="Copy PayPal link">
+                                    <i class="ph ph-copy text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
+                            <i class="ph ph-envelope-simple text-2xl text-brand-gold"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-serif font-bold text-white mb-2">Email</h3>
+                            <div class="flex items-center gap-2">
+                                <a href="#" data-payment-field="email" data-payment-attr="href" data-payment-attr-prefix="mailto:" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all"></a>
+                                <button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors shrink-0" data-copy-field="email" aria-label="Copy email address">
+                                    <i class="ph ph-copy text-base"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -392,23 +427,12 @@
                         <div class="flex-1">
                             <h3 class="text-lg font-serif font-bold text-white mb-2">Bank Transfer</h3>
                             <ul class="text-sm text-brand-light space-y-1">
-                                <li><span class="text-brand-muted">Bank:</span> Banco de Oro (BDO)</li>
-                                <li><span class="text-brand-muted">Bank Branch:</span> Makati City</li>
-                                <li><span class="text-brand-muted">Account Name:</span> Van Gil Maralit</li>
-                                <li><span class="text-brand-muted">Account No.:</span> 007360073151</li>
-                                <li><span class="text-brand-muted">Swift Code:</span> BNORPHMM</li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank:</span> <span data-payment-field="bankName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankName" aria-label="Copy bank name"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank Branch:</span> <span data-payment-field="bankBranch"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankBranch" aria-label="Copy bank branch"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account Name:</span> <span data-payment-field="bankAccountName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountName" aria-label="Copy account name"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account No.:</span> <span data-payment-field="bankAccountNumber"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountNumber" aria-label="Copy account number"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Swift Code:</span> <span data-payment-field="bankSwiftCode"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankSwiftCode" aria-label="Copy swift code"><i class="ph ph-copy text-sm"></i></button></li>
                             </ul>
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
-                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
-                            <i class="ph ph-envelope-simple text-2xl text-brand-gold"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-serif font-bold text-white mb-2">Email</h3>
-                            <a href="mailto:mar.boracaysbkiz@gmail.com" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all">mar.boracaysbkiz@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -617,6 +641,70 @@
     <!-- Scripts -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // --- 0. Payment Info: single source of truth ---
+        const PAYMENT_INFO = {
+            gcashName: 'Marianito Maralit',
+            gcashNumber: '09175190040',
+            paypalLink: 'https://Paypal.me/MarianitoMaralit',
+            email: 'mar.boracaysbkiz@gmail.com',
+            bankName: 'Banco de Oro (BDO)',
+            bankBranch: 'Makati City',
+            bankAccountName: 'Van Gil Maralit',
+            bankAccountNumber: '007360073151',
+            bankSwiftCode: 'BNORPHMM',
+        };
+
+        document.querySelectorAll('[data-payment-field]').forEach(el => {
+            const value = PAYMENT_INFO[el.dataset.paymentField];
+            if (value === undefined) return;
+            if (el.dataset.paymentAttr) {
+                const prefix = el.dataset.paymentAttrPrefix || '';
+                el.setAttribute(el.dataset.paymentAttr, prefix + value);
+                el.textContent = value;
+            } else {
+                el.textContent = value;
+            }
+        });
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            }
+            return new Promise((resolve, reject) => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                try {
+                    const success = document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    success ? resolve() : reject(new Error('execCommand copy failed'));
+                } catch (err) {
+                    document.body.removeChild(textarea);
+                    reject(err);
+                }
+            });
+        }
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const value = PAYMENT_INFO[btn.dataset.copyField];
+                if (value === undefined) return;
+                const icon = btn.querySelector('i');
+                const originalClass = icon.className;
+                copyToClipboard(value).then(() => {
+                    icon.className = 'ph ph-check text-base text-green-400';
+                    setTimeout(() => { icon.className = originalClass; }, 1500);
+                }).catch(() => {
+                    icon.className = 'ph ph-x text-base text-red-400';
+                    setTimeout(() => { icon.className = originalClass; }, 1500);
+                });
+            });
+        });
+
         // --- 1. Global Navigation & Scroll Effects ---
         const header = document.getElementById('main-header');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
