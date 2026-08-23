@@ -418,17 +418,6 @@
                         </div>
                     </div>
 
-                    <!-- Email -->
-                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
-                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
-                            <i class="ph ph-envelope-simple text-2xl text-brand-gold"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-serif font-bold text-white mb-2">Email</h3>
-                            <a href="mailto:mar.boracaysbkiz@gmail.com" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all">mar.boracaysbkiz@gmail.com</a>
-                        </div>
-                    </div>
-
                     <!-- Bank Transfer -->
                     <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
                         <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
@@ -443,6 +432,17 @@
                                 <li><span class="text-brand-muted">Account No.:</span> 007360073151</li>
                                 <li><span class="text-brand-muted">Swift Code:</span> BNORPHMM</li>
                             </ul>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
+                            <i class="ph ph-envelope-simple text-2xl text-brand-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-serif font-bold text-white mb-2">Email</h3>
+                            <a href="mailto:mar.boracaysbkiz@gmail.com" class="text-sm text-brand-gold font-semibold tracking-wide hover:text-white transition-colors break-all">mar.boracaysbkiz@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -460,14 +460,26 @@
                       (backend endpoint, Google Apps Script webhook, or Google Forms/Drive integration).
                     -->
                     <form id="registration-form" action="PLACEHOLDER_FORM_ACTION_URL" method="POST" enctype="multipart/form-data" class="space-y-5">
-                        <div>
-                            <label for="reg-name" class="block text-xs text-brand-light mb-1">Name *</label>
-                            <input type="text" id="reg-name" name="name" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="e.g. Maria Clara">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="reg-first-name" class="block text-xs text-brand-light mb-1">First Name *</label>
+                                <input type="text" id="reg-first-name" name="firstName" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="e.g. Maria">
+                            </div>
+                            <div>
+                                <label for="reg-last-name" class="block text-xs text-brand-light mb-1">Last Name *</label>
+                                <input type="text" id="reg-last-name" name="lastName" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="e.g. Clara">
+                            </div>
                         </div>
 
-                        <div>
-                            <label for="reg-email" class="block text-xs text-brand-light mb-1">Email *</label>
-                            <input type="email" id="reg-email" name="email" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="you@email.com">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="reg-email" class="block text-xs text-brand-light mb-1">Email *</label>
+                                <input type="email" id="reg-email" name="email" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="you@email.com">
+                            </div>
+                            <div>
+                                <label for="reg-whatsapp" class="block text-xs text-brand-light mb-1">WhatsApp / Viber # *</label>
+                                <input type="tel" id="reg-whatsapp" name="whatsappViber" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="+63 900 000 0000">
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -482,15 +494,25 @@
                             </div>
 
                             <div>
-                                <label for="reg-payment-method" class="block text-xs text-brand-light mb-1">Payment Method Used *</label>
-                                <select id="reg-payment-method" name="paymentMethod" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
-                                    <option value="" disabled selected>Select a method</option>
-                                    <option value="GCash">GCash</option>
-                                    <option value="Alipay">Alipay</option>
-                                    <option value="PayPal">PayPal</option>
-                                    <option value="Bank Transfer">Bank Transfer</option>
-                                </select>
+                                <label for="reg-num-passes" class="block text-xs text-brand-light mb-1">Number of Passes *</label>
+                                <input type="number" id="reg-num-passes" name="numberOfPasses" min="1" step="1" value="1" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40">
                             </div>
+                        </div>
+
+                        <div>
+                            <label for="reg-other-attendees" class="block text-xs text-brand-light mb-1">Names of Other Attendees</label>
+                            <textarea id="reg-other-attendees" name="otherAttendees" rows="2" class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="If registering for more than one pass, list the other attendees' full names here"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="reg-payment-method" class="block text-xs text-brand-light mb-1">Payment Method *</label>
+                            <select id="reg-payment-method" name="paymentMethod" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                                <option value="" disabled selected>Select a method</option>
+                                <option value="GCash">GCash</option>
+                                <option value="Alipay">Alipay</option>
+                                <option value="PayPal">PayPal</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
                         </div>
 
                         <div>
