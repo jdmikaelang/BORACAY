@@ -65,8 +65,6 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 
 **Milestone:** every checkbox above is ticked and visually verified in a local preview before deployment.
 
-**Status check (per your last update):** Phases/Prompts 1–4 are committed (git log confirms Phase 1 cleanup + three Phase 2 content commits). Prompt 5 (global consistency + footer pages) is in progress — one thing to double check before calling it done: the small **nav-bar** "BOOK PASSES" button on `index.html`, `venue.html`, `passes.html`, and `gallery.html` still reads "BOOK PASSES" rather than "BOOK FESTIVAL PASSES" (only the large hero/section buttons were updated). Worth a quick pass before merging Prompt 5.
-
 ---
 
 ## Phase 3 — Forms → Google Sheets + Drive Integration
