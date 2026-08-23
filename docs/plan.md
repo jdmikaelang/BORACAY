@@ -61,11 +61,11 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 - No page-specific edits were called out beyond the global fixes below.
 
 ### Global / Footer
-- [x] Add new footer-only pages: **Terms & Conditions**, **Festival Pass Policy**, **Privacy Policy** — built from the real copy in `docs/*.docx` (`Boracay SBKZ World Fiesta - Terms and Conditions.docx`, `... - Festival Pass Policy.docx`, `... - Privacy Policy.docx`), preserving heading/section structure. Linked only from the footer's Legal column, not the main nav.
+- [ ] Add new footer-only pages: **Terms & Conditions**, **Festival Pass Policy**, **Privacy Policy** — real copy already exists as `.docx` files in the project folder (`Boracay SBKZ World Fiesta - Terms and Conditions.docx`, `... - Festival Pass Policy.docx`, `... - Privacy Policy.docx`). Convert that copy into three matching HTML pages — **do not write new/placeholder legal text**, use the docx content as the source of truth, preserving headings/structure. Once converted, move the three `.docx` files into `docs/` alongside the other reference material so they don't ship in the deployed site.
 
 **Milestone:** every checkbox above is ticked and visually verified in a local preview before deployment.
 
-**Status:** Phases 1, 2, and 5 (global consistency pass + footer legal pages) are done, verified in a local preview. Phase 3 (forms/backend) and Phase 4 (GitHub Pages deployment) remain.
+**Status check (per your last update):** Phases/Prompts 1–4 are committed (git log confirms Phase 1 cleanup + three Phase 2 content commits). Prompt 5 (global consistency + footer pages) is in progress — one thing to double check before calling it done: the small **nav-bar** "BOOK PASSES" button on `index.html`, `venue.html`, `passes.html`, and `gallery.html` still reads "BOOK PASSES" rather than "BOOK FESTIVAL PASSES" (only the large hero/section buttons were updated). Worth a quick pass before merging Prompt 5.
 
 ---
 
@@ -104,6 +104,21 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 - Confirm every item in the Phase 2 checklist against the live site, not just the local copy.
 
 ---
+
+## Phase 6 — Post-Launch QA Fixes (flagged after Prompts 1–5)
+
+Found while investigating the "501 Unsupported method" error from a real test submission, plus a general UI/UX sweep of the updated zip. Phases/Prompts 1–5 are untouched and confirmed working — this is new work only.
+
+- [ ] **Remove the leftover legacy checkout modal** (`#checkout-modal` / `#checkout-form` in `passes.html`). It's a duplicate of the already-working `#registration-form`, still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, and is what the three "SELECT PASS" pricing buttons currently open — which is exactly what produced the error in the screenshot. Only one registration form should exist on the page.
+- [ ] Make "SELECT PASS" buttons scroll to (and ideally pre-fill the Pass Type dropdown of) the real `#registration-form`, instead of opening the broken modal.
+- [ ] **Fix the GCash number mismatch**: the reference card says `09175190040`; the (soon-to-be-removed) modal's copy button was using `09569015382`. Only one number should exist anywhere in the codebase — define it once and reference it everywhere, so this can't drift again.
+- [ ] Fix or remove the placeholder PayPal link (`paypal.me/placeholder`) that lived in the modal — the real link is `Paypal.me/MarianitoMaralit`, already correct in the reference card.
+- [ ] **Reorder the payment reference cards** so Email sits directly under PayPal: GCash/Alipay → PayPal → Email → Bank Transfer.
+- [ ] Add copy-to-clipboard buttons to each payment detail (GCash number, PayPal link, email, each Bank Transfer field) with a safe fallback (select-text or a manual copy prompt) if `navigator.clipboard` isn't available, so copying never silently fails.
+- [ ] Self-host the GCash logo in `images/` instead of hotlinking it from Wikimedia Commons.
+- [ ] Re-test the real registration flow end-to-end against the actual deployed Apps Script URL (not `localhost`) and confirm a submission produces a Sheet row + Drive file.
+
+**Milestone:** clicking any "SELECT PASS" button leads to exactly one working registration path, with payment details that are internally consistent and match the reference photo, and a successful test submission completes without error.
 
 ## What I need from you at each phase
 

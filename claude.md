@@ -56,21 +56,23 @@ All filenames: lowercase, kebab-case, no spaces, no `&`. See `buildspec.md` for 
 
 ## Status
 
-Phases 1 (folder/naming cleanup), 2 (Home, Fiesta, Passes content fixes), and 5 (global consistency pass + footer legal pages) are done. Forms/backend (Phase 3) and GitHub Pages deployment (Phase 4, confusingly numbered ahead of the forms work in `prompts.md`) are not yet done.
+Phases/Prompts 1–5 are done and confirmed: folder cleanup, Home/Fiesta/Passes content fixes, global consistency pass, and real footer legal pages (converted from the source `.docx` files, which now live in `docs/`) are all committed. Phase 3 (Apps Script backend) is wired up with a real deployed URL in `#registration-form`. **Do not re-open or redo Phases/Prompts 1–5** — new work only, see Phase 6 in `plan.md`.
 
-## Remaining known issues (don't rediscover these — just fix them)
+## Remaining known issues (Phase 6 — don't rediscover these, just fix them)
 
-- `gallery.html` exists and **is** currently linked in the footer's Explore section on every page — confirmed in the nav grep, so no decision needed here anymore (superseded note from earlier: this used to be an orphan page). It's still intentionally excluded from the main top nav per the original brief.
+- **`passes.html` has two competing registration forms.** The three "SELECT PASS" pricing buttons open a leftover modal (`#checkout-modal` / `#checkout-form`) with a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"` — this is what throws the 501 error when someone actually tries to submit. The real, correctly-wired form is `#registration-form` further down the page, tied to the real `REGISTRATION_WEB_APP_URL`. The modal needs to go; "SELECT PASS" should route to the one real form.
+- **Two different GCash numbers exist in the codebase**: `09175190040` (correct, in the reference card) vs `09569015382` (in the modal being removed). Only one should remain, defined once.
+- **Placeholder PayPal link** (`paypal.me/placeholder`) in the modal being removed — real link is `Paypal.me/MarianitoMaralit`.
+- **Payment card order**: currently GCash → PayPal → Bank Transfer → Email. Needs to be GCash → PayPal → Email → Bank Transfer (Email directly under PayPal).
+- GCash logo is hotlinked from Wikimedia Commons — should be self-hosted in `images/`.
+- Payment detail copy-to-clipboard needs a fallback for when `navigator.clipboard` is unavailable.
 
 ## Resolved (for history — no action needed)
 
-- OS junk (`.DS_Store`, `__MACOSX/`) removed.
-- Duplicate root-level image folders (`DJ/`, `Main Artists/`, `Featured Artists and Performers/`) removed; `images/` is the single source of truth.
-- All filenames renamed to kebab-case, no spaces/`&`.
-- `image8.jfif` converted to `images/image8.jpg`.
-- `comments.pdf` relocated into `docs/`.
-- Logo image now used top-left on every page (was text on `passes.html`, `venue.html`, `gallery.html`); "Boracay Ocean Club Resort & Spa" verbatim everywhere; every CTA (including pricing-card and sticky mobile buttons) reads "BOOK FESTIVAL PASSES".
-- `terms-and-conditions.html`, `festival-pass-policy.html`, `privacy-policy.html` built from the real `.docx` copy (see `docs/`), linked only from the footer's Legal column.
+- OS junk (`.DS_Store`, `__MACOSX/`) removed; duplicate root-level image folders removed; all filenames renamed to kebab-case; `image8.jfif` converted to `.jpg`; `comments.pdf` relocated into `docs/`.
+- Nav-bar CTA button now consistently reads "BOOK FESTIVAL PASSES" sitewide.
+- Footer legal pages built from real source `.docx` copy, linked only in the footer.
+- No broken image paths anywhere across all 5 pages (verified by full sweep).
 
 ## The source of truth for content fixes
 

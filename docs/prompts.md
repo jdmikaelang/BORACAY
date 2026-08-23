@@ -33,4 +33,15 @@ Paste each prompt as its own message once the previous one is confirmed done. Re
 
 ---
 
+### Prompt 10 — Remove the duplicate/broken checkout modal
+> In `passes.html`, there's a leftover legacy modal (`#checkout-modal` containing `#checkout-form`) that duplicates the already-working `#registration-form`. It still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, which is why submitting it threw a raw browser POST error instead of using the real Apps Script integration. Remove the modal entirely — the markup, the `openModal`/`closeModal` JS, and the modal-only payment buttons inside it. Then update the three "SELECT PASS" buttons on the pricing cards (Full Festival Pass, Performer Pass, Party Pass) so they smooth-scroll down to the real `#registration-form` and pre-select the matching option in its "Pass Type" dropdown. There should be exactly one registration form on this page afterward.
+
+### Prompt 11 — Fix payment data consistency and ordering
+> Two payment values were inconsistent between the (now-removed) modal and the reference payment cards: the modal used GCash number `09569015382` while the reference card correctly shows `09175190040`, and the modal's PayPal button pointed at `paypal.me/placeholder` instead of the real `Paypal.me/MarianitoMaralit`. Make sure only the correct values now exist anywhere in the page — define each payment detail (GCash number, PayPal link, email, bank details) once, in one place, and reference it everywhere it's needed so it can't drift out of sync again. Then reorder the payment reference cards so the sequence is: GCash/Alipay → PayPal → Email → Bank Transfer (Email must sit directly under PayPal, not after Bank Transfer). Confirm the actual displayed values still match this reference photo exactly: [attach the payment-details screenshot]. Finally, add a copy-to-clipboard button next to each payment detail (GCash number, PayPal link, email address, each bank transfer field) with a safe fallback for browsers/contexts where `navigator.clipboard` isn't available, so copying never fails silently.
+
+### Prompt 12 — Small hardening pass
+> Self-host the GCash logo image (currently hotlinked from `upload.wikimedia.org`) into `images/` and update the reference. Then do a final check: click every "SELECT PASS" button and confirm it reaches the one real registration form; submit a real test registration against the actual deployed Apps Script URL (not `localhost`) and confirm a row appears in the Google Sheet and the file lands in the Drive folder; check the browser console for any errors on every page.
+
+---
+
 **Tip:** if any single prompt produces too much output at once (e.g. Prompt 3, which touches a lot), it's fine to split it further — e.g. run the artist-category items and the CTA/section-removal items as two separate messages.
