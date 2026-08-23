@@ -107,13 +107,13 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 
 Found while investigating the "501 Unsupported method" error from a real test submission, plus a general UI/UX sweep of the updated zip. Phases/Prompts 1–5 are untouched and confirmed working — this is new work only.
 
-- [ ] **Remove the leftover legacy checkout modal** (`#checkout-modal` / `#checkout-form` in `passes.html`). It's a duplicate of the already-working `#registration-form`, still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, and is what the three "SELECT PASS" pricing buttons currently open — which is exactly what produced the error in the screenshot. Only one registration form should exist on the page.
-- [ ] Make "SELECT PASS" buttons scroll to (and ideally pre-fill the Pass Type dropdown of) the real `#registration-form`, instead of opening the broken modal.
-- [ ] **Fix the GCash number mismatch**: the reference card says `09175190040`; the (soon-to-be-removed) modal's copy button was using `09569015382`. Only one number should exist anywhere in the codebase — define it once and reference it everywhere, so this can't drift again.
-- [ ] Fix or remove the placeholder PayPal link (`paypal.me/placeholder`) that lived in the modal — the real link is `Paypal.me/MarianitoMaralit`, already correct in the reference card.
-- [ ] **Reorder the payment reference cards** so Email sits directly under PayPal: GCash/Alipay → PayPal → Email → Bank Transfer.
-- [ ] Add copy-to-clipboard buttons to each payment detail (GCash number, PayPal link, email, each Bank Transfer field) with a safe fallback (select-text or a manual copy prompt) if `navigator.clipboard` isn't available, so copying never silently fails.
-- [ ] Self-host the GCash logo in `images/` instead of hotlinking it from Wikimedia Commons.
+- [x] **Remove the leftover legacy checkout modal** (`#checkout-modal` / `#checkout-form` in `passes.html`). It's a duplicate of the already-working `#registration-form`, still has a literal placeholder `action="YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL_HERE"`, and is what the three "SELECT PASS" pricing buttons currently open — which is exactly what produced the error in the screenshot. Only one registration form should exist on the page.
+- [x] Make "SELECT PASS" buttons scroll to (and ideally pre-fill the Pass Type dropdown of) the real `#registration-form`, instead of opening the broken modal.
+- [x] **Fix the GCash number mismatch**: the reference card says `09175190040`; the (soon-to-be-removed) modal's copy button was using `09569015382`. Only one number should exist anywhere in the codebase — define it once and reference it everywhere, so this can't drift again.
+- [x] Fix or remove the placeholder PayPal link (`paypal.me/placeholder`) that lived in the modal — the real link is `Paypal.me/MarianitoMaralit`, already correct in the reference card.
+- [x] **Reorder the payment reference cards** so Email sits directly under PayPal: GCash/Alipay → PayPal → Email → Bank Transfer.
+- [x] Add copy-to-clipboard buttons to each payment detail (GCash number, PayPal link, email, each Bank Transfer field) with a safe fallback (select-text or a manual copy prompt) if `navigator.clipboard` isn't available, so copying never silently fails.
+- [x] Self-host the GCash logo in `images/` instead of hotlinking it from Wikimedia Commons.
 - [ ] Re-test the real registration flow end-to-end against the actual deployed Apps Script URL (not `localhost`) and confirm a submission produces a Sheet row + Drive file.
 
 **Milestone:** clicking any "SELECT PASS" button leads to exactly one working registration path, with payment details that are internally consistent and match the reference photo, and a successful test submission completes without error.
