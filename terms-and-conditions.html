@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms &amp; Conditions - Boracay SBKZ World Fiesta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#121C1F',
+                            card: '#1A2A2E',
+                            cardhover: '#22363B',
+                            gold: '#E5B96D',
+                            goldhover: '#D4A355',
+                            light: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121C1F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #121C1F; }
+        ::-webkit-scrollbar-thumb { background: #1A2A2E; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E5B96D; }
+
+        .glass-header {
+            background: rgba(18, 28, 31, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            body { padding-bottom: 80px; }
+        }
+
+        .legal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #F8FAFC;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .legal-content h2:first-child { margin-top: 0; }
+        .legal-content p {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .legal-content ul {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+        .legal-content li { margin-bottom: 0.5rem; }
+        .legal-content strong { color: #F8FAFC; }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-2" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 cursor-pointer flex items-center hover:opacity-90 transition-opacity">
+                    <img src="images/logo.png" alt="Boracay SBKZ World Fiesta 3" class="h-14 w-auto object-contain">
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">HOME</a>
+                    <a href="fiesta.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">FIESTA</a>
+                    <a href="passes.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">PASSES</a>
+                    <a href="venue.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">VENUE</a>
+                    <a href="#footer" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">CONTACT</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center space-x-4">
+                    <a href="passes.html" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all duration-300">
+                        BOOK FESTIVAL PASSES
+                    </a>
+
+                    <!-- Mobile menu button -->
+                    <button type="button" class="md:hidden text-brand-light hover:text-brand-gold focus:outline-none" id="mobile-menu-btn">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div class="md:hidden hidden bg-brand-card border-t border-white/5 absolute w-full shadow-2xl" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="index.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">HOME</a>
+                <a href="fiesta.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">FIESTA</a>
+                <a href="passes.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">PASSES</a>
+                <a href="venue.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">VENUE</a>
+                <a href="#footer" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md mobile-link">CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Legal Content -->
+    <main class="flex-grow pt-32 pb-24 bg-brand-dark">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8">
+
+            <div class="reveal mb-12">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-3">Legal</p>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Terms &amp; Conditions</h1>
+                <p class="text-brand-muted text-sm">Boracay SBKZ World Fiesta 3</p>
+            </div>
+
+            <div class="legal-content reveal">
+                <h2>1. Introduction</h2>
+                <p>Welcome to the official website of Boracay SBKZ World Fiesta 3, available at www.boracaysbkzworldfiesta.com (the &ldquo;Website&rdquo;).</p>
+                <p>Boracay SBKZ World Fiesta 3 is scheduled for 5&ndash;10 May 2027 in Boracay Island, Malay, Aklan, Philippines (the &ldquo;Festival&rdquo;). The main Festival programme will take place from 7&ndash;9 May 2027, with additional activities currently planned for 5, 6 and 10 May 2027.</p>
+                <p>The Festival features Salsa, Bachata, Kizomba and Zouk activities, which may include workshops, masterclasses, performances, social dancing, competitions, beach parties, pool parties, boat parties, artist and DJ activities, and other related events.</p>
+                <p>The Website and Festival are operated and organised by SBKZ PHILIPPINES OPC, with registered or principal address at 2757 Faraday St., Brgy San Isidro, Makati City, Philippines (the &ldquo;Organizer&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;our&rdquo;), in coordination with its authorised partners and service providers.</p>
+                <p>These Terms and Conditions govern:</p>
+                <ul>
+                    <li>Your access to and use of the Website;</li>
+                    <li>Your registration for the Festival;</li>
+                    <li>Your purchase and use of Festival passes, tickets, packages and add-ons;</li>
+                    <li>Your attendance at and participation in Festival activities; and</li>
+                    <li>Any content, services, promotions or transactions offered through the Website.</li>
+                </ul>
+                <p>By accessing the Website, submitting a registration, purchasing a pass or participating in the Festival, you acknowledge that you have read, understood and agreed to these Terms and Conditions.</p>
+                <p>If you do not agree, you must not use the Website, purchase a Festival pass or participate in the Festival.</p>
+
+                <h2>2. Definitions</h2>
+                <p>For these Terms and Conditions:</p>
+                <ul>
+                    <li><strong>Attendee</strong> means any person who purchases, receives, holds or uses a Festival pass or participates in any Festival activity.</li>
+                    <li><strong>Booking</strong> means a confirmed purchase or registration for a Festival pass, activity, competition, excursion, package or add-on.</li>
+                    <li><strong>Festival</strong> means Boracay SBKZ World Fiesta 3 and all official activities organised in connection with it.</li>
+                    <li><strong>Festival Pass or Pass</strong> means the digital or physical credential granting admission to specified Festival activities.</li>
+                    <li><strong>Festival Venue</strong> means Boracay Ocean Club Resort &amp; Spa or any replacement, additional or partner venue announced by the Organizer.</li>
+                    <li><strong>Purchaser</strong> means the person who pays for a Pass or Booking, whether for themselves or another Attendee.</li>
+                    <li><strong>Website Content</strong> means all text, photographs, videos, graphics, schedules, logos, designs, music, downloads and other materials appearing on the Website.</li>
+                    <li><strong>You or your</strong> means any Website visitor, Purchaser, Pass holder, Attendee or Festival participant.</li>
+                </ul>
+
+                <h2>3. Eligibility and Age Requirements</h2>
+                <p>You must be at least eighteen (18) years old and legally capable of entering into a binding agreement to purchase a Pass through the Website.</p>
+                <p>A person under eighteen (18) years old may attend only if:</p>
+                <ul>
+                    <li>The Organizer has given prior written approval;</li>
+                    <li>The minor&rsquo;s parent or legal guardian has completed any required consent and waiver forms; and</li>
+                    <li>The minor remains under the supervision of a responsible adult, where required.</li>
+                </ul>
+                <p>Certain venues and activities involving alcoholic beverages may be restricted to persons aged eighteen (18) or older. Valid government-issued photo identification may be required.</p>
+                <p>The Organizer and Festival venues reserve the right to refuse the sale or service of alcohol and to deny access to age-restricted areas when valid proof of age cannot be presented.</p>
+
+                <h2>4. Festival Registration</h2>
+                <p>You must provide complete, current and accurate information during registration.</p>
+                <p>The name entered during registration must match the valid government-issued identification that the Attendee will present during Festival check-in.</p>
+                <p>You are responsible for reviewing all submitted information before completing your purchase. The Organizer will not be responsible for problems caused by incorrect, incomplete or outdated information supplied by you.</p>
+                <p>We may require additional information to:</p>
+                <ul>
+                    <li>Verify your identity or payment;</li>
+                    <li>Confirm eligibility for a particular Pass;</li>
+                    <li>Process a Pass transfer;</li>
+                    <li>Register you for a competition or activity;</li>
+                    <li>Meet venue, safety, insurance or legal requirements; or</li>
+                    <li>Provide reasonable accessibility or medical assistance.</li>
+                </ul>
+                <p>Providing false, misleading or fraudulent registration information may result in cancellation of the Booking without refund, subject to applicable law.</p>
+
+                <h2>5. Festival Pass Categories</h2>
+                <p>The Festival may offer different Pass categories, including:</p>
+                <ul>
+                    <li>Full Festival Pass;</li>
+                    <li>Performer Pass;</li>
+                    <li>One-Day Pass;</li>
+                    <li>Party Pass;</li>
+                    <li>Workshop, masterclass or competition access;</li>
+                    <li>Boat Party, pool party or other activity add-ons;</li>
+                    <li>Promotional, complimentary, ambassador, sponsor, artist, staff or media passes; and</li>
+                    <li>Other packages announced by the Organizer.</li>
+                </ul>
+                <p>Each Pass grants access only to the activities expressly included in its official description at the time of purchase.</p>
+                <p>A Pass does not include airfare, accommodation, meals, airport transfers, environmental fees, terminal fees, travel insurance, visa expenses, personal expenses or optional excursions unless expressly stated.</p>
+                <p>The Organizer may require proof of eligibility for discounted, performer, ambassador, complimentary or special-category passes. If an Attendee cannot provide the required proof, the Organizer may require payment of the difference between the special-category Pass and the applicable regular Pass.</p>
+                <p>Capacity-controlled activities may require advance registration even if they are included in a Festival Pass.</p>
+
+                <h2>6. Pass Prices, Currency and Taxes</h2>
+                <p>Festival Pass prices will be published on the Website or official Festival sales channels.</p>
+                <p>Prices may be displayed in United States dollars or Philippine pesos. When payment is made in a different currency, the final amount charged may be affected by the exchange rate and fees applied by the payment provider, bank or card issuer.</p>
+                <p>The Organizer is not responsible for:</p>
+                <ul>
+                    <li>Foreign-exchange fluctuations;</li>
+                    <li>Bank charges;</li>
+                    <li>International transaction fees;</li>
+                    <li>Payment-provider charges; or</li>
+                    <li>Other fees imposed by third parties.</li>
+                </ul>
+                <p>Pass prices may increase according to the published sales tiers. The applicable price is the price displayed and accepted when payment is successfully completed.</p>
+                <p>The Organizer may correct genuine pricing or technical errors. If an obvious error affects a completed Booking, we will contact the Purchaser and offer the option to pay the correct price or cancel the affected Booking and receive an appropriate refund.</p>
+
+                <h2>7. Payments and Confirmation</h2>
+                <p>Payments may be accepted through the payment methods identified on the Website or official Festival sales materials, which may include bank transfer, GCash, Alipay, or PayPal.</p>
+                <p>A Booking is not confirmed until:</p>
+                <ul>
+                    <li>Full payment has been received and verified;</li>
+                    <li>Any required payment reference or proof has been submitted;</li>
+                    <li>The transaction has passed any fraud or security checks; and</li>
+                    <li>A confirmation has been issued by the Organizer or its authorised ticketing provider.</li>
+                </ul>
+                <p>A payment receipt, transfer screenshot or pending transaction notice does not by itself guarantee confirmation.</p>
+                <p>If payment is incomplete, reversed, disputed, rejected or not received within the specified period, the Organizer may cancel the provisional Booking.</p>
+                <p>You must contact us promptly if you believe a payment has been duplicated or incorrectly processed.</p>
+                <p>Before initiating a chargeback, you should contact us at <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a> so that we have an opportunity to investigate. This does not restrict any lawful rights you may have through your bank, payment provider or consumer-protection authorities.</p>
+                <p>Fraudulent or abusive chargebacks may result in Pass cancellation and recovery of reasonable losses, subject to applicable law.</p>
+
+                <h2>8. Electronic Communications and Pass Delivery</h2>
+                <p>You consent to receiving electronic documents and Festival-related communications, including:</p>
+                <ul>
+                    <li>Booking confirmations;</li>
+                    <li>Electronic receipts;</li>
+                    <li>Digital passes or QR codes;</li>
+                    <li>Programme and venue updates;</li>
+                    <li>Safety announcements;</li>
+                    <li>Schedule changes; and</li>
+                    <li>Important pre-event instructions.</li>
+                </ul>
+                <p>You are responsible for providing a functioning email address and checking your inbox, spam folder and official Festival channels regularly.</p>
+                <p>You must not duplicate, reproduce, sell, publicly display or share any QR code, digital Pass or unique registration credential. The first valid scan or verified registration record may be treated as the authorised Pass.</p>
+                <p>The Organizer is not responsible for losses resulting from an Attendee voluntarily sharing their Pass details with another person.</p>
+
+                <h2>9. Personal and Revocable Nature of Passes</h2>
+                <p>A Festival Pass is a limited, personal and revocable licence to enter the activities included in that Pass. It does not create any ownership or property right.</p>
+                <p>Passes may not be:</p>
+                <ul>
+                    <li>Counterfeited, copied or altered;</li>
+                    <li>Resold for more than their original price;</li>
+                    <li>Used for unauthorised promotions, contests or giveaways;</li>
+                    <li>Bundled with unauthorised products or services; or</li>
+                    <li>Used for commercial advertising without written approval.</li>
+                </ul>
+                <p>The Organizer may cancel any Pass reasonably believed to be fraudulent, duplicated, unlawfully resold or obtained through an unauthorised channel.</p>
+
+                <h2>10. Pass Transfers and Name Changes</h2>
+                <p>Pass transfers or name changes are permitted only in accordance with the published Festival Pass Policy and with the Organizer&rsquo;s prior written approval.</p>
+                <p>A transfer request must:</p>
+                <ul>
+                    <li>Be submitted by the original Purchaser;</li>
+                    <li>Include the original Booking details;</li>
+                    <li>Provide the complete information of the replacement Attendee;</li>
+                    <li>Be submitted before the transfer deadline announced by the Organizer; and</li>
+                    <li>Include any published administrative fee.</li>
+                </ul>
+                <p>A transfer is not valid until written confirmation is issued by the Organizer.</p>
+                <p>The Organizer may refuse a transfer involving:</p>
+                <ul>
+                    <li>A discounted or eligibility-based Pass;</li>
+                    <li>An artist, staff, sponsor, complimentary or media credential;</li>
+                    <li>Suspected fraud or unauthorised resale;</li>
+                    <li>An incomplete request; or</li>
+                    <li>A request received after the announced deadline.</li>
+                </ul>
+                <p>The Organizer is not responsible for private payment arrangements between the original Purchaser and the replacement Attendee.</p>
+
+                <h2>11. Refund Policy</h2>
+                <p>Unless otherwise expressly stated at the time of purchase, Festival Passes, registrations and add-ons are non-refundable for change-of-mind situations.</p>
+                <p>A refund will not ordinarily be issued when an Attendee:</p>
+                <ul>
+                    <li>Changes their personal plans;</li>
+                    <li>Is unable or unwilling to travel;</li>
+                    <li>Misses a flight or other transport connection;</li>
+                    <li>Fails to obtain a visa or travel document;</li>
+                    <li>Experiences an accommodation problem;</li>
+                    <li>Arrives late or leaves early;</li>
+                    <li>Does not attend or use all included activities;</li>
+                    <li>Is dissatisfied solely because of an artist, DJ, schedule, room or programme change;</li>
+                    <li>Is denied entry because of misconduct or failure to comply with these Terms;</li>
+                    <li>Becomes unable to attend because of work, family or personal commitments; or</li>
+                    <li>Purchases the wrong Pass category and fails to request correction promptly.</li>
+                </ul>
+                <p>Nothing in these Terms excludes any refund, replacement, remedy or consumer right that cannot lawfully be excluded.</p>
+                <p>Approved refunds will normally be returned through the original payment method. Processing times may vary depending on the bank or payment provider.</p>
+                <p>Any non-refundable third-party payment or transaction fee will be deducted only when this was properly disclosed and is permitted by law.</p>
+
+                <h2>12. Festival Cancellation</h2>
+                <p>If the entire Festival is cancelled by the Organizer and is not rescheduled, affected Pass holders will be entitled to a refund of the Festival Pass price actually paid, subject to applicable law and any clearly disclosed third-party transaction fees.</p>
+                <p>Unless required by law or expressly agreed in writing, the Organizer will not be responsible for reimbursing:</p>
+                <ul>
+                    <li>Airfare;</li>
+                    <li>Accommodation;</li>
+                    <li>Visa expenses;</li>
+                    <li>Travel or medical insurance;</li>
+                    <li>Ground transportation;</li>
+                    <li>Lost earnings;</li>
+                    <li>Currency-conversion losses; or</li>
+                    <li>Other personal or third-party expenses.</li>
+                </ul>
+                <p>Attendees are strongly encouraged to book flexible travel arrangements and obtain appropriate travel insurance covering cancellation, illness, injury, emergencies and loss of personal property.</p>
+
+                <h2>13. Postponement and Rescheduling</h2>
+                <p>If the Festival is postponed or rescheduled, the affected Pass will remain valid for the replacement dates.</p>
+                <p>The Organizer will communicate the available options, which may include:</p>
+                <ul>
+                    <li>Retaining the Pass for the replacement Festival dates;</li>
+                    <li>Transferring the Pass to another eligible person;</li>
+                    <li>Receiving a credit for a future Festival; or</li>
+                    <li>Requesting a refund within a specified period, where required by law or offered by the Organizer.</li>
+                </ul>
+                <p>Failure to submit a request within an announced response period may result in the Pass remaining valid for the rescheduled dates, to the extent permitted by law.</p>
+
+                <h2>14. Force Majeure</h2>
+                <p>The Organizer may cancel, postpone, relocate, reduce, suspend or modify the Festival because of circumstances beyond its reasonable control, including:</p>
+                <ul>
+                    <li>Typhoons, storms, floods, earthquakes, fires or other natural disasters;</li>
+                    <li>Public-health emergencies, epidemics or pandemics;</li>
+                    <li>War, terrorism, civil disturbance or security threats;</li>
+                    <li>Government orders, travel restrictions, permit restrictions or venue closures;</li>
+                    <li>Transport disruption;</li>
+                    <li>Power, communications or infrastructure failure;</li>
+                    <li>Labour disputes;</li>
+                    <li>Serious artist or supplier emergencies; or</li>
+                    <li>Any other event that makes the Festival unsafe, unlawful or commercially or operationally impracticable.</li>
+                </ul>
+                <p>The Organizer will take reasonable steps to notify Attendees and provide remedies consistent with applicable law, the circumstances and any available insurance or recovery from suppliers.</p>
+
+                <h2>15. Programme, Artist and Venue Changes</h2>
+                <p>All Festival schedules, artists, DJs, instructors, performers, venues, rooms, activities and advertised content are subject to change.</p>
+                <p>The Organizer may make changes for operational, artistic, safety, capacity, weather, licensing or logistical reasons.</p>
+                <p>Changes may include:</p>
+                <ul>
+                    <li>Artist or DJ substitution;</li>
+                    <li>Workshop reassignment;</li>
+                    <li>Schedule adjustments;</li>
+                    <li>Room or venue changes;</li>
+                    <li>Activity-capacity limits;</li>
+                    <li>Changes to party themes;</li>
+                    <li>Modification or cancellation of an individual activity; or</li>
+                    <li>Adjustment of Festival opening and closing times.</li>
+                </ul>
+                <p>A change to one artist, activity, schedule, venue room or programme element does not automatically entitle an Attendee to a refund.</p>
+                <p>The Website programme is indicative until the final programme is officially announced.</p>
+
+                <h2>16. Boat, Beach, Pool and Outdoor Activities</h2>
+                <p>Boat parties, beach parties, pool parties and other outdoor activities are subject to:</p>
+                <ul>
+                    <li>Weather and sea conditions;</li>
+                    <li>Coast Guard, local-government and venue requirements;</li>
+                    <li>Vessel or venue capacity;</li>
+                    <li>Safety assessments;</li>
+                    <li>Environmental regulations; and</li>
+                    <li>Instructions issued by authorised personnel.</li>
+                </ul>
+                <p>The Organizer may delay, modify, relocate or cancel an outdoor activity if conditions are unsafe or if the required authority does not permit it to proceed.</p>
+                <p>Attendees must follow all safety instructions, wear required safety equipment and avoid conduct that could endanger themselves or others.</p>
+                <p>Boat, beach and pool activities may involve additional inherent risks, including slippery surfaces, waves, currents, heat, sun exposure, dehydration and movement of vessels.</p>
+
+                <h2>17. Competitions and Jack &amp; Jill Activities</h2>
+                <p>Competition participants must comply with the official competition rules, registration requirements, eligibility criteria and judging procedures.</p>
+                <p>Judges&rsquo; decisions regarding scoring, placement and competition results are final, except in the case of a clear administrative or calculation error.</p>
+                <p>The Organizer may disqualify a participant for:</p>
+                <ul>
+                    <li>Misrepresentation of eligibility or experience level;</li>
+                    <li>Unsafe conduct;</li>
+                    <li>Harassment or unsportsmanlike behaviour;</li>
+                    <li>Interference with judges or other competitors;</li>
+                    <li>Breach of competition rules; or</li>
+                    <li>Failure to report at the required time.</li>
+                </ul>
+                <p>Competition schedules, prizes and categories may be adjusted when reasonably necessary. Any material change will be communicated to registered participants.</p>
+
+                <h2>18. Assumption of Risk</h2>
+                <p>Dance workshops, social dancing, performances, competitions, boat activities, pool activities and other Festival programmes involve physical activity and inherent risks.</p>
+                <p>These risks may include:</p>
+                <ul>
+                    <li>Slips, trips and falls;</li>
+                    <li>Collision with other participants;</li>
+                    <li>Muscle strain or other physical injury;</li>
+                    <li>Dehydration, heat exhaustion or fatigue;</li>
+                    <li>Aggravation of an existing medical condition;</li>
+                    <li>Exposure to loud music, flashing lights or crowded environments;</li>
+                    <li>Loss or damage to personal belongings; and</li>
+                    <li>Risks associated with beaches, pools, boats and outdoor conditions.</li>
+                </ul>
+                <p>By participating, you confirm that:</p>
+                <ul>
+                    <li>You understand the nature of the activity;</li>
+                    <li>You are physically fit enough to participate safely;</li>
+                    <li>You will participate within your own abilities;</li>
+                    <li>You will stop if you feel pain, dizziness, breathing difficulty or other concerning symptoms; and</li>
+                    <li>You voluntarily accept the ordinary and inherent risks of participation.</li>
+                </ul>
+                <p>Attendees with a medical condition, injury, pregnancy, disability or other health concern should obtain appropriate professional advice before participating.</p>
+
+                <h2>19. Medical Emergencies</h2>
+                <p>In an emergency, the Organizer or its authorised representatives may contact emergency services and arrange reasonable first aid or medical assistance.</p>
+                <p>To the extent permitted by law, you are responsible for medical, hospital, ambulance, evacuation and related expenses incurred on your behalf.</p>
+                <p>The Organizer does not provide medical or travel insurance.</p>
+                <p>You should disclose relevant medical or accessibility information when reasonably necessary for your safety. Any personal information disclosed will be handled in accordance with the Festival Privacy Policy and applicable data-protection requirements.</p>
+
+                <h2>20. Accessibility and Special Requirements</h2>
+                <p>We aim to make the Festival reasonably accessible.</p>
+                <p>Attendees who require accessibility support or reasonable accommodation should contact <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a> as early as possible and provide sufficient information about the requested assistance.</p>
+                <p>Although we will make reasonable efforts to assist, some activities may be limited by the physical layout of third-party venues, beach conditions, vessels or other factors outside our direct control.</p>
+
+                <h2>21. Code of Conduct</h2>
+                <p>All Attendees must behave respectfully and help maintain a safe, inclusive and welcoming environment.</p>
+                <p>The following conduct is prohibited:</p>
+                <ul>
+                    <li>Harassment, bullying, intimidation or discrimination;</li>
+                    <li>Sexual harassment or unwanted sexual attention;</li>
+                    <li>Non-consensual touching;</li>
+                    <li>Deliberately unsafe dancing, lifts, drops, dips or tricks;</li>
+                    <li>Violence, threats or aggressive behaviour;</li>
+                    <li>Possession of weapons or illegal substances;</li>
+                    <li>Excessive intoxication or disorderly conduct;</li>
+                    <li>Theft, fraud, vandalism or property damage;</li>
+                    <li>Unauthorised commercial solicitation;</li>
+                    <li>Recording workshops or performances when prohibited;</li>
+                    <li>Disruption of classes, performances, competitions or venue operations;</li>
+                    <li>Misuse of another person&rsquo;s Pass or identification; and</li>
+                    <li>Failure to follow reasonable safety or venue instructions.</li>
+                </ul>
+                <p>Consent is required for every dance. Any participant may decline or stop a dance at any time without needing to provide a reason.</p>
+                <p>Attendees should immediately report serious safety or conduct concerns to Festival staff or through <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a>.</p>
+
+                <h2>22. Removal and Refusal of Admission</h2>
+                <p>The Organizer and venue management may refuse admission or remove a person who:</p>
+                <ul>
+                    <li>Breaches these Terms or the Code of Conduct;</li>
+                    <li>Creates a safety or security risk;</li>
+                    <li>Is excessively intoxicated;</li>
+                    <li>Harasses another person;</li>
+                    <li>Engages in unlawful conduct;</li>
+                    <li>Refuses to follow reasonable instructions;</li>
+                    <li>Presents an invalid, cancelled or fraudulent Pass; or</li>
+                    <li>Attempts to enter a restricted area without authorisation.</li>
+                </ul>
+                <p>A person removed or refused admission because of their own misconduct will not normally be entitled to a refund, subject to applicable law.</p>
+                <p>The Organizer may also report suspected criminal conduct to venue security or the appropriate authorities.</p>
+
+                <h2>23. Venue Rules</h2>
+                <p>Attendees must comply with all rules imposed by the Festival venues, hotels, resorts, vessels and partner establishments.</p>
+                <p>Venue rules may relate to:</p>
+                <ul>
+                    <li>Dress codes;</li>
+                    <li>Food and beverages;</li>
+                    <li>Smoking or vaping;</li>
+                    <li>Alcohol;</li>
+                    <li>Photography and recording;</li>
+                    <li>Restricted areas;</li>
+                    <li>Bag inspections;</li>
+                    <li>Prohibited items;</li>
+                    <li>Opening and closing times; and</li>
+                    <li>Health, fire, security and emergency procedures.</li>
+                </ul>
+                <p>The Organizer is not responsible for separate purchases, room reservations, restaurant transactions or other services supplied directly by a venue or third-party establishment.</p>
+
+                <h2>24. Photography, Video and Audio Recording</h2>
+                <p>The Festival may be photographed, filmed, livestreamed or otherwise recorded by the Organizer and its authorised photographers, videographers, media partners and sponsors.</p>
+                <p>By entering clearly identified Festival recording areas or participating in organised group activities, you acknowledge that your image, likeness, voice and performance may appear incidentally or prominently in Festival media.</p>
+                <p>Subject to applicable privacy law, the Organizer may use authorised Festival photographs and recordings for:</p>
+                <ul>
+                    <li>Festival documentation;</li>
+                    <li>News and editorial coverage;</li>
+                    <li>Social media;</li>
+                    <li>Website content;</li>
+                    <li>Promotional materials;</li>
+                    <li>Sponsorship and partnership reports;</li>
+                    <li>Future Festival advertising; and</li>
+                    <li>Archival purposes.</li>
+                </ul>
+                <p>We will process photographs and recordings in accordance with our Privacy Policy and the principles of transparency, legitimate purpose and proportionality.</p>
+                <p>If you have a specific privacy or safeguarding concern, contact <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a> before the Festival. We will consider reasonable measures, although we cannot guarantee exclusion from wide-angle crowd images, livestreams or recordings made independently by other Attendees.</p>
+                <p>Attendees must not use photography or recording devices in a manner that:</p>
+                <ul>
+                    <li>Invades another person&rsquo;s privacy;</li>
+                    <li>Harasses or exploits another Attendee;</li>
+                    <li>Records restricted workshop or performance content;</li>
+                    <li>Obstructs the view of others;</li>
+                    <li>Interferes with Festival operations; or</li>
+                    <li>Creates unauthorised commercial content.</li>
+                </ul>
+
+                <h2>25. Attendee-Created Content</h2>
+                <p>If you post Festival-related photographs or videos publicly, you are responsible for respecting the privacy, consent and intellectual-property rights of other people.</p>
+                <p>Tagging an official Festival account may allow the Organizer to request permission to repost your content. Unless otherwise clearly stated, tagging or mentioning the Festival does not automatically transfer ownership of your content to us.</p>
+                <p>When you expressly submit content to the Organizer for publication, you grant us a non-exclusive, worldwide, royalty-free licence to reproduce, resize, edit for format, publish and share that content for Festival-related purposes. You confirm that you have the necessary rights and permissions to provide it.</p>
+
+                <h2>26. Intellectual Property</h2>
+                <p>The Website and its original content&mdash;including the Festival name, logo, branding, graphics, photographs, videos, promotional materials and written content&mdash;are owned by or licensed to the Organizer and are protected by applicable intellectual-property laws.</p>
+                <p>You may view and download Website materials only for personal, non-commercial use connected with evaluating or attending the Festival.</p>
+                <p>Without prior written permission, you must not:</p>
+                <ul>
+                    <li>Copy or republish substantial Website Content;</li>
+                    <li>Alter or remove copyright or trademark notices;</li>
+                    <li>Sell or commercially exploit Festival Content;</li>
+                    <li>Create unauthorised merchandise using the Festival name or logo;</li>
+                    <li>Imply endorsement, sponsorship or partnership;</li>
+                    <li>Record and sell workshops, performances or music sets; or</li>
+                    <li>Use Festival Content to train, market or promote a competing event.</li>
+                </ul>
+                <p>All rights not expressly granted are reserved.</p>
+
+                <h2>27. Website Use</h2>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Use the Website for any unlawful or fraudulent purpose;</li>
+                    <li>Attempt to gain unauthorised access to the Website or its systems;</li>
+                    <li>Introduce malware, viruses or harmful code;</li>
+                    <li>Interfere with Website performance or security;</li>
+                    <li>Scrape, harvest or extract data without authorisation;</li>
+                    <li>Impersonate another person;</li>
+                    <li>Submit false payment or registration information;</li>
+                    <li>Circumvent purchase, capacity or security restrictions; or</li>
+                    <li>Use automated systems to make bulk registrations or purchases.</li>
+                </ul>
+                <p>We may suspend or block Website access when we reasonably believe these Terms have been breached.</p>
+
+                <h2>28. Website Availability and Accuracy</h2>
+                <p>We aim to keep the Website available and accurate, but we do not guarantee uninterrupted or error-free operation.</p>
+                <p>We may temporarily suspend access for:</p>
+                <ul>
+                    <li>Maintenance;</li>
+                    <li>Security updates;</li>
+                    <li>Technical problems;</li>
+                    <li>Hosting or network failures;</li>
+                    <li>Content updates; or</li>
+                    <li>Circumstances beyond our reasonable control.</li>
+                </ul>
+                <p>We may correct typographical errors, outdated information and technical inaccuracies.</p>
+                <p>If Website information conflicts with a confirmed Booking document, the confirmed Booking details and any subsequently issued official written notice will take priority, subject to applicable law.</p>
+
+                <h2>29. Third-Party Websites and Services</h2>
+                <p>The Website may contain links to third-party websites, including hotels, airlines, payment providers, tourism services, social-media platforms and partner businesses.</p>
+                <p>These third parties operate independently and may have their own terms, privacy policies, cancellation rules and fees.</p>
+                <p>The Organizer does not control and is not responsible for the content, security, availability, representations or performance of third-party websites and services.</p>
+                <p>A link or reference does not automatically constitute an endorsement or guarantee.</p>
+
+                <h2>30. Promotions, Discount Codes and Ambassador Sales</h2>
+                <p>Promotional offers, discount codes and ambassador links may be subject to separate conditions.</p>
+                <p>Unless otherwise stated:</p>
+                <ul>
+                    <li>Offers cannot be combined;</li>
+                    <li>Codes have no cash value;</li>
+                    <li>Codes cannot be applied retroactively;</li>
+                    <li>Expired codes will not be accepted;</li>
+                    <li>Discounts apply only to eligible Passes;</li>
+                    <li>Unauthorised sale or publication of private codes is prohibited; and</li>
+                    <li>The Organizer may cancel codes affected by error, misuse or fraud.</li>
+                </ul>
+                <p>Festival Ambassador commissions and rewards are governed by the separate Festival Ambassador Policy. Purchasers should use only official or authorised ambassador links.</p>
+
+                <h2>31. Personal Data and Privacy</h2>
+                <p>We collect and process personal information in accordance with the Festival <a href="privacy-policy.html" class="text-brand-gold hover:underline">Privacy Policy</a> and applicable Philippine data-protection laws.</p>
+                <p>Information may be processed for purposes including:</p>
+                <ul>
+                    <li>Registration and payment administration;</li>
+                    <li>Identity and Pass verification;</li>
+                    <li>Festival operations;</li>
+                    <li>Safety and security;</li>
+                    <li>Customer support;</li>
+                    <li>Legal and regulatory compliance;</li>
+                    <li>Photography and media management; and</li>
+                    <li>Marketing where consent or another lawful basis applies.</li>
+                </ul>
+                <p>The Privacy Policy forms part of these Terms and should be read before submitting personal information.</p>
+                <p>Questions about personal data may be sent to:</p>
+                <p>Privacy Contact: Mar Maralit &mdash; Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a></p>
+
+                <h2>32. Disclaimer of Warranties</h2>
+                <p>To the extent permitted by law, the Website and Festival information are provided on an &ldquo;as available&rdquo; basis.</p>
+                <p>The Organizer does not guarantee that:</p>
+                <ul>
+                    <li>The Website will always be uninterrupted or error-free;</li>
+                    <li>Every advertised artist or activity will appear exactly as first announced;</li>
+                    <li>Participation will produce a particular dance, social or professional result;</li>
+                    <li>Attendees will be matched with a particular dance partner;</li>
+                    <li>Third-party services will meet every Attendee&rsquo;s expectations; or</li>
+                    <li>Website files will always be free from technical risks outside our reasonable control.</li>
+                </ul>
+                <p>Nothing in this section limits any warranty, guarantee or consumer right that cannot legally be excluded.</p>
+
+                <h2>33. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, the Organizer will not be liable for indirect, incidental, consequential or purely economic losses arising from Website use or Festival attendance, including lost income, missed business opportunities, travel disruption or loss of enjoyment.</p>
+                <p>Where liability cannot lawfully be excluded but may be limited, the Organizer&rsquo;s aggregate liability relating to a Booking will not exceed the amount actually paid to the Organizer for the affected Pass or activity.</p>
+                <p>These limitations do not apply to liability that cannot lawfully be limited or excluded, including liability arising from fraud, wilful misconduct, gross negligence or other liability protected by mandatory law.</p>
+                <p>The Organizer is not responsible for loss, theft or damage to personal belongings unless caused by conduct for which liability cannot lawfully be excluded.</p>
+
+                <h2>34. Responsibility for Personal Property</h2>
+                <p>Attendees are responsible for their own phones, wallets, passports, bags, dance shoes, clothing, equipment and valuables.</p>
+                <p>Lost property may be submitted to Festival staff or venue management. The Organizer does not guarantee that lost items will be recovered or stored indefinitely.</p>
+                <p>Unclaimed items may be transferred to venue management, donated, disposed of or otherwise handled after a reasonable holding period.</p>
+
+                <h2>35. Indemnity</h2>
+                <p>To the extent permitted by law, you agree to indemnify the Organizer against reasonable third-party claims, losses and expenses arising directly from:</p>
+                <ul>
+                    <li>Your unlawful conduct;</li>
+                    <li>Your material breach of these Terms;</li>
+                    <li>Your infringement of another person&rsquo;s rights;</li>
+                    <li>Content you submit without the necessary rights or permissions; or</li>
+                    <li>Property damage or injury caused by your intentional or negligent acts.</li>
+                </ul>
+                <p>This provision does not require you to indemnify the Organizer for losses caused by the Organizer&rsquo;s own unlawful conduct, gross negligence or wilful misconduct.</p>
+
+                <h2>36. Complaints and Dispute Resolution</h2>
+                <p>If you have a complaint concerning the Website, a payment, a Booking or the Festival, contact:</p>
+                <p>Boracay SBKZ World Fiesta 3 &mdash; Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a> &mdash; Telephone/WhatsApp/Viber: <a href="tel:+639175190040" class="text-brand-gold hover:underline">+63 917 519 0040</a></p>
+                <p>Please include:</p>
+                <ul>
+                    <li>Your full name;</li>
+                    <li>Booking reference;</li>
+                    <li>Contact details;</li>
+                    <li>A clear description of the concern; and</li>
+                    <li>Relevant receipts, screenshots or supporting documents.</li>
+                </ul>
+                <p>We will acknowledge and investigate complaints within a reasonable period.</p>
+                <p>The parties should first attempt to resolve any dispute through good-faith communication. Nothing in these Terms prevents a consumer from seeking assistance from the Department of Trade and Industry, another competent authority or a court with lawful jurisdiction.</p>
+
+                <h2>37. Governing Law and Jurisdiction</h2>
+                <p>These Terms and Conditions are governed by the laws of the Republic of the Philippines.</p>
+                <p>Subject to mandatory consumer-protection and venue rules, disputes that cannot be resolved amicably will be submitted to the competent courts of Makati City, Philippines.</p>
+                <p>Nothing in this clause removes any right or remedy that cannot lawfully be waived.</p>
+
+                <h2>38. Changes to These Terms</h2>
+                <p>We may update these Terms to reflect:</p>
+                <ul>
+                    <li>Changes to Festival operations;</li>
+                    <li>New payment or registration procedures;</li>
+                    <li>Changes in law or regulatory guidance;</li>
+                    <li>Security or safety requirements; or</li>
+                    <li>New Website services.</li>
+                </ul>
+                <p>The latest version will be published on the Website with a revised &ldquo;Last Updated&rdquo; date.</p>
+                <p>Terms applicable to an existing completed Booking will not be materially changed to the Purchaser&rsquo;s disadvantage without notice, except where the change is required by law or reasonably necessary for safety, security or Festival delivery.</p>
+                <p>Continued Website use after an update constitutes acceptance of the revised Website-use provisions. Material Booking changes will be communicated through the contact details provided during registration.</p>
+
+                <h2>39. Severability</h2>
+                <p>If any provision of these Terms is found invalid, unlawful or unenforceable, that provision will be interpreted or limited to the minimum extent necessary, and the remaining provisions will continue in effect.</p>
+
+                <h2>40. No Waiver</h2>
+                <p>A failure or delay by the Organizer to enforce a provision does not waive the right to enforce that provision or any other provision later.</p>
+
+                <h2>41. Assignment</h2>
+                <p>You may not assign your rights under these Terms except through an authorised Festival Pass transfer.</p>
+                <p>The Organizer may assign or subcontract its rights and operational responsibilities to an affiliated entity, authorised event partner or service provider, provided that doing so does not unlawfully reduce your rights.</p>
+
+                <h2>42. Entire Agreement</h2>
+                <p>These Terms, together with the applicable:</p>
+                <ul>
+                    <li>Festival Pass Policy;</li>
+                    <li>Privacy Policy;</li>
+                    <li>Competition Rules;</li>
+                    <li>Code of Conduct;</li>
+                    <li>Booking confirmation;</li>
+                    <li>Activity-specific waiver; and</li>
+                    <li>Any special conditions disclosed before purchase,</li>
+                </ul>
+                <p>constitute the agreement between you and the Organizer concerning the Website, Booking and Festival participation.</p>
+                <p>If there is a conflict, activity-specific or purchase-specific terms will apply to that activity or purchase, subject to applicable law.</p>
+
+                <h2>43. Contact Information</h2>
+                <p>For enquiries about these Terms and Conditions, contact:</p>
+                <p>
+                    SBKZ PHILIPPINES OPC<br>
+                    Event: Boracay SBKZ World Fiesta 3<br>
+                    Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a><br>
+                    Telephone/WhatsApp/Viber: <a href="tel:+639175190040" class="text-brand-gold hover:underline">+63 917 519 0040</a><br>
+                    Website: <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="text-brand-gold hover:underline">www.boracaysbkzworldfiesta.com</a><br>
+                    Facebook: @boracaysbkzworldfiesta1 &middot; Instagram: @boracaysbkz_worldfiesta &middot; TikTok: @boracaysbkzworldfiesta
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#111A1D] border-t border-white/10 pt-20 pb-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Follow the Fiesta</p>
+                <h2 class="text-3xl font-serif font-bold text-white mb-8">Join the Community</h2>
+                <div class="flex justify-center gap-4 md:gap-6">
+                    <a href="https://www.facebook.com/boracaysbkzworldfiesta1" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-facebook-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://www.instagram.com/boracaysbkz_worldfiesta/" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://tiktok.com/@boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-tiktok-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="flex justify-center gap-4 md:gap-8 mt-4 text-[10px] text-brand-muted uppercase tracking-widest">
+                    <span>Facebook</span>
+                    <span>Instagram</span>
+                    <span>TikTok</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 border-t border-white/5 pt-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-2xl font-serif font-bold text-brand-gold tracking-wider mb-4">
+                        Boracay
+                        <span class="block text-xs font-sans text-white tracking-widest uppercase mt-1">SBKZ Fiesta 3</span>
+                    </div>
+                    <p class="text-sm text-brand-muted mb-2">May 7 - 9, 2027 (full run May 5-10)</p>
+                    <p class="text-sm text-brand-muted">Boracay Ocean Club Resort &amp; Spa, Philippines</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Explore</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="fiesta.html" class="hover:text-white transition-colors">Fiesta</a></li>
+                        <li><a href="passes.html" class="hover:text-white transition-colors">Passes</a></li>
+                        <li><a href="venue.html" class="hover:text-white transition-colors">Venue &amp; Travel</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
+                        <li><a href="festival-pass-policy.html" class="hover:text-white transition-colors">Festival Pass Policy</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-center"><i class="ph ph-envelope-simple mr-3 text-lg"></i> <a href="mailto:info@boracaysbkzworldfiesta.com" class="hover:text-white transition-colors break-all">info@boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-globe mr-3 text-lg"></i> <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="hover:text-white transition-colors break-all">www.boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-phone mr-3 text-lg"></i> <a href="tel:+639175190040" class="hover:text-white transition-colors">+63 917 519 0040</a></li>
+                        <li class="flex items-center"><i class="ph ph-whatsapp-logo mr-3 text-lg"></i> <a href="tel:+639561243591" class="hover:text-white transition-colors">+63 956 124 3591</a></li>
+                    </ul>
+                    <p class="font-serif italic text-brand-gold mt-6 text-xl">Dance. Connect. Paradise.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-muted">
+                <p>&copy; 2026 Boracay SBKZ World Fiesta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Conversion UX (Sticky CTA) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-card/95 backdrop-blur-lg border-t border-white/10 p-4 z-[70] shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+        <a href="passes.html" class="flex items-center justify-center w-full px-6 py-3.5 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all uppercase tracking-wide">
+            BOOK FESTIVAL PASSES
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[60] w-12 h-12 bg-brand-card border border-brand-gold/30 text-brand-gold rounded-full flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-brand-gold hover:text-brand-dark mb-[80px] md:mb-0">
+        <i class="ph ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        const header = document.getElementById('main-header');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-header', 'shadow-lg');
+                header.classList.remove('py-2');
+            } else {
+                header.classList.remove('glass-header', 'shadow-lg');
+                header.classList.add('py-2');
+            }
+
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Boracay SBKZ World Fiesta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#121C1F',
+                            card: '#1A2A2E',
+                            cardhover: '#22363B',
+                            gold: '#E5B96D',
+                            goldhover: '#D4A355',
+                            light: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121C1F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #121C1F; }
+        ::-webkit-scrollbar-thumb { background: #1A2A2E; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E5B96D; }
+
+        .glass-header {
+            background: rgba(18, 28, 31, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            body { padding-bottom: 80px; }
+        }
+
+        .legal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #F8FAFC;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .legal-content h2:first-child { margin-top: 0; }
+        .legal-content p {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .legal-content ul {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+        .legal-content li { margin-bottom: 0.5rem; }
+        .legal-content strong { color: #F8FAFC; }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-2" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 cursor-pointer flex items-center hover:opacity-90 transition-opacity">
+                    <img src="images/logo.png" alt="Boracay SBKZ World Fiesta 3" class="h-14 w-auto object-contain">
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">HOME</a>
+                    <a href="fiesta.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">FIESTA</a>
+                    <a href="passes.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">PASSES</a>
+                    <a href="venue.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">VENUE</a>
+                    <a href="#footer" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">CONTACT</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center space-x-4">
+                    <a href="passes.html" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all duration-300">
+                        BOOK FESTIVAL PASSES
+                    </a>
+
+                    <!-- Mobile menu button -->
+                    <button type="button" class="md:hidden text-brand-light hover:text-brand-gold focus:outline-none" id="mobile-menu-btn">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div class="md:hidden hidden bg-brand-card border-t border-white/5 absolute w-full shadow-2xl" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="index.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">HOME</a>
+                <a href="fiesta.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">FIESTA</a>
+                <a href="passes.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">PASSES</a>
+                <a href="venue.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">VENUE</a>
+                <a href="#footer" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md mobile-link">CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Legal Content -->
+    <main class="flex-grow pt-32 pb-24 bg-brand-dark">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8">
+
+            <div class="reveal mb-12">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-3">Legal</p>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Privacy Policy</h1>
+                <p class="text-brand-muted text-sm">Boracay SBKZ World Fiesta 3</p>
+            </div>
+
+            <div class="legal-content reveal">
+                <h2>1. Our Commitment to Your Privacy</h2>
+                <p>Boracay SBKZ World Fiesta 3 respects your privacy and is committed to protecting your personal data.</p>
+                <p>This Privacy Policy explains how we collect, use, store, disclose, and protect personal data when you:</p>
+                <ul>
+                    <li>Visit our website;</li>
+                    <li>Purchase or receive a festival pass;</li>
+                    <li>Register for workshops, competitions, parties, or other festival activities;</li>
+                    <li>Apply as an artist, DJ, performer, instructor, volunteer, ambassador, vendor, sponsor, media representative, or partner;</li>
+                    <li>Subscribe to our mailing list;</li>
+                    <li>Contact us through email, social media, messaging platforms, forms, or other communication channels; or</li>
+                    <li>Attend or otherwise participate in Boracay SBKZ World Fiesta 3.</li>
+                </ul>
+                <p>This Policy is intended to comply with Republic Act No. 10173, or the Data Privacy Act of 2012, its Implementing Rules and Regulations, applicable issuances of the Philippine National Privacy Commission, and other applicable privacy laws.</p>
+
+                <h2>2. Who We Are</h2>
+                <p>Boracay SBKZ World Fiesta 3 is organised and managed by:</p>
+                <p>
+                    Personal Information Controller: SBKZ PHILIPPINES OPC<br>
+                    Event: Boracay SBKZ World Fiesta 3<br>
+                    Festival dates: 5&ndash;10 May 2027<br>
+                    Main festival dates: 7&ndash;9 May 2027<br>
+                    Primary venue: Boracay Ocean Club Resort &amp; Spa, Station 3, Boracay Island, Malay, Aklan, Philippines<br>
+                    Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a><br>
+                    Telephone: <a href="tel:+639175190040" class="text-brand-gold hover:underline">+63 917 519 0040</a><br>
+                    Website: <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="text-brand-gold hover:underline">www.boracaysbkzworldfiesta.com</a>
+                </p>
+                <p>For purposes of applicable data protection laws, SBKZ PHILIPPINES OPC is the Personal Information Controller responsible for determining why and how personal data is processed in connection with the festival.</p>
+                <p>Our authorised ticketing, payment, website, email, accommodation, production, and technology providers may act as Personal Information Processors when processing personal data under our instructions.</p>
+
+                <h2>3. Scope of This Privacy Policy</h2>
+                <p>This Privacy Policy applies to personal data collected through:</p>
+                <ul>
+                    <li>The official festival website;</li>
+                    <li>Online registration and ticketing forms;</li>
+                    <li>Payment and booking platforms;</li>
+                    <li>Email subscriptions and enquiries;</li>
+                    <li>Official Facebook, Instagram, TikTok, YouTube, LinkedIn, WhatsApp, Viber, and other communication channels;</li>
+                    <li>Artist, DJ, performer, volunteer, vendor, ambassador, sponsor, and partner applications;</li>
+                    <li>Workshop, performance, competition, and activity registrations;</li>
+                    <li>Surveys, feedback forms, promotions, contests, and giveaways;</li>
+                    <li>Accreditation, check-in, access-control, and attendee-support systems; and</li>
+                    <li>Photographs, video recordings, livestreams, interviews, and other content produced during the festival.</li>
+                </ul>
+                <p>This Policy does not automatically apply to independent websites, businesses, hotels, airlines, tour operators, payment providers, social media platforms, or other third parties that maintain their own privacy policies.</p>
+
+                <h2>4. Personal Data We May Collect</h2>
+                <p>The personal data we collect depends on your interaction with us.</p>
+                <p><strong>4.1 Identity and contact information</strong> &mdash; We may collect: full name; preferred name; date of birth or age, when necessary; gender or preferred dance role, when voluntarily provided and relevant; nationality and country of residence; residential, billing, or business address; email address; telephone or mobile number; social media username; and emergency-contact name, relationship, and contact details. Please obtain permission from your emergency contact before giving us their information.</p>
+                <p><strong>4.2 Ticketing and registration information</strong> &mdash; We may collect: festival pass type; ticket or order number; registration date; workshops, parties, competitions, or activities selected; dance style, role, category, or experience level; group or dance-school affiliation; promotional or ambassador code; pass-transfer or name-change information; check-in and attendance records; wristband, accreditation, or access-control information; and requests for participant support.</p>
+                <p><strong>4.3 Payment and transaction information</strong> &mdash; We may collect: amount paid; currency; payment date; payment method; transaction or reference number; billing information; discount or promotional code; refund, cancellation, chargeback, or transfer information; and limited payment-confirmation details supplied by our payment provider. Payments may be processed by banks, e-wallets, online payment gateways, or other authorised providers. We generally do not directly store complete credit or debit card numbers, card security codes, passwords, PINs, or online-banking credentials. You should never send passwords, PINs, card security codes, or complete payment-card details through email, social media, WhatsApp, Viber, or unsecured forms.</p>
+                <p><strong>4.4 Artist, DJ, performer, instructor, and applicant information</strong> &mdash; When you apply or contract to participate professionally, we may collect: professional or stage name; biography and portfolio; photographs, videos, and promotional materials; professional experience and dance specialisation; contract, fee, commission, or compensation information; passport, visa, permit, tax, and travel information when necessary; flight and accommodation requirements; technical rider, music, lighting, staging, and equipment requirements; dietary, accessibility, or health-related requirements voluntarily disclosed; bank or payment details; and contractual correspondence and performance records.</p>
+                <p><strong>4.5 Competition and performance information</strong> &mdash; For Jack &amp; Jill competitions, showcases, team performances, or similar activities, we may collect: dance category and level; partner or team information; music and performance materials; scores, rankings, results, and awards; judges&rsquo; comments; photographs and recordings of the competition or performance; and information necessary to verify eligibility. Competition results, award recipients, and selected performance content may be published on our website and official social media channels.</p>
+                <p><strong>4.6 Sensitive personal information</strong> &mdash; Where necessary and legally permitted, we may process sensitive personal information such as health, disability, accessibility, allergy, dietary, or medical-emergency information; government-issued identification information; passport, visa, and travel-document details; tax or financial-account information; and other information classified as sensitive under applicable law. We will collect sensitive personal information only when necessary and when a lawful basis exists. Access will be limited to authorised persons who reasonably need the information. The festival does not provide medical advice. Health information disclosed to us will normally be used only for reasonable accommodation, safety, emergency response, or legal compliance.</p>
+                <p><strong>4.7 Website and technical information</strong> &mdash; When you visit our website, certain technical information may be collected automatically, including: Internet Protocol address; browser and device type; operating system; device identifiers; approximate location based on IP address; pages visited; links clicked; referring website; date, time, and duration of visits; language and display preferences; and cookie and similar-technology information.</p>
+                <p><strong>4.8 Communications and marketing information</strong> &mdash; We may collect: email and mailing-list preferences; messages and enquiries; customer-service correspondence; survey and feedback responses; contest or promotional entries; records of consent; marketing preferences; and information about your interaction with our emails and promotional content.</p>
+                <p><strong>4.9 Photographs, videos, and audio recordings</strong> &mdash; The festival may be photographed, filmed, livestreamed, or otherwise recorded by authorised photographers, videographers, media partners, sponsors, venues, and production teams. These materials may include identifiable images, voices, performances, interviews, testimonials, crowd scenes, workshops, parties, competitions, and other festival activities. We will provide appropriate event notices and obtain specific permission where consent is required, particularly for directed interviews, testimonials, close-up promotional productions, minors, or sensitive situations.</p>
+
+                <h2>5. How We Collect Personal Data</h2>
+                <p>We may collect personal data:</p>
+                <ul>
+                    <li>Directly from you;</li>
+                    <li>From a person purchasing or registering on your behalf;</li>
+                    <li>From your dance school, team, partner, group leader, or festival ambassador;</li>
+                    <li>From artists, agencies, managers, sponsors, vendors, or event partners;</li>
+                    <li>Through ticketing, payment, accommodation, or registration providers;</li>
+                    <li>Through social media and messaging platforms;</li>
+                    <li>Through cookies and website technologies;</li>
+                    <li>From public professional profiles and websites when relevant to legitimate festival activities; and</li>
+                    <li>From lawful public or government sources when required for permits, travel, contracting, safety, or compliance.</li>
+                </ul>
+                <p>If you provide information about another person, you confirm that you are authorised to provide it and that the person has been informed about this Privacy Policy.</p>
+
+                <h2>6. Why We Process Personal Data</h2>
+                <p>We process personal data for the following purposes:</p>
+                <ul>
+                    <li>To process ticket purchases, registrations, payments, refunds, and pass transfers;</li>
+                    <li>To verify orders, prevent duplicate registrations, and detect fraud;</li>
+                    <li>To create attendee records and manage festival check-in;</li>
+                    <li>To provide access to workshops, parties, competitions, and other activities;</li>
+                    <li>To communicate schedules, venue information, programme changes, safety notices, and important updates;</li>
+                    <li>To answer enquiries and provide customer support;</li>
+                    <li>To manage artists, DJs, performers, instructors, volunteers, ambassadors, sponsors, vendors, and partners;</li>
+                    <li>To arrange travel, accommodation, transfers, meals, technical production, accreditation, and event logistics;</li>
+                    <li>To administer competitions, performances, results, prizes, and certificates;</li>
+                    <li>To accommodate reasonable accessibility, dietary, or emergency requirements;</li>
+                    <li>To manage venue capacity, security, crowd safety, and emergency response;</li>
+                    <li>To issue invoices, receipts, accounting records, and contractual documents;</li>
+                    <li>To fulfil legal, tax, regulatory, insurance, and reporting obligations;</li>
+                    <li>To promote the festival through photographs, videos, testimonials, and event highlights;</li>
+                    <li>To send promotional information where permitted;</li>
+                    <li>To administer surveys, promotions, contests, and giveaways;</li>
+                    <li>To evaluate and improve the website, programme, services, and attendee experience;</li>
+                    <li>To protect our legal rights, property, systems, personnel, attendees, and partners;</li>
+                    <li>To investigate complaints, misconduct, fraud, security incidents, or violations of festival policies; and</li>
+                    <li>To establish, exercise, or defend legal claims.</li>
+                </ul>
+                <p>We will not process personal data for a new and incompatible purpose without providing appropriate notice and obtaining consent where required.</p>
+
+                <h2>7. Lawful Bases for Processing</h2>
+                <p>Depending on the circumstances, we may rely on one or more of the following lawful bases:</p>
+                <ul>
+                    <li><strong>Consent:</strong> You have freely given specific and informed permission for a stated purpose.</li>
+                    <li><strong>Contractual necessity:</strong> Processing is necessary to complete your registration, deliver your festival pass, provide requested services, or perform an agreement with you.</li>
+                    <li><strong>Legal obligation:</strong> Processing is necessary to comply with tax, accounting, regulatory, safety, employment, immigration, or other legal requirements.</li>
+                    <li><strong>Legitimate interests:</strong> Processing is necessary for legitimate festival operations, security, fraud prevention, customer service, event improvement, or appropriate promotion, provided that these interests do not override your fundamental rights.</li>
+                    <li><strong>Protection of vital interests:</strong> Processing is necessary to protect someone&rsquo;s life, health, or safety, including during an emergency.</li>
+                    <li><strong>Establishment or defence of legal claims:</strong> Processing is necessary to protect or enforce legal rights.</li>
+                    <li><strong>Other grounds authorised by law:</strong> We may process data where another lawful ground under applicable legislation permits or requires it.</li>
+                </ul>
+                <p>Where processing is based on consent, you may withdraw consent at any time. Withdrawal will not affect processing lawfully carried out before consent was withdrawn.</p>
+
+                <h2>8. Ticket Purchases Made for Other People</h2>
+                <p>If you purchase or register a festival pass for another person, you must:</p>
+                <ul>
+                    <li>Provide accurate information;</li>
+                    <li>Have authority to submit that person&rsquo;s information;</li>
+                    <li>Inform the person that their information has been provided to us;</li>
+                    <li>Direct the person to this Privacy Policy; and</li>
+                    <li>Obtain any consent required before providing sensitive personal information.</li>
+                </ul>
+                <p>We may contact the named attendee to verify registration details and communicate information necessary for the festival.</p>
+
+                <h2>9. Marketing Communications</h2>
+                <p>With your consent, or where otherwise permitted by law, we may send: festival announcements; artist and DJ reveals; schedule and programme updates; ticket offers and price-increase reminders; partner offers; future-event announcements; and related dance, tourism, or community updates.</p>
+                <p>You may unsubscribe at any time by clicking the unsubscribe link in an email, adjusting available communication settings, or contacting us at <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a>.</p>
+                <p>Operational messages relating to an existing ticket, booking, schedule change, emergency, safety issue, or contractual matter are not marketing messages. You may continue to receive these while your registration remains active.</p>
+                <p>We will not sell your personal data or permit unrelated third parties to use it for their own direct marketing without an appropriate lawful basis.</p>
+
+                <h2>10. Cookies and Similar Technologies</h2>
+                <p>Our website may use cookies, pixels, tags, local storage, and similar technologies, including:</p>
+                <ul>
+                    <li><strong>Strictly necessary cookies:</strong> Required for website security, navigation, forms, ticketing, and essential functionality.</li>
+                    <li><strong>Preference cookies:</strong> Remember language, location, or display settings.</li>
+                    <li><strong>Analytics cookies:</strong> Help us understand how visitors use the website.</li>
+                    <li><strong>Marketing cookies:</strong> Measure campaign performance and support relevant advertising.</li>
+                    <li><strong>Third-party cookies:</strong> May be placed by embedded videos, social media platforms, ticketing services, payment providers, maps, or other integrated services.</li>
+                </ul>
+                <p>Where required, non-essential cookies will be used only after you have provided consent. You may manage cookie preferences through our cookie banner or browser settings. Disabling certain cookies may affect website functionality.</p>
+
+                <h2>11. Photographs, Videos, and Festival Media</h2>
+                <p>Because Boracay SBKZ World Fiesta 3 is a public-facing cultural and dance event, photography and video recording are expected in event areas.</p>
+                <p>We may use festival media for: event documentation; news and public-information reporting; livestreams and event recaps; festival promotion; social media; websites and advertisements; sponsor and partner reports; tourism-promotion materials; and promotion of future editions of the festival.</p>
+                <p>We will process identifiable media only when an appropriate lawful basis exists and in accordance with the principles of transparency, legitimate purpose, and proportionality.</p>
+                <p>If you have a reasonable concern about a photograph or recording featuring you, contact us at <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a>. We will assess the request in light of applicable law, contractual obligations, journalistic or artistic considerations, technical feasibility, public-interest considerations, and the rights of others. Removal from our own active channels may not remove copies already lawfully published, shared, downloaded, archived, printed, or controlled by independent third parties.</p>
+
+                <h2>12. When We Share Personal Data</h2>
+                <p>We may share personal data, only as reasonably necessary, with:</p>
+                <ul>
+                    <li>Ticketing and registration providers;</li>
+                    <li>Payment processors, banks, and financial institutions;</li>
+                    <li>Website-hosting, cloud-storage, email, analytics, and information-technology providers;</li>
+                    <li>Festival venues, hotels, transport providers, and travel coordinators;</li>
+                    <li>Artists, agencies, production personnel, and authorised event staff;</li>
+                    <li>Security, medical, insurance, and emergency-response providers;</li>
+                    <li>Competition judges and administrators;</li>
+                    <li>Sponsors and partners when necessary for an agreed activation or benefit;</li>
+                    <li>Photographers, videographers, livestream providers, and media partners;</li>
+                    <li>Professional advisers, including lawyers, accountants, auditors, and consultants;</li>
+                    <li>Government authorities, regulators, law-enforcement agencies, courts, and the National Privacy Commission when required or legally permitted;</li>
+                    <li>A successor organisation in connection with a lawful reorganisation, merger, transfer, or similar transaction; and</li>
+                    <li>Other parties where you have provided consent or instructed us to disclose the information.</li>
+                </ul>
+                <p>Service providers that process personal data on our behalf are expected to use it only for authorised purposes and to implement appropriate security and confidentiality measures.</p>
+                <p>Sponsors and commercial partners will not automatically receive our complete attendee database. Any sharing for their independent marketing will require an appropriate lawful basis and clear notice.</p>
+
+                <h2>13. Social Media Platforms and Third-Party Services</h2>
+                <p>Our website may contain links to or integrations with Facebook, Instagram, TikTok, YouTube, payment services, maps, accommodation platforms, and other third-party services.</p>
+                <p>When you interact with these services, the third party may independently collect and process your information under its own terms and privacy policy. We do not control the privacy practices of independent third parties. You should review their privacy policies before providing personal data.</p>
+
+                <h2>14. International Data Transfers</h2>
+                <p>The festival welcomes international attendees, artists, DJs, and partners. Some service providers may store or process personal data outside the Philippines.</p>
+                <p>Where personal data is transferred internationally, we will take reasonable and appropriate steps to ensure that:</p>
+                <ul>
+                    <li>The transfer has a lawful purpose and basis;</li>
+                    <li>The receiving party is subject to appropriate confidentiality and security obligations;</li>
+                    <li>Contractual or other safeguards are used when necessary; and</li>
+                    <li>Data-subject rights remain enforceable to the extent required by law.</li>
+                </ul>
+
+                <h2>15. Data Retention</h2>
+                <p>We retain personal data only for as long as necessary to: fulfil the purpose for which it was collected; provide festival services; complete contractual and financial obligations; resolve enquiries, disputes, refunds, or chargebacks; maintain appropriate event, competition, consent, and safety records; comply with tax, accounting, regulatory, insurance, and legal requirements; and establish, exercise, or defend legal claims.</p>
+                <p>Retention periods vary according to the nature of the information, the purpose of processing, legal requirements, and potential disputes.</p>
+                <p>When personal data is no longer required, we will securely delete, anonymise, destroy, or archive it in accordance with applicable law and our records-management procedures.</p>
+                <p>Anonymised information that can no longer reasonably identify an individual may be retained for statistical, historical, or analytical purposes.</p>
+
+                <h2>16. Data Security</h2>
+                <p>We use reasonable and appropriate organisational, physical, and technical safeguards designed to protect personal data against accidental or unlawful destruction, loss or alteration, unauthorised disclosure, unauthorised access, misuse, fraud, and other unlawful processing.</p>
+                <p>Safeguards may include: role-based access restrictions; password and account controls; secure storage and transmission methods; confidentiality obligations; staff and contractor training; provider due diligence; data minimisation; secure disposal procedures; system monitoring and backups; and security-incident and breach-response procedures.</p>
+                <p>No website, email system, payment platform, or electronic transmission is completely secure. While we take reasonable measures to protect personal data, we cannot guarantee absolute security.</p>
+
+                <h2>17. Personal Data Breaches</h2>
+                <p>If a personal data breach occurs, we will assess and respond to it in accordance with our incident-response procedures and applicable law.</p>
+                <p>Where legally required, we will notify the National Privacy Commission and affected individuals within the prescribed period. Notifications may include the nature of the incident, the data potentially affected, steps taken, recommended protective measures, and contact information for further assistance.</p>
+
+                <h2>18. Your Rights as a Data Subject</h2>
+                <p>Subject to applicable law, you may have the right to:</p>
+                <ul>
+                    <li>Be informed about how your personal data is collected and processed;</li>
+                    <li>Access personal data we hold about you;</li>
+                    <li>Object to certain processing activities;</li>
+                    <li>Withdraw consent where processing depends on consent;</li>
+                    <li>Correct or rectify inaccurate, incomplete, or outdated information;</li>
+                    <li>Request erasure, blocking, or deletion where legally justified;</li>
+                    <li>Request data portability when legally applicable;</li>
+                    <li>Claim compensation or damages for harm caused by unlawful processing; and</li>
+                    <li>File a complaint with the National Privacy Commission.</li>
+                </ul>
+                <p>These rights are not absolute and may be subject to lawful limitations, including legal-retention requirements, contractual obligations, public interest, the rights of other individuals, fraud prevention, and the establishment or defence of legal claims.</p>
+
+                <h2>19. How to Exercise Your Rights</h2>
+                <p>To submit a privacy request, contact:</p>
+                <p>
+                    SBKZ PHILIPPINES OPC<br>
+                    Organiser of Boracay SBKZ World Fiesta 3<br>
+                    Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a><br>
+                    Telephone: <a href="tel:+639175190040" class="text-brand-gold hover:underline">+63 917 519 0040</a><br>
+                    Website: <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="text-brand-gold hover:underline">www.boracaysbkzworldfiesta.com</a>
+                </p>
+                <p>Your request should include: your full name; your contact details; a clear description of your request; relevant ticket, registration, or transaction information; and reasonable proof of identity.</p>
+                <p>We will use identity-verification information only to verify and process your request. We may request additional information when necessary to prevent unauthorised access or fraudulent requests.</p>
+                <p>We will acknowledge and respond within the period required by applicable law. If we cannot fully grant a request, we will explain the lawful reason, where appropriate.</p>
+                <p>Authorised representatives may submit requests on behalf of a data subject, subject to proof of authority and identity.</p>
+
+                <h2>20. Complaints</h2>
+                <p>We encourage you to contact us first so that we can attempt to resolve your concern.</p>
+                <p>You also have the right to submit a complaint to the National Privacy Commission: <a href="https://privacy.gov.ph" target="_blank" class="text-brand-gold hover:underline">privacy.gov.ph</a></p>
+                <p>Submitting a concern to us does not prevent you from exercising your right to approach the National Privacy Commission or another competent authority.</p>
+
+                <h2>21. Children and Minors</h2>
+                <p>Our website and services are not primarily directed at children below 18 years old.</p>
+                <p>If a minor is permitted to attend or participate in a festival activity, registration and any required consent must be completed by a parent or legal guardian. We may request proof of age, identity, guardianship, or consent when reasonably necessary.</p>
+                <p>We will not knowingly use a minor&rsquo;s identifiable image for directed commercial promotion without an appropriate lawful basis and required parental or guardian authorisation.</p>
+                <p>If you believe that we have collected a child&rsquo;s personal data without appropriate authority, contact us immediately.</p>
+
+                <h2>22. Automated Decision-Making</h2>
+                <p>We do not currently make decisions that produce legal or similarly significant effects solely through automated processing.</p>
+                <p>We may use automated tools for ordinary functions such as email delivery, fraud screening, registration confirmation, website analytics, audience measurement, or advertising. Where applicable, these activities remain subject to appropriate safeguards and your available rights.</p>
+
+                <h2>23. Accuracy of Information</h2>
+                <p>You are responsible for ensuring that personal data submitted to us is accurate, complete, and current.</p>
+                <p>Please inform us promptly if your name, contact information, emergency contact, ticket assignment, travel arrangements, accessibility requirements, or other relevant details change.</p>
+
+                <h2>24. Changes to This Privacy Policy</h2>
+                <p>We may update this Privacy Policy to reflect changes in festival operations, website functions, service providers, data-processing activities, security practices, or legal and regulatory requirements.</p>
+                <p>The updated version will be posted on the official website with a revised &ldquo;Last updated&rdquo; date. If a change materially affects how we use personal data, we will provide additional notice or request new consent where required.</p>
+
+                <h2>25. Contact Us</h2>
+                <p>For questions, concerns, requests, or complaints relating to this Privacy Policy or our handling of personal data, please contact:</p>
+                <p>
+                    SBKZ PHILIPPINES OPC<br>
+                    Organiser of Boracay SBKZ World Fiesta 3<br>
+                    Email: <a href="mailto:info@boracaysbkzworldfiesta.com" class="text-brand-gold hover:underline">info@boracaysbkzworldfiesta.com</a><br>
+                    Telephone: <a href="tel:+639175190040" class="text-brand-gold hover:underline">+63 917 519 0040</a><br>
+                    Website: <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="text-brand-gold hover:underline">www.boracaysbkzworldfiesta.com</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#111A1D] border-t border-white/10 pt-20 pb-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Follow the Fiesta</p>
+                <h2 class="text-3xl font-serif font-bold text-white mb-8">Join the Community</h2>
+                <div class="flex justify-center gap-4 md:gap-6">
+                    <a href="https://www.facebook.com/boracaysbkzworldfiesta1" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-facebook-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://www.instagram.com/boracaysbkz_worldfiesta/" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://tiktok.com/@boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-tiktok-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="flex justify-center gap-4 md:gap-8 mt-4 text-[10px] text-brand-muted uppercase tracking-widest">
+                    <span>Facebook</span>
+                    <span>Instagram</span>
+                    <span>TikTok</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 border-t border-white/5 pt-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-2xl font-serif font-bold text-brand-gold tracking-wider mb-4">
+                        Boracay
+                        <span class="block text-xs font-sans text-white tracking-widest uppercase mt-1">SBKZ Fiesta 3</span>
+                    </div>
+                    <p class="text-sm text-brand-muted mb-2">May 7 - 9, 2027 (full run May 5-10)</p>
+                    <p class="text-sm text-brand-muted">Boracay Ocean Club Resort &amp; Spa, Philippines</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Explore</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="fiesta.html" class="hover:text-white transition-colors">Fiesta</a></li>
+                        <li><a href="passes.html" class="hover:text-white transition-colors">Passes</a></li>
+                        <li><a href="venue.html" class="hover:text-white transition-colors">Venue &amp; Travel</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
+                        <li><a href="festival-pass-policy.html" class="hover:text-white transition-colors">Festival Pass Policy</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-center"><i class="ph ph-envelope-simple mr-3 text-lg"></i> <a href="mailto:info@boracaysbkzworldfiesta.com" class="hover:text-white transition-colors break-all">info@boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-globe mr-3 text-lg"></i> <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="hover:text-white transition-colors break-all">www.boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-phone mr-3 text-lg"></i> <a href="tel:+639175190040" class="hover:text-white transition-colors">+63 917 519 0040</a></li>
+                        <li class="flex items-center"><i class="ph ph-whatsapp-logo mr-3 text-lg"></i> <a href="tel:+639561243591" class="hover:text-white transition-colors">+63 956 124 3591</a></li>
+                    </ul>
+                    <p class="font-serif italic text-brand-gold mt-6 text-xl">Dance. Connect. Paradise.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-muted">
+                <p>&copy; 2026 Boracay SBKZ World Fiesta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Conversion UX (Sticky CTA) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-card/95 backdrop-blur-lg border-t border-white/10 p-4 z-[70] shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+        <a href="passes.html" class="flex items-center justify-center w-full px-6 py-3.5 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all uppercase tracking-wide">
+            BOOK FESTIVAL PASSES
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[60] w-12 h-12 bg-brand-card border border-brand-gold/30 text-brand-gold rounded-full flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-brand-gold hover:text-brand-dark mb-[80px] md:mb-0">
+        <i class="ph ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        const header = document.getElementById('main-header');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-header', 'shadow-lg');
+                header.classList.remove('py-2');
+            } else {
+                header.classList.remove('glass-header', 'shadow-lg');
+                header.classList.add('py-2');
+            }
+
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

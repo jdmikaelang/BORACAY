@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival Pass Policy - Boracay SBKZ World Fiesta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#121C1F',
+                            card: '#1A2A2E',
+                            cardhover: '#22363B',
+                            gold: '#E5B96D',
+                            goldhover: '#D4A355',
+                            light: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #121C1F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #121C1F; }
+        ::-webkit-scrollbar-thumb { background: #1A2A2E; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E5B96D; }
+
+        .glass-header {
+            background: rgba(18, 28, 31, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            body { padding-bottom: 80px; }
+        }
+
+        .legal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #F8FAFC;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .legal-content h2:first-child { margin-top: 0; }
+        .legal-content p {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .legal-content ul {
+            color: #94A3B8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+        .legal-content li { margin-bottom: 0.5rem; }
+        .legal-content strong { color: #F8FAFC; }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-2" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 cursor-pointer flex items-center hover:opacity-90 transition-opacity">
+                    <img src="images/logo.png" alt="Boracay SBKZ World Fiesta 3" class="h-14 w-auto object-contain">
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">HOME</a>
+                    <a href="fiesta.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">FIESTA</a>
+                    <a href="passes.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">PASSES</a>
+                    <a href="venue.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">VENUE</a>
+                    <a href="#footer" class="text-sm font-medium text-brand-muted hover:text-brand-gold transition-colors">CONTACT</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center space-x-4">
+                    <a href="passes.html" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all duration-300">
+                        BOOK FESTIVAL PASSES
+                    </a>
+
+                    <!-- Mobile menu button -->
+                    <button type="button" class="md:hidden text-brand-light hover:text-brand-gold focus:outline-none" id="mobile-menu-btn">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div class="md:hidden hidden bg-brand-card border-t border-white/5 absolute w-full shadow-2xl" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="index.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">HOME</a>
+                <a href="fiesta.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">FIESTA</a>
+                <a href="passes.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">PASSES</a>
+                <a href="venue.html" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md">VENUE</a>
+                <a href="#footer" class="block px-3 py-3 text-base font-medium text-brand-muted hover:bg-brand-cardhover hover:text-white rounded-md mobile-link">CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Legal Content -->
+    <main class="flex-grow pt-32 pb-24 bg-brand-dark">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8">
+
+            <div class="reveal mb-12">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-3">Legal</p>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Festival Pass Policy</h1>
+                <p class="text-brand-muted text-sm">Boracay SBKZ World Fiesta 3</p>
+            </div>
+
+            <div class="legal-content reveal">
+                <p>Before purchasing your pass, please review these important conditions:</p>
+
+                <h2>Pass Options</h2>
+                <p>Full Festival Pass, Performer Pass, Party Pass, and separately ticketed activities or add-ons are available. Each pass includes only the activities stated below.</p>
+                <ul>
+                    <li><strong>Full Festival Pass</strong> &mdash; 3 days access to all workshops (May 7&ndash;9, 2027); 3 nights social parties and performances (May 7&ndash;9, 2027)</li>
+                    <li><strong>Performer Pass</strong> &mdash; 3 nights social parties and performances (May 7&ndash;9, 2027); performance participation</li>
+                    <li><strong>Party Pass</strong> &mdash; 3 nights social parties and performances (May 7&ndash;9, 2027)</li>
+                </ul>
+
+                <h2>Payment &amp; Confirmation</h2>
+                <p>Your pass and applicable price are secured only after full payment has been received, verified, and officially confirmed. Bank, transfer, currency-conversion, and payment-platform fees are the purchaser&rsquo;s responsibility.</p>
+
+                <h2>Pass Registration</h2>
+                <p>Passes must be registered under the attendee&rsquo;s correct name. Valid identification and booking confirmation may be required during festival check-in.</p>
+
+                <h2>Transfers</h2>
+                <p>An unused pass may be transferred once to another eligible attendee, subject to written approval. Transfer requests should be submitted by April 15, 2027. Performer Pass transfers require approval of the replacement performer.</p>
+
+                <h2>Cancellations &amp; Refunds</h2>
+                <p>Passes are generally non-refundable for changes of mind, schedule conflicts, illness, visa refusal, travel problems, or inability to attend, subject to applicable consumer law. Documented exceptional circumstances may be reviewed individually, but approval is not guaranteed.</p>
+
+                <h2>Event Cancellation or Postponement</h2>
+                <p>If the entire festival is cancelled without replacement dates, the applicable refund will generally cover only the festival pass amount received. Personal expenses such as flights, hotels, visas, transportation, and other travel costs are not covered.</p>
+                <p>If the festival is postponed, passes will automatically remain valid for the rescheduled dates, and further options will be announced.</p>
+
+                <h2>Programme Changes</h2>
+                <p>Festival schedules, rooms, venues, artists, DJs, instructors, performances, themes, and activities may change when reasonably necessary. Individual programme changes do not automatically qualify for a refund.</p>
+
+                <h2>Separately Ticketed Activities</h2>
+                <p>Boat parties, competitions, private lessons, masterclasses, VIP experiences, excursions, and other limited-capacity activities may require separate payment or advance registration.</p>
+
+                <h2>Check-in &amp; Wristbands</h2>
+                <p>Pass holders must present their booking confirmation and valid identification. Festival wristbands or credentials must not be removed, shared, altered, or transferred.</p>
+
+                <h2>Capacity &amp; Admission</h2>
+                <p>Entry remains subject to pass validity, room capacity, security requirements, venue rules, and safety instructions. A festival pass does not guarantee entry to an individual activity once its safe capacity has been reached.</p>
+
+                <h2>Respectful Conduct</h2>
+                <p>Harassment, discrimination, non-consensual touching, violence, theft, illegal drugs, dangerous behaviour, excessive intoxication, and serious disruption will not be tolerated. Violators may be refused entry or removed without a refund, subject to applicable law.</p>
+
+                <h2>Photos &amp; Videos</h2>
+                <p>The festival may be photographed or recorded for documentation and promotional purposes. Personal photography must respect consent, artist rights, and venue rules. Commercial recording or livestreaming requires written permission.</p>
+
+                <h2>Travel Responsibility</h2>
+                <p>Attendees are responsible for their own flights, accommodation, transfers, visas, travel insurance, health requirements, and Boracay-related fees. We strongly recommend flexible bookings and comprehensive travel insurance.</p>
+
+                <p>By purchasing, receiving, transferring, or using a festival pass, you confirm that you have read and accepted the complete Festival Pass Policy.</p>
+                <p>For the full policy or assistance, please contact us through our official festival channels: <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="text-brand-gold hover:underline">www.boracaysbkzworldfiesta.com</a></p>
+                <p>Boracay SBKZ World Fiesta 3 &mdash; May 5&ndash;10, 2027 &mdash; Boracay Island, Philippines</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#111A1D] border-t border-white/10 pt-20 pb-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Follow the Fiesta</p>
+                <h2 class="text-3xl font-serif font-bold text-white mb-8">Join the Community</h2>
+                <div class="flex justify-center gap-4 md:gap-6">
+                    <a href="https://www.facebook.com/boracaysbkzworldfiesta1" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-facebook-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://www.instagram.com/boracaysbkz_worldfiesta/" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://tiktok.com/@boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                        <i class="ph ph-tiktok-logo text-xl group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="flex justify-center gap-4 md:gap-8 mt-4 text-[10px] text-brand-muted uppercase tracking-widest">
+                    <span>Facebook</span>
+                    <span>Instagram</span>
+                    <span>TikTok</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 border-t border-white/5 pt-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-2xl font-serif font-bold text-brand-gold tracking-wider mb-4">
+                        Boracay
+                        <span class="block text-xs font-sans text-white tracking-widest uppercase mt-1">SBKZ Fiesta 3</span>
+                    </div>
+                    <p class="text-sm text-brand-muted mb-2">May 7 - 9, 2027 (full run May 5-10)</p>
+                    <p class="text-sm text-brand-muted">Boracay Ocean Club Resort &amp; Spa, Philippines</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Explore</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="fiesta.html" class="hover:text-white transition-colors">Fiesta</a></li>
+                        <li><a href="passes.html" class="hover:text-white transition-colors">Passes</a></li>
+                        <li><a href="venue.html" class="hover:text-white transition-colors">Venue &amp; Travel</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
+                        <li><a href="festival-pass-policy.html" class="hover:text-white transition-colors">Festival Pass Policy</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-brand-gold tracking-widest uppercase mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-center"><i class="ph ph-envelope-simple mr-3 text-lg"></i> <a href="mailto:info@boracaysbkzworldfiesta.com" class="hover:text-white transition-colors break-all">info@boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-globe mr-3 text-lg"></i> <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="hover:text-white transition-colors break-all">www.boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-phone mr-3 text-lg"></i> <a href="tel:+639175190040" class="hover:text-white transition-colors">+63 917 519 0040</a></li>
+                        <li class="flex items-center"><i class="ph ph-whatsapp-logo mr-3 text-lg"></i> <a href="tel:+639561243591" class="hover:text-white transition-colors">+63 956 124 3591</a></li>
+                    </ul>
+                    <p class="font-serif italic text-brand-gold mt-6 text-xl">Dance. Connect. Paradise.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-muted">
+                <p>&copy; 2026 Boracay SBKZ World Fiesta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Conversion UX (Sticky CTA) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-brand-card/95 backdrop-blur-lg border-t border-white/10 p-4 z-[70] shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+        <a href="passes.html" class="flex items-center justify-center w-full px-6 py-3.5 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-brand-goldhover shadow-[0_0_15px_rgba(229,185,109,0.3)] transition-all uppercase tracking-wide">
+            BOOK FESTIVAL PASSES
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[60] w-12 h-12 bg-brand-card border border-brand-gold/30 text-brand-gold rounded-full flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-brand-gold hover:text-brand-dark mb-[80px] md:mb-0">
+        <i class="ph ph-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        const header = document.getElementById('main-header');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-header', 'shadow-lg');
+                header.classList.remove('py-2');
+            } else {
+                header.classList.remove('glass-header', 'shadow-lg');
+                header.classList.add('py-2');
+            }
+
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -54,14 +54,23 @@ Font families are registered in Tailwind config as `font-sans` (Inter) and `font
 
 All filenames: lowercase, kebab-case, no spaces, no `&`. See `buildspec.md` for the full naming rule.
 
-## Known issues in the current export (already tracked, don't rediscover these)
+## Status
 
-- Duplicate image folders exist at both project root and inside `images/` — root-level copies are dupes and should be deleted, not merged.
-- File/folder names contain spaces and `&` characters (`DJ K-bunny.png`, `Adrian & Carol.png`) — needs renaming project-wide, including every `<img src>` reference.
-- `image8.jfif` sits orphaned at project root with an unclear purpose — identify and either relocate or delete.
-- `comments.pdf` (the raw client feedback) is currently sitting in the deployed folder — must not ship to production.
-- `gallery.html` exists but is not linked from the nav on any page.
-- CTA button copy is inconsistent across pages ("BOOK PASSES" / "Book a Pass" / etc.) — must be standardized to **"BOOK FESTIVAL PASSES"** everywhere.
+Phases 1 (folder/naming cleanup), 2 (Home, Fiesta, Passes content fixes), and 5 (global consistency pass + footer legal pages) are done. Forms/backend (Phase 3) and GitHub Pages deployment (Phase 4, confusingly numbered ahead of the forms work in `prompts.md`) are not yet done.
+
+## Remaining known issues (don't rediscover these — just fix them)
+
+- `gallery.html` exists and **is** currently linked in the footer's Explore section on every page — confirmed in the nav grep, so no decision needed here anymore (superseded note from earlier: this used to be an orphan page). It's still intentionally excluded from the main top nav per the original brief.
+
+## Resolved (for history — no action needed)
+
+- OS junk (`.DS_Store`, `__MACOSX/`) removed.
+- Duplicate root-level image folders (`DJ/`, `Main Artists/`, `Featured Artists and Performers/`) removed; `images/` is the single source of truth.
+- All filenames renamed to kebab-case, no spaces/`&`.
+- `image8.jfif` converted to `images/image8.jpg`.
+- `comments.pdf` relocated into `docs/`.
+- Logo image now used top-left on every page (was text on `passes.html`, `venue.html`, `gallery.html`); "Boracay Ocean Club Resort & Spa" verbatim everywhere; every CTA (including pricing-card and sticky mobile buttons) reads "BOOK FESTIVAL PASSES".
+- `terms-and-conditions.html`, `festival-pass-policy.html`, `privacy-policy.html` built from the real `.docx` copy (see `docs/`), linked only from the footer's Legal column.
 
 ## The source of truth for content fixes
 

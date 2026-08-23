@@ -62,9 +62,9 @@ Examples:
 ├── passes.html
 ├── venue.html
 ├── gallery.html            (only if kept — must be linked in nav/footer if so)
-├── terms-and-conditions.html
-├── festival-pass-policy.html
-├── privacy-policy.html
+├── terms-and-conditions.html      (content sourced from the "Terms and Conditions.docx" already in the project folder)
+├── festival-pass-policy.html      (content sourced from the "Festival Pass Policy.docx" already in the project folder)
+├── privacy-policy.html            (content sourced from the "Privacy Policy.docx" already in the project folder)
 ├── CNAME
 ├── assets/
 │   └── site.js             (only if shared JS grows beyond a few lines per page)
@@ -86,6 +86,8 @@ Examples:
 ```
 
 No file lives at repo root except the HTML pages, `CNAME`, and standard repo files (`README.md`, `.gitignore`).
+
+**Legal page copy source:** the three footer pages (Terms & Conditions, Festival Pass Policy, Privacy Policy) are **not** placeholder content — real, final legal copy already exists as `.docx` files in the project folder (drafted for entity "SBKZ PHILIPPINES OPC," referencing RA 10173/Data Privacy Act compliance, festival dates, transfer/refund terms, etc.). Convert that copy directly into the HTML pages rather than generating new text. After conversion, relocate the source `.docx` files into `docs/` so they're kept for reference but not deployed.
 
 ### .gitignore
 ```

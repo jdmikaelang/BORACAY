@@ -61,9 +61,11 @@ Full checklist, grouped by page, pulled directly from `comments.pdf`. Nothing he
 - No page-specific edits were called out beyond the global fixes below.
 
 ### Global / Footer
-- [ ] Add new footer-only pages: **Terms & Conditions**, **Festival Pass Policy**, **Privacy Policy**
+- [x] Add new footer-only pages: **Terms & Conditions**, **Festival Pass Policy**, **Privacy Policy** — built from the real copy in `docs/*.docx` (`Boracay SBKZ World Fiesta - Terms and Conditions.docx`, `... - Festival Pass Policy.docx`, `... - Privacy Policy.docx`), preserving heading/section structure. Linked only from the footer's Legal column, not the main nav.
 
 **Milestone:** every checkbox above is ticked and visually verified in a local preview before deployment.
+
+**Status:** Phases 1, 2, and 5 (global consistency pass + footer legal pages) are done, verified in a local preview. Phase 3 (forms/backend) and Phase 4 (GitHub Pages deployment) remain.
 
 ---
 
