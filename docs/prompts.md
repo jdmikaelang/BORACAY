@@ -2,6 +2,8 @@
 
 Paste each prompt as its own message once the previous one is confirmed done. Reference `plan.md`, `claude.md`, and `buildspec.md` are assumed to already be in the project root — Claude Code should read them automatically, but the prompts remind it where to look just in case.
 
+**Active project:** `BORACAY` (flat structure, as-is) is the final, confirmed repo. Any earlier nested `boracay-sdk/boracay-final` copy is not in use.
+
 ---
 
 ### Prompt 1 — Folder & filename cleanup
@@ -37,7 +39,7 @@ Paste each prompt as its own message once the previous one is confirmed done. Re
 > Do a full local QA pass across the whole site: open every page, check every internal link and CTA, confirm mobile menu behavior, confirm every checklist item in `plan.md` Phase 2 is actually implemented (not just planned), confirm every Phase 6 fix (checkout modal removal, payment data consistency, copy-to-clipboard) is holding up, and list anything still outstanding before we move to deployment.
 
 ### Prompt 11 — Stop internal docs from being publicly deployed
-> Right now `docs/` (containing `plan.md`, `buildspec.md`, `prompts.md`, `SETUP.md`, and `Code.gs` — the actual Apps Script backend source) plus `claude.md` are committed to git without being excluded from deployment. Since GitHub Pages publishes everything in the published branch/folder, all of this would become publicly browsable at the live domain once pushed — including the backend script and its Sheet/Drive folder IDs. Fix this before we deploy: update `.gitignore` to exclude the entire `docs/` folder and `claude.md` from being tracked going forward, remove them from git's tracking with `git rm -r --cached docs claude.md` (keeping the actual files on disk), and commit that as a cleanup. Confirm afterward with `git ls-files` that neither `docs/` nor `claude.md` appear in the tracked file list.
+> `docs/` (containing `plan.md`, `buildspec.md`, `prompts.md`, `SETUP.md`, and `Code.gs` — the actual Apps Script backend source, including the real Drive folder ID) plus `claude.md` are committed to git without being excluded from deployment. Since GitHub Pages publishes everything in the published branch/folder, all of this is likely already publicly browsable at the live domain right now. Fix this immediately: create a `.gitignore` that excludes the entire `docs/` folder and `claude.md`, remove them from git's tracking with `git rm -r --cached docs claude.md` (keeping the actual files on disk), and commit and push that as an urgent cleanup. Confirm afterward with `git ls-files` that neither `docs/` nor `claude.md` appear in the tracked file list, and confirm the change is actually live (not just committed locally).
 
 ### Prompt 12 — Fix the registration backend for real this time
 > The Passes registration form is still failing live with "Could not submit your registration," even after recommitting to GitHub — because GitHub pushes never touch the Apps Script backend; that only lives in the Google account, in Extensions → Apps Script. Make these code-level fixes:
@@ -52,7 +54,33 @@ Paste each prompt as its own message once the previous one is confirmed done. Re
 >
 > After you make these changes, I (the site owner) still have to manually: (a) copy the full updated `Code.gs` into the Apps Script editor in my Google account, replacing what's there now, (b) create a new deployment version, and (c) test the new `doGet` self-test URL in a browser before retrying the form. Tell me clearly at the end of your work that these three manual steps are still required — don't let me think pushing to GitHub was enough.
 
-### Prompt 13 — Commit and push with GitHub Desktop, then enable Pages
+### Prompt 13 — Fix the "Failed to fetch" CORS issue on submit
+> After Prompt 12's fix, the form now shows a real underlying error on submit: "Could not submit: Failed to fetch." This is a well-documented CORS limitation when calling a Google Apps Script Web App via `fetch()` from an external domain (like GitHub Pages) for a POST request — Apps Script's response, after its internal redirect, often doesn't carry the CORS headers browsers require for JS to read a cross-origin `fetch()` response, even though the request itself reaches the script fine. **I already confirmed [visiting the deployed URL directly shows the friendly "backend is live and reachable" message / does NOT redirect to a Google sign-in page]** — access permissions are not the issue.
+>
+> Fix: change the registration form's `fetch()` call to use `mode: 'no-cors'`. This sidesteps the CORS restriction entirely and lets the POST actually reach and run `doPost()` in Apps Script (so it still writes to the Sheet and Drive), but it means the response becomes "opaque" — JS can no longer read whether the script itself reported success or failure. To compensate for losing that read-back:
+> 1. Treat the form submission as successful once the `no-cors` fetch resolves without throwing (network-level failures, like being fully offline, will still throw and can still show a real error).
+> 2. In `Code.gs`, add a confirmation email sent via `MailApp.sendEmail()` after a successful `doPost()` — to the registrant's submitted email, confirming their registration was received, and optionally BCC the organizer's own email so there's an independent, real-time signal that submissions are actually landing (not just a hopeful "it probably worked" on the frontend).
+> 3. Update `docs/SETUP.md` to explain this tradeoff plainly: submissions will always show "success" client-side once they leave the browser, so the organizer should rely on the confirmation email and the Sheet itself — not the on-page message — as the real source of truth.
+>
+> Remind me at the end that this still requires the same manual step as before: paste the updated `Code.gs` into the Apps Script editor and create a new deployment version.
+
+### Prompt 14 — Fix footer inconsistencies found by Prompt 10 QA
+> The Prompt 10 QA pass found the footer is inconsistent across pages: `fiesta.html`, `gallery.html`, `venue.html`, and `passes.html` link to the wrong Facebook/Instagram URLs (`facebook.com/boracaysbkzworldfestival` and `instagram.com/boracaysbkzworldfiesta` — wrong domain form and wrong handles) and are missing the contact phone number entirely, showing only the WhatsApp number. `index.html`, `terms-and-conditions.html`, `privacy-policy.html`, and `festival-pass-policy.html` already have the correct footer. Standardize all four broken pages to match the correct ones exactly:
+> - Facebook → `https://www.facebook.com/boracaysbkzworldfiesta1`
+> - Instagram → `https://www.instagram.com/boracaysbkz_worldfiesta/`
+> - Phone number `+63 917 519 0040` shown alongside the existing WhatsApp number `+63 956 124 3591` (matching how the correct pages display both)
+>
+> Since the root cause was "the footer partial was updated in only half the pages" on a site with no shared templating, also flag for me whether it's worth extracting the footer into a single shared source (e.g. one JS-injected partial loaded on every page) so this specific class of bug can't recur — don't do the refactor without me confirming first, since `buildspec.md` intentionally avoids adding build-step complexity to this project.
+
+### Prompt 15 — Resolve `gallery.html` (pending decision)
+> *(Fill in once decided.)* Either: (a) link `gallery.html` into [the main nav / the footer], matching the styling of the existing nav/footer links, or (b) remove `gallery.html` and its assets from the deployed site entirely, keeping a copy in `docs/` if it might be used later.
+
+### Prompt 16 — Resolve the "Christian & Karen" artist entry (pending decision)
+> *(Fill in once confirmed with whoever compiled the original feedback.)* Either: (a) add a "Christian & Karen" [or corrected name] entry to the appropriate artist category in `fiesta.html` with [photo/details], or (b) confirm no action is needed because the entry was intentionally merged into an existing card / correctly removed.
+
+---
+
+### Prompt 17 — Commit and push with GitHub Desktop, then enable Pages
 > Walk me through publishing this repo using **GitHub Desktop** (not the command line), step by step:
 > 1. Installing GitHub Desktop and signing in.
 > 2. Adding this existing local project folder as a repository (File → Add Local Repository).
@@ -60,19 +88,11 @@ Paste each prompt as its own message once the previous one is confirmed done. Re
 > 4. What "committing" actually looks like going forward: after you make code changes, I'll see a list of changed files in GitHub Desktop, write a one-line summary, click "Commit to main," then click "Push origin" — confirm this is the full loop I'll repeat every time.
 > Then walk me through enabling GitHub Pages on the new repo (Settings → Pages → deploy from the `main` branch, root folder) and tell me how to know it worked.
 
-### Prompt 14 — Connect my custom domain
+### Prompt 18 — Connect my custom domain
 > I already own a domain. Walk me through connecting it to this GitHub Pages site: what to type into the repo's Settings → Pages → Custom domain field (confirm this also creates the `CNAME` file automatically, or tell me if I need to add it myself), exactly which DNS records to add at my domain registrar (A records for the apex domain and/or a CNAME record for `www`), and how to know once it's resolved and HTTPS is enforced.
 
-### Prompt 15 — Post-launch verification
+### Prompt 19 — Post-launch verification
 > Once DNS has propagated, verify the live custom domain: check every page loads over HTTPS, every image resolves, every internal link works, and the registration form actually writes to the Google Sheet and Drive folder in production, not just locally.
-
-### Prompt 16 — Fix footer inconsistencies found by Prompt 10 QA
-> The Prompt 10 QA pass found the footer is inconsistent across pages: `fiesta.html`, `gallery.html`, `venue.html`, and `passes.html` link to the wrong Facebook/Instagram URLs (`facebook.com/boracaysbkzworldfestival` and `instagram.com/boracaysbkzworldfiesta` — wrong domain form and wrong handles) and are missing the contact phone number entirely, showing only the WhatsApp number. `index.html`, `terms-and-conditions.html`, `privacy-policy.html`, and `festival-pass-policy.html` already have the correct footer. Standardize all four broken pages to match the correct ones exactly:
-> - Facebook → `https://www.facebook.com/boracaysbkzworldfiesta1`
-> - Instagram → `https://www.instagram.com/boracaysbkz_worldfiesta/`
-> - Phone number `+63 917 519 0040` shown alongside the existing WhatsApp number `+63 956 124 3591` (matching how the correct pages display both)
->
-> Since the root cause was "the footer partial was updated in only half the pages" on a site with no shared templating, also flag for me whether it's worth extracting the footer into a single shared source (e.g. one JS-injected partial loaded on every page) so this specific class of bug can't recur — don't do the refactor without me confirming first, since `buildspec.md` intentionally avoids adding build-step complexity to this project.
 
 ---
 

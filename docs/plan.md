@@ -133,20 +133,26 @@ Confirmed real values to use going forward:
 - Drive folder ID: `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`
 - Deployed script URL (unchanged, already correct in `passes.html`): `https://script.google.com/macros/s/AKfycbxr-nKSuOSExmPowV2RH1eMlHDJQMFfRYUxaSz8EfiIgrLocjSLl7QyT-QIOsUtP5L3/exec`
 
-See `claude.md` for the full debugging checklist. Short version: Prompt 12 makes the code itself self-diagnosing (a `doGet` health check, inline error display, real folder ID baked in) but the actual fix — pasting the updated script into Apps Script and creating a new deployment version — can only happen in the site owner's Google account, not through any file edit or git push.
+See `claude.md` for the full debugging checklist and the round-2 finding: with Prompt 12's inline error display in place, the real browser error turned out to be **"Failed to fetch"** — a known CORS limitation when calling an Apps Script Web App via `fetch()` POST from an external domain, not an access-permission issue. Fix is Prompt 13 (switch to `mode: 'no-cors'` + a server-side confirmation email as the new source of truth for success, since the client can no longer read the response).
 
-**Milestone:** a real test submission on the live site shows the green success message, a row appears in the Sheet, and the file appears in Drive.
+**Milestone:** a real test submission on the live site results in a confirmation email and a real row/file in the Sheet/Drive — the on-page message alone is no longer sufficient proof once Prompt 13 lands, by design.
 
 ## Phase 9 — Prompt 10 QA findings
 
 Four issues surfaced by the full local QA pass:
 
-1. **Footer Facebook/Instagram links wrong on 4 of 8 pages** (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — wrong domain form and wrong handles, while `index.html` and the 3 legal pages have it correct. Root cause: no shared footer template on a static site means per-page drift is easy. Fix: Prompt 16.
-2. **Footer phone number missing entirely on the same 4 pages** — only the WhatsApp number shows; the required `+63 917 519 0040` doesn't appear. Same root cause, same fix (Prompt 16).
-3. **`gallery.html` is fully orphaned** — no page links to it, it only links to itself. This was supposed to be resolved in Phase 1 (link it in, or archive it) and wasn't. **Needs a decision from the site owner** before any fix: link it into nav/footer, or pull it from the deployed site.
-4. **"Christian & Karen" artist entry is missing** from `fiesta.html` — the original feedback asked to fix its spelling ("Christian & Karen"), but no such entry (or close variant) exists anywhere on the page now. Unclear whether it was dropped, renamed, or missed. **Needs the site owner to confirm** with whoever compiled the original comments before any fix is attempted — guessing at a name/entry to add back risks introducing wrong information.
+1. **Footer Facebook/Instagram links wrong on 4 of 8 pages** (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — wrong domain form and wrong handles, while `index.html` and the 3 legal pages have it correct. Root cause: no shared footer template on a static site means per-page drift is easy. Fix: Prompt 14.
+2. **Footer phone number missing entirely on the same 4 pages** — only the WhatsApp number shows; the required `+63 917 519 0040` doesn't appear. Same root cause, same fix (Prompt 14).
+3. **`gallery.html` is fully orphaned** — no page links to it, it only links to itself. This was supposed to be resolved in Phase 1 (link it in, or archive it) and wasn't. **Needs a decision from the site owner** before any fix: link it into nav/footer, or pull it from the deployed site. (Prompt 15, currently a placeholder pending that decision.)
+4. **"Christian & Karen" artist entry is missing** from `fiesta.html` — the original feedback asked to fix its spelling ("Christian & Karen"), but no such entry (or close variant) exists anywhere on the page now. Unclear whether it was dropped, renamed, or missed. **Needs the site owner to confirm** with whoever compiled the original comments before any fix is attempted — guessing at a name/entry to add back risks introducing wrong information. (Prompt 16, currently a placeholder pending that confirmation.)
 
-**Milestone:** Prompt 16 lands and re-verifies footer consistency across all 8 pages; items 3 and 4 get a decision from the site owner, then a follow-up prompt is written once the answer is known.
+**Milestone:** Prompt 14 lands and re-verifies footer consistency across all 8 pages; items 3 and 4 get a decision from the site owner, then Prompts 15/16 get filled in and run.
+
+## Phase 10 — Deployment sequencing
+
+Per the site owner's request, GitHub Desktop publishing (Prompt 17) and custom domain connection (Prompt 18) are deliberately held until every other known issue (Prompts 11–16) is resolved — no point wiring up a custom domain for a site that still has open bugs. Post-launch verification (Prompt 19) naturally follows once the domain is live.
+
+**Milestone:** Prompts 11–16 are all confirmed done before Prompt 17 is run.
 
 ## What I need from you at each phase
 

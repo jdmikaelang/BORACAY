@@ -60,8 +60,16 @@ Phases/Prompts 1–5 are done and confirmed: folder cleanup, Home/Fiesta/Passes 
 
 ## Remaining known issues (Phase 6 — don't rediscover these, just fix them)
 
-- **`docs/` and `claude.md` are committed to git without being excluded from deployment.** GitHub Pages publishes everything in the published branch, so `docs/Code.gs` (the backend source, including Sheet/Drive IDs), `docs/plan.md`, `docs/prompts.md`, `docs/buildspec.md`, `docs/SETUP.md`, and `claude.md` would all become publicly browsable once pushed. Must be untracked (`git rm -r --cached`) and gitignored before the GitHub push — this is Prompt 11.
+- **`docs/` and `claude.md` are committed to git without being excluded from deployment.** GitHub Pages publishes everything in the published branch, so `docs/Code.gs` (the backend source, including Sheet/Drive IDs), `docs/plan.md`, `docs/prompts.md`, `docs/buildspec.md`, `docs/SETUP.md`, and `claude.md` would all become publicly browsable once pushed. **Confirmed still true as of the latest zip check — `.gitignore` still only excludes `docs/*.pdf`.** Must be untracked (`git rm -r --cached`) and gitignored immediately — this is Prompt 11, still not done.
 - No git remote configured yet, no `CNAME` file — expected, this is Prompts 13–14, not yet run.
+
+## Active project location
+
+**Confirmed final: the `BORACAY` repo (flat structure, full phase-by-phase git history) is the one and only project going forward.** Any earlier nested `boracay-sdk/boracay-final` copy is not in use — disregard it. All prompts and fixes apply to `BORACAY` as-is.
+
+## Urgent, confirmed regression: Prompt 11 has not actually been applied yet
+
+Checked the repo directly: **`.gitignore` only ever excludes `docs/*.pdf`**, never the rest of `docs/` or `claude.md`. `docs/Code.gs` (with the real Drive folder ID), `docs/plan.md`, `docs/prompts.md`, `docs/buildspec.md`, `docs/SETUP.md`, and the `.docx` legal source files are all still tracked. Since the site is confirmed live, this content is very likely already publicly exposed via GitHub Pages right now. This is not hypothetical — fix it immediately (Prompt 11), before anything else.
 
 ## Open questions from Prompt 10 QA — need site owner input before proceeding
 
@@ -70,22 +78,15 @@ Phases/Prompts 1–5 are done and confirmed: folder cleanup, Home/Fiesta/Passes 
 
 ## Live testing found a real bug (Phase 8)
 
-Site is live on `jdmikaelang.github.io`. A real test submission on the Passes registration form still fails with "Could not submit your registration. Please check your connection and try again." — even after the site owner recommitted and pushed multiple times. **Root cause of the confusion: GitHub and the Google Apps Script backend are two entirely separate systems.** Pushing this repo to GitHub only updates the static site — it never touches the script running in the site owner's Google account (Extensions → Apps Script, inside the bound Sheet). `docs/Code.gs` in this repo is a reference copy only; it is not what executes live. Do not assume a `git push` has any effect on backend behavior.
+Site is live and a real test submission on the Passes registration form fails. This has gone through two rounds:
 
-**Known-good values (confirmed by the site owner):**
-- `DRIVE_FOLDER_ID`: `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`
-- Deployed Web App URL: `https://script.google.com/macros/s/AKfycbxr-nKSuOSExmPowV2RH1eMlHDJQMFfRYUxaSz8EfiIgrLocjSLl7QyT-QIOsUtP5L3/exec` (already correctly wired in `passes.html` — unchanged)
+**Round 1:** generic "Could not submit your registration. Please check your connection and try again." — fixed by Prompt 12, which added inline real-error display, confirmed `DRIVE_FOLDER_ID` (`1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`), and added a `doGet` health-check handler.
 
-What Claude Code *can* fix (Prompt 12): bake the real `DRIVE_FOLDER_ID` into `docs/Code.gs`, add a `doGet` health-check handler so the deployed URL gives an unambiguous self-test when opened directly in a browser, surface the real caught error inline on the page instead of only a generic message, and add a loud callout in `SETUP.md` explaining that GitHub pushes don't touch the backend.
+**Round 2 (current):** with real-error display now in place, the actual browser error is confirmed to be **"Failed to fetch."** This is a well-documented CORS limitation specific to calling Google Apps Script Web Apps via `fetch()` POST from an external domain — Apps Script's response, after its internal redirect to `script.googleusercontent.com`, frequently lacks the CORS headers a cross-origin `fetch()` needs to read the response, even though the request itself does reach and execute the script. This is different from an access-permission problem (see diagnostic note below) and needs a different fix.
 
-What only the site owner can fix (cannot be done via file edits or git): paste the updated `Code.gs` into the actual Apps Script editor, create a **new deployment version** (Deploy → Manage deployments → pencil icon → New version → Deploy — editing the script and saving alone does nothing to the live URL), and confirm "Who has access" is set to "Anyone." Claude Code should say this explicitly at the end of Prompt 12's work rather than implying the fix is complete once files are committed.
+**Diagnostic done before committing to a fix:** visiting the deployed `/exec` URL directly in a browser (top-level navigation) shows whether the deployment requires a Google sign-in — if it does, "Who has access" is still misconfigured and must be fixed in Apps Script settings first. **Important caveat: direct navigation bypasses the CORS restrictions that apply to JS-initiated `fetch()` calls, so a successful direct visit does not by itself prove `fetch()` will work — it only rules out the "Who has access" failure mode.** Don't skip this check before applying the CORS fix below, since the fix (`mode: 'no-cors'`) would silently mask an access-permission problem if that were the actual cause (no-cors requests always resolve without throwing, even if Google secretly serves a login page instead of running the script).
 
-Debugging checklist (for the site owner, in their Google account — not something Claude Code can click through):
-1. Open the deployed `/exec` URL directly in a browser tab. A "Script function not found: doGet" page means the deployment is reachable; a Google sign-in redirect means "Who has access" isn't set to "Anyone." (Once Prompt 12 lands, this becomes an unambiguous friendly message instead.)
-2. Fix via Deploy → Manage deployments → pencil icon → confirm "Who has access: Anyone" → Deploy.
-3. Confirm `DRIVE_FOLDER_ID` in the *actual* Apps Script editor (not just this repo's copy of `Code.gs`) matches `1Qh90tNFOcv-2bMseJLs3j2rx4YywZrnn`.
-4. Remember: editing `Code.gs` requires a **new deployment version** to take effect — saving alone does nothing to the live URL, and neither does a GitHub push.
-5. Check the browser DevTools console during a real submit attempt for the actual underlying error (CORS / 404 / etc.) — or once Prompt 12 lands, the error will show inline on the page itself.
+**The fix (Prompt 13):** switch the fetch call to `mode: 'no-cors'`, which lets the POST reach and execute `doPost()` normally but makes the response unreadable by JS ("opaque" response). To compensate for losing the ability to confirm success/failure client-side, `Code.gs` sends a confirmation email via `MailApp.sendEmail()` after a successful `doPost()` — this becomes the real source of truth for whether a submission worked, not the on-page message (which will now always show "success" once the request leaves the browser, by design).
 
 ## Resolved (for history — no action needed)
 
@@ -98,7 +99,7 @@ Debugging checklist (for the site owner, in their Google account — not somethi
 
 ## Prompt 10 QA findings (Phase 9 — see plan.md)
 
-- Footer Facebook/Instagram links and phone number were wrong/missing on 4 of 8 pages (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — fix is Prompt 16, straightforward, correct values already confirmed elsewhere in the project.
+- Footer Facebook/Instagram links and phone number were wrong/missing on 4 of 8 pages (`fiesta.html`, `gallery.html`, `venue.html`, `passes.html`) — fix is Prompt 14, straightforward, correct values already confirmed elsewhere in the project.
 - Two open questions above still need the site owner's input before any fix is attempted.
 
 ## The source of truth for content fixes
