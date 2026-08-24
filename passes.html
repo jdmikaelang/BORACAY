@@ -539,10 +539,10 @@
                 <p class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Follow the Fiesta</p>
                 <h2 class="text-3xl font-serif font-bold text-white mb-8">Join the Community</h2>
                 <div class="flex justify-center gap-4 md:gap-6">
-                    <a href="https://facebook.com/boracaysbkzworldfestival" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                    <a href="https://www.facebook.com/boracaysbkzworldfiesta1" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
                         <i class="ph ph-facebook-logo text-xl group-hover:scale-110 transition-transform"></i>
                     </a>
-                    <a href="https://instagram.com/boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
+                    <a href="https://www.instagram.com/boracaysbkz_worldfiesta/" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
                         <i class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"></i>
                     </a>
                     <a href="https://tiktok.com/@boracaysbkzworldfiesta" target="_blank" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-brand-muted hover:text-brand-gold hover:border-brand-gold transition-all duration-300 group">
@@ -598,6 +598,7 @@
                     <ul class="space-y-3 text-sm text-brand-muted">
                         <li class="flex items-center"><i class="ph ph-envelope-simple mr-3 text-lg"></i> <a href="mailto:info@boracaysbkzworldfiesta.com" class="hover:text-white transition-colors break-all">info@boracaysbkzworldfiesta.com</a></li>
                         <li class="flex items-center"><i class="ph ph-globe mr-3 text-lg"></i> <a href="https://www.boracaysbkzworldfiesta.com" target="_blank" class="hover:text-white transition-colors break-all">www.boracaysbkzworldfiesta.com</a></li>
+                        <li class="flex items-center"><i class="ph ph-phone mr-3 text-lg"></i> <a href="tel:+639175190040" class="hover:text-white transition-colors">+63 917 519 0040</a></li>
                         <li class="flex items-center"><i class="ph ph-whatsapp-logo mr-3 text-lg"></i> <a href="tel:+639561243591" class="hover:text-white transition-colors">+63 956 124 3591</a></li>
                     </ul>
                     <p class="font-serif italic text-brand-gold mt-6 text-xl">Dance. Connect. Paradise.</p>
@@ -871,20 +872,22 @@
                         },
                     };
 
-                    const response = await fetch(REGISTRATION_WEB_APP_URL, {
+                    // Apps Script's cross-origin response often lacks the CORS headers
+                    // fetch() needs to read a result, even though the POST reaches doPost()
+                    // and runs fine. mode: 'no-cors' sidesteps that, at the cost of making
+                    // the response opaque — we can no longer read success/error from it.
+                    // Code.gs sends a confirmation email instead; that email (and the Sheet)
+                    // is the real source of truth, not this on-page message.
+                    await fetch(REGISTRATION_WEB_APP_URL, {
                         method: 'POST',
+                        mode: 'no-cors',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(payload),
                     });
-                    const result = await response.json();
 
-                    if (result.success) {
-                        setRegFormMessage('Thank you! Your registration has been received.', 'success');
-                        regForm.reset();
-                        regProofFilename.classList.add('hidden');
-                    } else {
-                        setRegFormMessage(result.error || 'Something went wrong. Please try again.', 'error');
-                    }
+                    setRegFormMessage('Thank you! Your registration has been received. A confirmation email is on its way — please check your inbox (and spam folder).', 'success');
+                    regForm.reset();
+                    regProofFilename.classList.add('hidden');
                 } catch (err) {
                     setRegFormMessage('Could not submit: ' + (err && err.message ? err.message : 'unknown error') + '. Please screenshot this and send it to the developer.', 'error');
                 } finally {
