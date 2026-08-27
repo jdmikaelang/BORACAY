@@ -387,6 +387,23 @@
                         </div>
                     </div>
 
+                    <!-- Bank Transfer -->
+                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
+                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
+                            <i class="ph ph-bank text-2xl text-brand-gold"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-serif font-bold text-white mb-2">Bank Transfer</h3>
+                            <ul class="text-sm text-brand-light space-y-1">
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank:</span> <span data-payment-field="bankName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankName" aria-label="Copy bank name"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank Branch:</span> <span data-payment-field="bankBranch"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankBranch" aria-label="Copy bank branch"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account Name:</span> <span data-payment-field="bankAccountName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountName" aria-label="Copy account name"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account No.:</span> <span data-payment-field="bankAccountNumber"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountNumber" aria-label="Copy account number"><i class="ph ph-copy text-sm"></i></button></li>
+                                <li class="flex items-center gap-2"><span class="text-brand-muted">Swift Code:</span> <span data-payment-field="bankSwiftCode"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankSwiftCode" aria-label="Copy swift code"><i class="ph ph-copy text-sm"></i></button></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <!-- PayPal -->
                     <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
                         <div class="w-12 h-12 rounded-full bg-brand-paypal/20 flex items-center justify-center shrink-0">
@@ -416,23 +433,6 @@
                                     <i class="ph ph-copy text-base"></i>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Bank Transfer -->
-                    <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
-                        <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center shrink-0">
-                            <i class="ph ph-bank text-2xl text-brand-gold"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-lg font-serif font-bold text-white mb-2">Bank Transfer</h3>
-                            <ul class="text-sm text-brand-light space-y-1">
-                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank:</span> <span data-payment-field="bankName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankName" aria-label="Copy bank name"><i class="ph ph-copy text-sm"></i></button></li>
-                                <li class="flex items-center gap-2"><span class="text-brand-muted">Bank Branch:</span> <span data-payment-field="bankBranch"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankBranch" aria-label="Copy bank branch"><i class="ph ph-copy text-sm"></i></button></li>
-                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account Name:</span> <span data-payment-field="bankAccountName"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountName" aria-label="Copy account name"><i class="ph ph-copy text-sm"></i></button></li>
-                                <li class="flex items-center gap-2"><span class="text-brand-muted">Account No.:</span> <span data-payment-field="bankAccountNumber"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankAccountNumber" aria-label="Copy account number"><i class="ph ph-copy text-sm"></i></button></li>
-                                <li class="flex items-center gap-2"><span class="text-brand-muted">Swift Code:</span> <span data-payment-field="bankSwiftCode"></span><button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="bankSwiftCode" aria-label="Copy swift code"><i class="ph ph-copy text-sm"></i></button></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
