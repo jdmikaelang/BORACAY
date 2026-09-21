@@ -658,15 +658,6 @@
     </footer>
 
     <!-- Global Music Player (Persistent Floating) -->
-    <!-- ================================================================
-         ACTION NEEDED: Paste the Google Drive audio file ID/URL below.
-         1) In Google Drive, right-click the audio file > "Get link" > "Anyone with the link".
-         2) Copy the file ID from the share URL (the long string between /d/ and /view),
-            e.g. https://drive.google.com/file/d/FILE_ID_HERE/view
-         3) Replace REPLACE_WITH_GOOGLE_DRIVE_FILE_ID below with that ID.
-         The direct-stream URL format used in the <audio> tag is:
-         https://drive.google.com/uc?export=download&id=FILE_ID_HERE
-         ================================================================ -->
     <div class="fixed bottom-6 left-6 z-[60] flex items-center bg-brand-card/90 backdrop-blur-md border border-white/10 rounded-full pr-4 p-1 shadow-2xl transition-transform hover:scale-105" id="music-player-widget">
         <button id="music-toggle-btn" class="w-10 h-10 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center hover:bg-brand-goldhover transition-colors focus:outline-none">
             <i class="ph ph-speaker-slash text-xl" id="music-icon"></i>
@@ -675,11 +666,10 @@
             <p class="text-[10px] font-bold text-brand-gold uppercase tracking-wider leading-none">Fiesta Vibes</p>
             <p class="text-xs text-white leading-none mt-1">Official Playlist</p>
         </div>
-        <!-- HTML5 audio element streaming from Google Drive. autoplay is intentionally OFF per client request. -->
-        <audio id="bg-audio" preload="none" loop>
-            <source src="https://drive.google.com/uc?export=download&id=REPLACE_WITH_GOOGLE_DRIVE_FILE_ID" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <!-- YouTube IFrame container (hidden) -->
+        <div id="youtube-player-container">
+            <div id="ytplayer"></div>
+        </div>
     </div>
 
     <!-- Mobile Conversion UX (Sticky CTA) -->
@@ -696,6 +686,7 @@
 
 
     <!-- Scripts -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         // --- 1. Global Navigation & Scroll Effects ---
         const header = document.getElementById('main-header');
@@ -799,47 +790,73 @@
             document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
 
-        // --- 5. Global Music Player (Google Drive HTML5 Audio) ---
-        // Does NOT autoplay per client request; playback starts only when the user clicks the button.
+        // --- 5. Global Music Player (YouTube API) ---
+        let player;
         let isPlaying = false;
         const musicBtn = document.getElementById('music-toggle-btn');
         const musicIcon = document.getElementById('music-icon');
-        const bgAudio = document.getElementById('bg-audio');
-        bgAudio.volume = 0.5;
+        // https://youtu.be/7U81xW-i7tE -> ID: 7U81xW-i7tE
 
-        musicBtn.addEventListener('click', () => {
-            if (!isPlaying) {
-                bgAudio.play().catch(() => {});
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytplayer', {
+                height: '100',
+                width: '100',
+                videoId: '7U81xW-i7tE',
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'rel': 0,
+                    'loop': 1,
+                    'playlist': '7U81xW-i7tE' // Required for loop to work on single video
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready. Start at 50% volume
+            player.setVolume(50);
+
+            musicBtn.addEventListener('click', () => {
+                if (!isPlaying) {
+                    player.playVideo();
+                    musicIcon.classList.remove('ph-speaker-slash');
+                    musicIcon.classList.add('ph-speaker-high');
+                    musicBtn.classList.add('bg-white');
+                    musicBtn.classList.remove('bg-brand-gold');
+                    isPlaying = true;
+                } else {
+                    player.pauseVideo();
+                    musicIcon.classList.remove('ph-speaker-high');
+                    musicIcon.classList.add('ph-speaker-slash');
+                    musicBtn.classList.add('bg-brand-gold');
+                    musicBtn.classList.remove('bg-white');
+                    isPlaying = false;
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            // Keep UI in sync if video pauses/buffers externally
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
                 musicIcon.classList.remove('ph-speaker-slash');
                 musicIcon.classList.add('ph-speaker-high');
                 musicBtn.classList.add('bg-white');
                 musicBtn.classList.remove('bg-brand-gold');
-                isPlaying = true;
-            } else {
-                bgAudio.pause();
+            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+                isPlaying = false;
                 musicIcon.classList.remove('ph-speaker-high');
                 musicIcon.classList.add('ph-speaker-slash');
                 musicBtn.classList.add('bg-brand-gold');
                 musicBtn.classList.remove('bg-white');
-                isPlaying = false;
             }
-        });
-
-        bgAudio.addEventListener('pause', () => {
-            isPlaying = false;
-            musicIcon.classList.remove('ph-speaker-high');
-            musicIcon.classList.add('ph-speaker-slash');
-            musicBtn.classList.add('bg-brand-gold');
-            musicBtn.classList.remove('bg-white');
-        });
-
-        bgAudio.addEventListener('play', () => {
-            isPlaying = true;
-            musicIcon.classList.remove('ph-speaker-slash');
-            musicIcon.classList.add('ph-speaker-high');
-            musicBtn.classList.add('bg-white');
-            musicBtn.classList.remove('bg-brand-gold');
-        });
+        }
     </script>
 </body>
 </html>
