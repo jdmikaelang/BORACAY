@@ -180,7 +180,7 @@
                 <div class="inline-block relative">
                     <div class="absolute -inset-4 bg-brand-gold/5 blur-xl rounded-full"></div>
                     <div class="relative">
-                        <p class="text-[10px] text-brand-gold font-bold tracking-[0.2em] uppercase mb-4">Price rises to Island Insider Pass in:</p>
+                        <p id="countdown-label" class="text-[10px] text-brand-gold font-bold tracking-[0.2em] uppercase mb-4">Price rises to <span data-tier-next-name></span> in:</p>
                         <div class="flex gap-4 justify-center" id="countdown-timer">
                             <div class="bg-brand-card/80 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-3 min-w-[70px] shadow-lg">
                                 <span class="block text-2xl font-serif font-bold text-white" id="days">00</span>
@@ -203,7 +203,7 @@
                 </div>
             </div>
 
-            <!-- Pricing Cards (Paradise Pioneer Pass active) -->
+            <!-- Pricing Cards (live tier prices filled in by assets/pass-tiers.js) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch reveal delay-100">
                 
                 <!-- Most Popular: Full Pass -->
@@ -214,10 +214,10 @@
                     <div class="mb-8">
                         <h3 class="text-2xl font-serif font-bold text-brand-gold mb-2">Full Festival Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl lg:text-5xl font-bold font-serif">$150</span>
+                            <span class="text-4xl lg:text-5xl font-bold font-serif" data-tier-price="full"></span>
                             <span class="text-sm text-brand-muted ml-2 font-medium">USD</span>
                         </div>
-                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold">Paradise Pioneer Pass<br/>Jul 1 - Sep 30, 2026</p>
+                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold"><span data-tier-name></span><br/><span data-tier-dates></span></p>
                     </div>
                     <div class="h-px w-full bg-white/5 mb-6"></div>
                     <ul class="space-y-4 text-sm text-brand-light mb-8 flex-grow">
@@ -234,10 +234,10 @@
                     <div class="mb-8 mt-2">
                         <h3 class="text-2xl font-serif font-bold text-white mb-2">Performer Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl lg:text-5xl font-bold font-serif">$130</span>
+                            <span class="text-4xl lg:text-5xl font-bold font-serif" data-tier-price="performer"></span>
                             <span class="text-sm text-brand-muted ml-2 font-medium">USD</span>
                         </div>
-                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold">Paradise Pioneer Pass<br/>Jul 1 - Sep 30, 2026</p>
+                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold"><span data-tier-name></span><br/><span data-tier-dates></span></p>
                     </div>
                     <div class="h-px w-full bg-white/5 mb-6"></div>
                     <ul class="space-y-4 text-sm text-brand-muted mb-8 flex-grow">
@@ -254,10 +254,10 @@
                     <div class="mb-8 mt-2">
                         <h3 class="text-2xl font-serif font-bold text-white mb-2">Party Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl lg:text-5xl font-bold font-serif">$120</span>
+                            <span class="text-4xl lg:text-5xl font-bold font-serif" data-tier-price="party"></span>
                             <span class="text-sm text-brand-muted ml-2 font-medium">USD</span>
                         </div>
-                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold">Paradise Pioneer Pass<br/>Jul 1 - Sep 30, 2026</p>
+                        <p class="text-[10px] text-brand-muted/70 mt-3 uppercase tracking-widest font-semibold"><span data-tier-name></span><br/><span data-tier-dates></span></p>
                     </div>
                     <div class="h-px w-full bg-white/5 mb-6"></div>
                     <ul class="space-y-4 text-sm text-brand-muted mb-8 flex-grow">
@@ -288,51 +288,8 @@
                                 <th scope="col" class="px-6 py-4 font-semibold text-center">Party</th>
                             </tr>
                         </thead>
-                        <tbody class="text-brand-muted">
-                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors relative">
-                                <td class="px-6 py-4 font-medium text-brand-light flex items-center gap-2">
-                                    Paradise Pioneer Pass
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-brand-gold/20 text-brand-gold ml-2 border border-brand-gold/30">Active</span>
-                                </td>
-                                <td class="px-6 py-4">Jul 1, 2026</td>
-                                <td class="px-6 py-4">Sep 30, 2026</td>
-                                <td class="px-6 py-4 text-center font-serif text-white">$150</td>
-                                <td class="px-6 py-4 text-center font-serif text-white">$130</td>
-                                <td class="px-6 py-4 text-center font-serif text-white">$120</td>
-                            </tr>
-                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                                <td class="px-6 py-4 font-medium">Island Insider Pass</td>
-                                <td class="px-6 py-4">Oct 1, 2026</td>
-                                <td class="px-6 py-4">Nov 30, 2026</td>
-                                <td class="px-6 py-4 text-center font-serif">$170</td>
-                                <td class="px-6 py-4 text-center font-serif">$150</td>
-                                <td class="px-6 py-4 text-center font-serif">$140</td>
-                            </tr>
-                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                                <td class="px-6 py-4 font-medium">Fiesta Fever Pass</td>
-                                <td class="px-6 py-4">Dec 1, 2026</td>
-                                <td class="px-6 py-4">Jan 31, 2027</td>
-                                <td class="px-6 py-4 text-center font-serif">$190</td>
-                                <td class="px-6 py-4 text-center font-serif">$170</td>
-                                <td class="px-6 py-4 text-center font-serif">$160</td>
-                            </tr>
-                            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                                <td class="px-6 py-4 font-medium">Paradise Countdown Pass</td>
-                                <td class="px-6 py-4">Feb 1, 2027</td>
-                                <td class="px-6 py-4">Apr 30, 2027</td>
-                                <td class="px-6 py-4 text-center font-serif">$210</td>
-                                <td class="px-6 py-4 text-center font-serif">$190</td>
-                                <td class="px-6 py-4 text-center font-serif">$180</td>
-                            </tr>
-                            <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="px-6 py-4 font-medium">Last Call to Paradise Pass</td>
-                                <td class="px-6 py-4">May 1, 2027</td>
-                                <td class="px-6 py-4">May 4, 2027</td>
-                                <td class="px-6 py-4 text-center font-serif">$220</td>
-                                <td class="px-6 py-4 text-center font-serif">$200</td>
-                                <td class="px-6 py-4 text-center font-serif">$190</td>
-                            </tr>
-                        </tbody>
+                        <!-- Rows are rendered from PASS_TIERS in assets/pass-tiers.js -->
+                        <tbody id="pass-tiers-body" class="text-brand-muted"></tbody>
                     </table>
                 </div>
                 <p class="text-[10px] text-brand-muted/50 mt-4 text-right uppercase tracking-widest">*All prices in USD. Subject to terms & conditions.</p>
@@ -352,7 +309,7 @@
 
                 <!--
                   DEVELOPER NOTE:
-                  The values below (GCash number, PayPal link, email, bank
+                  The values below (GCash/Wise number, PayPal link, email, bank
                   details) are placeholders driven by the PAYMENT_INFO object
                   defined once in the script block near the bottom of this
                   file. Change a value there and it updates everywhere it is
@@ -361,17 +318,17 @@
                 -->
                 <!-- Payment Options -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                    <!-- GCash / Alipay -->
+                    <!-- GCash / Alipay / Wise (same account name and number) -->
                     <div class="bg-brand-card rounded-2xl border border-white/10 p-8 flex items-start gap-5 hover:border-brand-gold/30 transition-colors">
                         <div class="w-12 h-12 rounded-full bg-brand-gcash/20 flex items-center justify-center shrink-0">
                             <img src="images/gcash-logo.svg" alt="GCash" class="w-7 h-7 object-contain">
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-serif font-bold text-white mb-2">GCash / Alipay</h3>
+                            <h3 class="text-lg font-serif font-bold text-white mb-2">GCash / Alipay / Wise</h3>
                             <p class="text-sm text-brand-light" data-payment-field="gcashName"></p>
                             <div class="flex items-center gap-2 mt-1">
                                 <p class="text-sm text-brand-gold font-semibold tracking-wide" data-payment-field="gcashNumber"></p>
-                                <button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="gcashNumber" aria-label="Copy GCash number">
+                                <button type="button" class="copy-btn text-brand-muted hover:text-brand-gold transition-colors" data-copy-field="gcashNumber" aria-label="Copy GCash / Wise number">
                                     <i class="ph ph-copy text-base"></i>
                                 </button>
                             </div>
@@ -476,15 +433,23 @@
                             <textarea id="reg-other-attendees" name="otherAttendees" rows="2" class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="If registering for more than one pass, list the other attendees' full names here"></textarea>
                         </div>
 
-                        <div>
-                            <label for="reg-payment-method" class="block text-xs text-brand-light mb-1">Payment Method *</label>
-                            <select id="reg-payment-method" name="paymentMethod" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
-                                <option value="" disabled selected>Select a method</option>
-                                <option value="GCash">GCash</option>
-                                <option value="Alipay">Alipay</option>
-                                <option value="PayPal">PayPal</option>
-                                <option value="Bank Transfer">Bank Transfer</option>
-                            </select>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label for="reg-payment-method" class="block text-xs text-brand-light mb-1">Payment Method *</label>
+                                <select id="reg-payment-method" name="paymentMethod" required class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors">
+                                    <option value="" disabled selected>Select a method</option>
+                                    <option value="GCash">GCash</option>
+                                    <option value="Alipay">Alipay</option>
+                                    <option value="Wise">Wise</option>
+                                    <option value="PayPal">PayPal</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="reg-code" class="block text-xs text-brand-light mb-1">Code</label>
+                                <input type="text" id="reg-code" name="code" maxlength="50" autocomplete="off" autocapitalize="characters" spellcheck="false" class="w-full bg-brand-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors placeholder-brand-muted/40" placeholder="If you have a code, enter it here">
+                            </div>
                         </div>
 
                         <div>
@@ -618,9 +583,11 @@
 
 
     <!-- Scripts -->
+    <script src="assets/pass-tiers.js"></script>
     <script>
         // --- 0. Payment Info: single source of truth ---
         const PAYMENT_INFO = {
+            // GCash, Alipay and Wise all use this same name and number
             gcashName: 'Marianito Maralit',
             gcashNumber: '09175190040',
             paypalLink: 'https://Paypal.me/MarianitoMaralit',
@@ -737,23 +704,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- 3. Countdown Timer (Target: Oct 1, 2026) ---
-        const countdownDate = new Date("October 1, 2026 00:00:00").getTime();
-        const timerInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            if (distance < 0) {
-                clearInterval(timerInterval);
-                document.getElementById("countdown-timer").innerHTML = "<div class='text-brand-gold font-bold bg-brand-card/80 px-6 py-3 rounded-lg border border-brand-gold/30'>Tier has ended!</div>";
-                return;
-            }
-
-            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-        }, 1000);
+        // --- 3. Countdown Timer, price cards & tier table: see assets/pass-tiers.js ---
 
         // --- 4. Select Pass: scroll to the registration form and pre-select the pass type ---
         function selectPass(passType) {
@@ -842,6 +793,7 @@
                         numberOfPasses: document.getElementById('reg-num-passes').value,
                         otherAttendees: document.getElementById('reg-other-attendees').value,
                         paymentMethod: document.getElementById('reg-payment-method').value,
+                        code: document.getElementById('reg-code').value.trim(),
                         proofOfPayment: {
                             filename: file.name,
                             mimeType: file.type,

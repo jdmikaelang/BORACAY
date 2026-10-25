@@ -322,7 +322,7 @@
                 
                 <!-- Countdown Timer -->
                 <div class="mt-10 inline-block">
-                    <p class="text-xs text-brand-muted tracking-widest uppercase mb-3">Price rises to <span class="text-brand-gold font-semibold">Island Insider Pass</span> in:</p>
+                    <p id="countdown-label" class="text-xs text-brand-muted tracking-widest uppercase mb-3">Price rises to <span class="text-brand-gold font-semibold" data-tier-next-name></span> in:</p>
                     <div class="flex gap-4 justify-center" id="countdown-timer">
                         <div class="bg-brand-card border border-white/10 rounded-lg px-4 py-3 min-w-[70px] shadow-lg">
                             <span class="block text-2xl font-serif font-bold text-white" id="days">00</span>
@@ -353,10 +353,10 @@
                     <div class="mb-8">
                         <h3 class="text-2xl font-serif font-bold text-brand-gold mb-2">Full Festival Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl font-bold font-serif">$150</span>
+                            <span class="text-4xl font-bold font-serif" data-tier-price="full"></span>
                             <span class="text-sm text-brand-muted ml-1">USD</span>
                         </div>
-                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide">Paradise Pioneer Pass • Jul 1 - Sep 30, 2026</p>
+                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide"><span data-tier-name></span> • <span data-tier-dates></span></p>
                     </div>
                     <ul class="space-y-4 text-sm text-brand-light mb-8 flex-grow">
                         <li class="flex items-start"><i class="ph ph-check-circle text-brand-gold text-lg mr-3 shrink-0"></i> <span>3 days access to all workshops</span></li>
@@ -372,10 +372,10 @@
                     <div class="mb-8 mt-2">
                         <h3 class="text-2xl font-serif font-bold text-white mb-2">Performer Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl font-bold font-serif">$130</span>
+                            <span class="text-4xl font-bold font-serif" data-tier-price="performer"></span>
                             <span class="text-sm text-brand-muted ml-1">USD</span>
                         </div>
-                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide">Paradise Pioneer Pass • Jul 1 - Sep 30, 2026</p>
+                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide"><span data-tier-name></span> • <span data-tier-dates></span></p>
                     </div>
                     <ul class="space-y-4 text-sm text-brand-muted mb-8 flex-grow">
                         <li class="flex items-start"><i class="ph ph-check text-brand-gold text-lg mr-3 shrink-0"></i> <span>3 nights social parties and performances</span></li>
@@ -391,10 +391,10 @@
                     <div class="mb-8 mt-2">
                         <h3 class="text-2xl font-serif font-bold text-white mb-2">Party Pass</h3>
                         <div class="flex items-baseline text-white">
-                            <span class="text-4xl font-bold font-serif">$120</span>
+                            <span class="text-4xl font-bold font-serif" data-tier-price="party"></span>
                             <span class="text-sm text-brand-muted ml-1">USD</span>
                         </div>
-                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide">Paradise Pioneer Pass • Jul 1 - Sep 30, 2026</p>
+                        <p class="text-xs text-brand-muted mt-2 uppercase tracking-wide"><span data-tier-name></span> • <span data-tier-dates></span></p>
                     </div>
                     <ul class="space-y-4 text-sm text-brand-muted mb-8 flex-grow">
                         <li class="flex items-start"><i class="ph ph-check text-brand-gold text-lg mr-3 shrink-0"></i> <span>3 nights social parties and performances</span></li>
@@ -674,6 +674,7 @@
 
 
     <!-- Scripts -->
+    <script src="assets/pass-tiers.js"></script>
     <script>
         // --- 1. Global Navigation & Scroll Effects ---
         const header = document.getElementById('main-header');
@@ -753,29 +754,7 @@
             });
         });
 
-        // --- 4. Countdown Timer (Target: Oct 1, 2026) ---
-        const countdownDate = new Date("October 1, 2026 00:00:00").getTime();
-        
-        const timerInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            if (distance < 0) {
-                clearInterval(timerInterval);
-                document.getElementById("countdown-timer").innerHTML = "<div class='text-brand-gold font-bold'>Tier has ended!</div>";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days.toString().padStart(2, '0');
-            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
-            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
-            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
-        }, 1000);
+        // --- 4. Countdown Timer & price cards: see assets/pass-tiers.js ---
 
         // --- 5. Global Music Player (HTML5 audio) ---
         const fiestaAudio = document.getElementById('fiesta-audio');
