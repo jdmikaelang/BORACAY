@@ -105,15 +105,6 @@
             transform: translateY(0);
         }
 
-        /* Hide Youtube iframe visually */
-        #youtube-player-container {
-            position: absolute;
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            left: -9999px;
-        }
-
         /* Ensure bottom spacing on mobile for the sticky CTA */
         @media (max-width: 768px) {
             body {
@@ -666,10 +657,7 @@
             <p class="text-[10px] font-bold text-brand-gold uppercase tracking-wider leading-none">Fiesta Vibes</p>
             <p class="text-xs text-white leading-none mt-1">Official Playlist</p>
         </div>
-        <!-- YouTube IFrame container (hidden) -->
-        <div id="youtube-player-container">
-            <div id="ytplayer"></div>
-        </div>
+        <audio id="fiesta-audio" src="audio/fiesta-vibes.mp3" preload="none" loop></audio>
     </div>
 
     <!-- Mobile Conversion UX (Sticky CTA) -->
@@ -686,7 +674,6 @@
 
 
     <!-- Scripts -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         // --- 1. Global Navigation & Scroll Effects ---
         const header = document.getElementById('main-header');
@@ -790,73 +777,29 @@
             document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
 
-        // --- 5. Global Music Player (YouTube API) ---
-        let player;
-        let isPlaying = false;
+        // --- 5. Global Music Player (HTML5 audio) ---
+        const fiestaAudio = document.getElementById('fiesta-audio');
         const musicBtn = document.getElementById('music-toggle-btn');
         const musicIcon = document.getElementById('music-icon');
-        // https://youtu.be/7U81xW-i7tE -> ID: 7U81xW-i7tE
+        fiestaAudio.volume = 0.5;
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('ytplayer', {
-                height: '100',
-                width: '100',
-                videoId: '7U81xW-i7tE',
-                playerVars: {
-                    'playsinline': 1,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'rel': 0,
-                    'loop': 1,
-                    'playlist': '7U81xW-i7tE' // Required for loop to work on single video
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // Player is ready. Start at 50% volume
-            player.setVolume(50);
-
-            musicBtn.addEventListener('click', () => {
-                if (!isPlaying) {
-                    player.playVideo();
-                    musicIcon.classList.remove('ph-speaker-slash');
-                    musicIcon.classList.add('ph-speaker-high');
-                    musicBtn.classList.add('bg-white');
-                    musicBtn.classList.remove('bg-brand-gold');
-                    isPlaying = true;
-                } else {
-                    player.pauseVideo();
-                    musicIcon.classList.remove('ph-speaker-high');
-                    musicIcon.classList.add('ph-speaker-slash');
-                    musicBtn.classList.add('bg-brand-gold');
-                    musicBtn.classList.remove('bg-white');
-                    isPlaying = false;
-                }
-            });
-        }
-
-        function onPlayerStateChange(event) {
-            // Keep UI in sync if video pauses/buffers externally
-            if (event.data == YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                musicIcon.classList.remove('ph-speaker-slash');
-                musicIcon.classList.add('ph-speaker-high');
-                musicBtn.classList.add('bg-white');
-                musicBtn.classList.remove('bg-brand-gold');
-            } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
-                isPlaying = false;
-                musicIcon.classList.remove('ph-speaker-high');
-                musicIcon.classList.add('ph-speaker-slash');
-                musicBtn.classList.add('bg-brand-gold');
-                musicBtn.classList.remove('bg-white');
+        musicBtn.addEventListener('click', () => {
+            if (fiestaAudio.paused) {
+                fiestaAudio.play().catch(err => console.error('Music playback failed:', err));
+            } else {
+                fiestaAudio.pause();
             }
-        }
+        });
+
+        // Keep the button in sync with the real playback state
+        fiestaAudio.addEventListener('play', () => {
+            musicIcon.classList.replace('ph-speaker-slash', 'ph-speaker-high');
+            musicBtn.classList.replace('bg-brand-gold', 'bg-white');
+        });
+        fiestaAudio.addEventListener('pause', () => {
+            musicIcon.classList.replace('ph-speaker-high', 'ph-speaker-slash');
+            musicBtn.classList.replace('bg-white', 'bg-brand-gold');
+        });
     </script>
 </body>
 </html>
